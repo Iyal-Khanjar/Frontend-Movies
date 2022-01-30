@@ -52,11 +52,13 @@ function App() {
                       {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
                     </Link>
                     <ul className="dropdown-content">
-                      {userInfo && userInfo.isAdmin && (
-                        <>
+                      {userInfo &&
                           <li>
                             <Link to="/profile">Profile</Link>
-                          </li>
+                          </li>       
+                      }
+                      {userInfo && userInfo.isAdmin && (
+                        <>
                           <li>
                             <Link to="/allusers">All Users</Link>
                           </li>
@@ -87,7 +89,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieScreen />} />
             <Route path="/tvshows" element={<TvShowsScreen />} />
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
-            
+
           </Routes>
         </main>
         {/* <footer>
