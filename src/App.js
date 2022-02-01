@@ -11,9 +11,9 @@ import MoviesScreen from './screens/MoviesScreen';
 import MovieScreen from './screens/MovieScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
+import AdvancedSearch from './screens/AdvancedSearch';
 
 function App() {
-
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
@@ -21,10 +21,7 @@ function App() {
 
   const signoutHandler = () => {
     dispatch(signout())
-
   }
-
-  console.log('userInfo', userInfo);
 
   return (
     <BrowserRouter>
@@ -40,6 +37,9 @@ function App() {
             <Link to="/tvshows">
               <span>Tv Shows</span>
             </Link>
+            <Link to="/search">
+              <span>Advanced Search</span>
+            </Link>
 
           </div>
           <div className='allNav'>
@@ -53,9 +53,9 @@ function App() {
                     </Link>
                     <ul className="dropdown-content">
                       {userInfo &&
-                          <li>
-                            <Link to="/profile">Profile</Link>
-                          </li>       
+                        <li>
+                          <Link to="/profile">Profile</Link>
+                        </li>
                       }
                       {userInfo && userInfo.isAdmin && (
                         <>
@@ -89,7 +89,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieScreen />} />
             <Route path="/tvshows" element={<TvShowsScreen />} />
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
-
+            <Route path="/search" element={<AdvancedSearch />} />
           </Routes>
         </main>
         {/* <footer>

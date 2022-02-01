@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import IMDB from '../img/IMDB.jpg'
 import Metacritic from '../img/Metacritic.jpg'
 import RottenTomatoes from '../img/RottenTomatoes.png'
@@ -10,6 +9,7 @@ export default function MovieScreen() {
     const params = useParams()
     const [movieData, setMovieData] = useState();
     const [movieData2, setMovieData2] = useState();
+    const [actors, setActors] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,11 +29,21 @@ export default function MovieScreen() {
         fetchData()
     }, [movieData]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            if (movieData) {
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=9a1f04c191537cfcad233a5ab151487b&language=en-US`)
+                setActors(response.data)
+            }
+        }
+        fetchData()
+    }, [movieData, params.id]);
+
+
     console.log('movieData', movieData);
     console.log('movieData2', movieData2);
-
+    console.log('actors', actors.cast);
     const urlLink = 'https://image.tmdb.org/t/p/original'
-
 
     return <div className='movieScreenContainer'>
         {
@@ -42,23 +52,46 @@ export default function MovieScreen() {
                 <div className='title'>{movieData.original_title} ({movieData2 ? (movieData2.Year) : ''}) </div>
                 <div className='genres'>{movieData2 ? <div>{movieData2.Genre} |{movieData2.Runtime}|</div> : ''}</div>
                 {movieData2 ? <div className='rating'>
-                    <img src={IMDB} alt='IMDB'></img>
-                    {movieData2.Ratings[0].Value}
-                    <img src={Metacritic} alt='Metacritic'></img>
-                    {movieData2.Ratings[1].Value}
-                    <img src={RottenTomatoes} alt='RottenTomatoes'></img>
-                    {movieData2.Ratings[2].Value}
+                    {
+                        movieData2.Ratings[0] ?
+                            <div>
+                                <img src={IMDB} alt='IMDB'></img>
+                                {movieData2.Ratings[0].Value}
+                            </div> : ''
+                    }
+                    {
+                        movieData2.Ratings[1] ?
+                            <div>
+                                <img src={Metacritic} alt='Metacritic'></img>
+                                {movieData2.Ratings[1].Value}
+                            </div> : ''
+                    }
+                    {
+                        movieData2.Ratings[2] ?
+                            <div>
+                                <img src={RottenTomatoes} alt='RottenTomatoes'></img>
+                                {movieData2.Ratings[2].Value}
+                            </div> : ''
+                    }
                 </div> : ''}
                 <div className='overView'>"{movieData.overview}"</div>
                 <div className='border'></div>
                 <div className='actors'>
                     Actors
                     <div className='actorsName'>
-                        {movieData2 ? movieData2.Actors : ''}
+                        {/* <input type='button' value='next' /> */}
+                        {movieData && movieData2 && actors && actors.cast && actors.cast.map(person => {
+                            return (
+                                <div className='actorNameAndPic' key={person.id}>
+                                    <img src={person.profile_path ? urlLink + person.profile_path : 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'} alt={person.name}></img>
+                                    {person.name}
+                                </div>
+                            )
+                        }).splice(0, 5)}
+                        {/* <input type='button' value='back' /> */}
                     </div>
                 </div>
             </div> : ''
         }
-
     </div>;
 }
