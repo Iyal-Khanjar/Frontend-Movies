@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 function AdvancedSearch() {
     const [fromYear, setFromYear] = useState("");
-    const [toYear, setToYear] = useState("");
     const [rating, setRating] = useState("");
     const [voteCount, setVoteCount] = useState("");
     const [genres, setGenres] = useState("");
     const [fromYearInfo, setFromYearInfo] = useState("N/A");
-    const [toYearInfo, setToYearInfo] = useState("N/A");
     const [ratingInfo, setRatingInfo] = useState("N/A");
     const [voteCountInfo, setVoteCountInfo] = useState("N/A");
     const [genresInfo, setGenresInfo] = useState("N/A");
@@ -26,15 +24,6 @@ function AdvancedSearch() {
             setFromYear(years);
         }
         fromYear()
-
-        const toYear = () => {
-            let years = [];
-            for (let i = new Date().getFullYear(); i > 1902; i--) {
-                years.push(<option key={i} value={i}>{i}</option>);
-            }
-            setToYear(years);
-        }
-        toYear()
 
         const minimumRating = () => {
             let ratings = []
@@ -85,9 +74,6 @@ function AdvancedSearch() {
             case "from-year":
                 setFromYearInfo(value);
                 break;
-            case "to-year":
-                setToYearInfo(value);
-                break;
             case "rating":
                 setRatingInfo(parseInt(value));
                 break;
@@ -102,20 +88,21 @@ function AdvancedSearch() {
         }
     }
 
+    const showFillterdMovies = () => {
+        if ((fromYearInfo || ratingInfo || voteCountInfo || genresInfo) !== "N/A") {
+            alert('good')
+        } else {
+            alert('bad')
+        }
+    }
+
     return <div className='advancedSearch'>
         <h1>Advanced Search</h1>
         <div className='fillterSearch'>
             <div>
                 <select name="from-year" defaultValue='DEFAULT' onChange={handleOnChange}>
-                    <option value="DEFAULT" disabled >From</option>
+                    <option value="DEFAULT" disabled >Release Date</option>
                     {fromYear && fromYear.map(year => year)}
-                </select>
-            </div>
-
-            <div>
-                <select name="to-year" defaultValue='DEFAULT' onChange={handleOnChange}>
-                    <option value="DEFAULT" disabled >To</option>
-                    {toYear && toYear.map(year => year)}
                 </select>
             </div>
 
@@ -145,13 +132,12 @@ function AdvancedSearch() {
                 <h3>Search Information</h3>
             </div>
             <div>From Year:{fromYearInfo}</div>
-            <div>To Year:{toYearInfo}</div>
             <div>Minimum Rating:{ratingInfo}</div>
             <div>Minimum Votes:{voteCountInfo}</div>
             <div>Genre:{genresInfo}</div>
         </div>
         <div>
-            <input type='button' value='Search' />
+            <input type='button' value='Search' onClick={showFillterdMovies} />
         </div>
     </div>;
 }
