@@ -20,10 +20,6 @@ export default function MoviesScreen() {
         const nextPage = e.selected + 1
         setPageCount(nextPage)
     };
-<<<<<<< HEAD
-    console.log(moviesData);
-=======
->>>>>>> f58340fce6df12a59e9df71ad0d8a6f4e66f39a6
     return <div>
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />

@@ -1,6 +1,5 @@
 import React,{useMemo} from 'react';
 import { Link } from 'react-router-dom';
-import Loading from "./LoadingBox"
 
 export default function Card({ data,isMovie=true,urlLink}) {
   const releaseYear = useMemo(()=>isMovie?data.release_date?.substring(0,4):data.first_air_date?.substring(0,4),[data]) 
