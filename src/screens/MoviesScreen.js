@@ -21,10 +21,13 @@ export default function MoviesScreen() {
         const nextPage = e.selected + 1
         setPageCount(nextPage)
     };
-    console.log(moviesData.results);
+    console.log(moviesData);
     return <div>
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
+        {
+            !moviesData && <LoadingBox />
+        }
         {
             moviesData ? <div className="movie-tv-container">
                 {moviesData.map((ele) => {
