@@ -12,6 +12,7 @@ import MovieScreen from './screens/MovieScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch';
+import MovieListSearch from './screens/MovieListSearch';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -90,6 +91,7 @@ function App() {
             <Route path="/tvshows" element={<TvShowsScreen />} />
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
             <Route path="/search" element={<AdvancedSearch />} />
+            <Route path="/search/:query" element={<MovieListSearch />} />
           </Routes>
         </main>
         {/* <footer>
