@@ -62,7 +62,7 @@ function HomeScreen() {
                             {movies.map((ele, index) => {
                                 return (
                                     <Slide index={index} >
-                                        <Card data={ele} urlLink={imageUrl} key={ele.id} />
+                                        <Card data={ele} urlLink={imageUrl} key={ele.id} type={'movie'} />
                                     </Slide>
                                 );
                             })}
@@ -86,7 +86,7 @@ function HomeScreen() {
                             {tvShows.map((ele, index) => {
                                 return (
                                     <Slide index={index} >
-                                        <Card data={ele} isMovie={false} urlLink={imageUrl} key={ele.id} />
+                                        <Card data={ele} isMovie={false} urlLink={imageUrl} key={ele.id} type={'tvshow'} />
                                     </Slide>
                                 );
                             })}

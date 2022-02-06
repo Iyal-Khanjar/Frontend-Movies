@@ -27,7 +27,7 @@ export default function TvShowsScreen() {
         <div className="movie-tv-container">
             {tvshows.map((ele) => {
                 return (
-                    <Card data={ele} isMovie={false} type={ele.type} urlLink={imageUrl} key={ele.id} />
+                    <Card data={ele} isMovie={false} type={ele.type} urlLink={imageUrl} key={ele.id} type={"tvshow"} />
                 );
             })}
         </div>
