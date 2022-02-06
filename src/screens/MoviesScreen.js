@@ -30,7 +30,7 @@ export default function MoviesScreen() {
             moviesData ? <div className="movie-tv-container">
                 {moviesData.map((ele) => {
                     return (
-                        <Card data={ele} urlLink={imageUrl} key={ele.id} />
+                        <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" />
                     );
                 })}
             </div> : <LoadingBox></LoadingBox>
