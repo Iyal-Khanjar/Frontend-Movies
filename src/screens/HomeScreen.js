@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 // import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
-import MovieCard from '../components/MovieCard';
-import TvShowsCard from '../components/TvShowsCard';
+import Card from '../components/Card';
 
 function HomeScreen() {
     const [movies, setMovie] = useState([])
@@ -63,7 +62,7 @@ function HomeScreen() {
                             {movies.map((ele, index) => {
                                 return (
                                     <Slide index={index} >
-                                        <MovieCard data={ele} urlLink={imageUrl} key={ele.id} />
+                                        <Card data={ele} urlLink={imageUrl} key={ele.id} />
                                     </Slide>
                                 );
                             })}
@@ -87,7 +86,7 @@ function HomeScreen() {
                             {tvShows.map((ele, index) => {
                                 return (
                                     <Slide index={index} >
-                                        <TvShowsCard data={ele} urlLink={imageUrl} key={ele.id} />
+                                        <Card data={ele} isMovie={false} urlLink={imageUrl} key={ele.id} />
                                     </Slide>
                                 );
                             })}
