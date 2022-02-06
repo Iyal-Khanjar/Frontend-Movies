@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import TvShowsCard from '../components/TvShowsCard';
+import Card from '../components/Card';
 
 export default function TvShowsScreen() {
     const [tvshows, setTvShows] = useState([]);
@@ -14,13 +14,12 @@ export default function TvShowsScreen() {
         fetchData()
     }, []);
 
-    console.log(tvshows.results);
     return <div>
          <h1 className='tvShowsTitle'>Tv Shows</h1>
         <div className="movie-tv-container">
             {tvshows.map((ele) => {
                 return (
-                    <TvShowsCard data={ele} urlLink={imageUrl} key={ele.id} />
+                    <Card data={ele} isMovie={false} type={ele.type} urlLink={imageUrl} key={ele.id} />
                 );
             })}
         </div>

@@ -248,20 +248,40 @@ img.small {
 	border-radius: 3px;
 	box-shadow: 3px 3px 5px rgpa(0, 0, 0, 0.1);
 	margin: 1rem;
-	width: 30rem;
-	height: 45rem;
+	width: 23rem;
+	height: 40rem;
 	perspective: 1000px;
+	position: relative;
+}
+
+.card-movie-header-chip{
+	position: absolute;
+	top: 10px;
+	height: 20px;
+	padding: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background:rgb(189, 135, 19);
+	border-radius: 8px;
+	z-index: 100;
+}
+.vote-avg{
+	right: 10px;
+}
+.movie-year{
+	left: 10px;
 }
 .movie img {
 	object-fit: cover;
-	width: 100%;
-	height: 80%;
+	width: 23rem;
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
 }
 .movie-info {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	text-align: center;
 	padding: 1rem;
+	font-size:12px;
 }
 .movie-info h3 {
 	margin: 0;
@@ -287,12 +307,14 @@ img.small {
 	width: 100%;
 	height: 100%;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	color: black;
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
 }
 .flip-card-front:hover {
 	cursor: pointer;
 	box-shadow: 0 16px 36px 0 rgba(4, 0, 255, 0.2);
-	width: 30.5rem;
-	height: 45.5rem;
+	transform: scale(1.05);
 }
 
 /* Movie Screen */
