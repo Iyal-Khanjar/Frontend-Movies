@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Card from '../components/Card';
 import Paginate from '../components/Paginate';
-import TvShowsCard from '../components/TvShowsCard';
 
 export default function TvShowsScreen() {
     const [tvshows, setTvShows] = useState([]);
@@ -21,14 +21,13 @@ export default function TvShowsScreen() {
         setPageCount(nextPage)
     };
     
-    console.log(tvshows.results);
     return <div>
         <h1 className='tvShowsTitle'>Tv Shows</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
         <div className="movie-tv-container">
             {tvshows.map((ele) => {
                 return (
-                    <TvShowsCard data={ele} urlLink={imageUrl} key={ele.id} />
+                    <Card data={ele} isMovie={false} type={ele.type} urlLink={imageUrl} key={ele.id} />
                 );
             })}
         </div>
