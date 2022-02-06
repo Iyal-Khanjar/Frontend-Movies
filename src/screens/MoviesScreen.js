@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import LoadingBox from '../components/LoadingBox';
 import MovieCard from '../components/MovieCard';
 import Paginate from '../components/Paginate';
 
@@ -24,13 +25,16 @@ export default function MoviesScreen() {
     return <div>
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
-        <div className="movie-tv-container">
-            {moviesData.map((ele) => {
-                return (
-                    <MovieCard data={ele} urlLink={imageUrl} key={ele.id} />
-                );
-            })}
-        </div>
+        {
+            moviesData ? <div className="movie-tv-container">
+                {moviesData.map((ele) => {
+                    return (
+                        <MovieCard data={ele} urlLink={imageUrl} key={ele.id} />
+                    );
+                })}
+            </div> : <LoadingBox></LoadingBox>
+        }
+
 
     </div>;
 }

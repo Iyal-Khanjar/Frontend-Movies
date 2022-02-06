@@ -13,6 +13,7 @@ import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch';
 import MovieListSearch from './screens/MovieListSearch';
+import FavoriteMovies from './screens/FavoriteMovies';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -53,18 +54,21 @@ function App() {
                       {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
                     </Link>
                     <ul className="dropdown-content">
-                      {userInfo &&
-                        <li>
-                          <Link to="/profile">Profile</Link>
-                        </li>
-                      }
                       {userInfo && userInfo.isAdmin && (
+                        <li>
+                          <Link to="/allusers">All Users</Link>
+                        </li>
+                      )}
+                      {userInfo &&
                         <>
                           <li>
-                            <Link to="/allusers">All Users</Link>
+                            <Link to="/profile">Profile</Link>
+                          </li>
+                          <li>
+                            <Link to="/favoritemovies">Favorites</Link>
                           </li>
                         </>
-                      )}
+                      }
                       <li>
                         <Link to="/" onClick={signoutHandler}>
                           Sign Out
@@ -91,6 +95,7 @@ function App() {
             <Route path="/tvshows" element={<TvShowsScreen />} />
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
             <Route path="/search" element={<AdvancedSearch />} />
+            <Route path="/favoritemovies" element={<FavoriteMovies />} />
             <Route path="/search/:query" element={<MovieListSearch />} />
           </Routes>
         </main>
