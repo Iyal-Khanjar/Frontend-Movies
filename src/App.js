@@ -11,7 +11,7 @@ import MoviesScreen from './screens/MoviesScreen';
 import MovieScreen from './screens/MovieScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
-import AdvancedSearch from './screens/AdvancedSearch';
+import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';
 import MovieListSearch from './screens/MovieListSearch';
 import FavoriteMovies from './screens/FavoriteMovies';
 
