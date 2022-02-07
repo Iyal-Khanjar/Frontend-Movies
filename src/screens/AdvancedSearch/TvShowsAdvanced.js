@@ -79,16 +79,7 @@ export const TvShowsAdvanced = ({
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <h3>Search Information</h3>
-          </div>
-          <div>From Year:{fromYearInfo}</div>
-          <div>Show Status:{showStatus}</div>
-          <div>Show Type:{showType}</div>
-          <div>Minimum Rating:{ratingInfo}</div>
-          <div>Minimum Votes:{voteCountInfo}</div>
-        </div>
+      
         <div>
           <input type="submit" value="Search" />
         </div>

@@ -11,15 +11,13 @@ const url = "https://api.themoviedb.org/3";
 const moviesSearchUrl = `${url}/discover/movie`;
 const tvShowsUrl = `${url}/discover/tv`;
 
-
-
 function AdvancedSearch() {
   const [fromYear, setFromYear] = useState("");
   const [toYear, setToYear] = useState("");
   const [rating, setRating] = useState("");
   const [voteCount, setVoteCount] = useState("");
   const [genres, setGenres] = useState("");
-  const [searchFor, setSearchFor] = useState("N/A")
+  const [searchFor, setSearchFor] = useState("N/A");
   const [fromYearInfo, setFromYearInfo] = useState("N/A");
   const [toYearInfo, setToYearInfo] = useState("N/A");
   const [ratingInfo, setRatingInfo] = useState("N/A");
@@ -115,10 +113,10 @@ function AdvancedSearch() {
 
     switch (type) {
       case "search-for":
-        setSearchFor(value)
+        setSearchFor(value);
         break;
       case "from-year":
-        setFromYearInfo(value)
+        setFromYearInfo(value);
         break;
       case "to-year":
         setToYearInfo(value);
@@ -143,54 +141,50 @@ function AdvancedSearch() {
     }
   };
   const getSearchDate = async () => {
-      if (searchFor === 'movies') {
-          try {
-            //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
-            const response = await axios.get(moviesSearchUrl, {
-              params: {
-                api_key: apiKey,
-                language: "en_US",
-                sort_by: "popularity.desc",
-                include_adult: false,
-                include_video: false,
-                "primary_release_date.gte": fromYearInfo,
-                "primary_release_date.lte": toYearInfo,
-                "vote_count.gte": voteCountInfo,
-                "vote_average.gte": ratingInfo,
-                with_genres: genresInfo,
-                with_watch_monetization_types: "flatrate",
-                page: 1,
-              },
-            });
-      
-            setFetchedData(response.data.results);
+    if (searchFor === "movie") {
+      try {
+        //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
+        const response = await axios.get(moviesSearchUrl, {
+          params: {
+            api_key: apiKey,
+            language: "en_US",
+            sort_by: "popularity.desc",
+            include_adult: false,
+            include_video: false,
+            "primary_release_date.gte": fromYearInfo,
+            "primary_release_date.lte": toYearInfo,
+            "vote_count.gte": voteCountInfo,
+            "vote_average.gte": ratingInfo,
+            with_genres: genresInfo,
+            with_watch_monetization_types: "flatrate",
+            page: 1,
+          },
+        });
 
-        } catch (error) {
-          console.log("search data error: ", error);
-        }
+        setFetchedData(response.data.results);
+      } catch (error) {
+        console.log("search data error: ", error);
       }
-      else if (searchFor === "tv-shows"){
-        try {
-           
-            const response = await axios.get(tvShowsUrl, {
-              params: {
-                api_key: apiKey,
-                language: "en_US",
-                sort_by: "popularity.desc",
-                first_air_date_year:fromYearInfo,
-                page: 1,
-                with_status:showStatus,
-                with_type:showType
-              },
-            });
-      
-            setFetchedData(response.data.results);
+    } else if (searchFor === "tvshow") {
+      try {
+        const response = await axios.get(tvShowsUrl, {
+          params: {
+            api_key: apiKey,
+            language: "en_US",
+            sort_by: "popularity.desc",
+            first_air_date_year: fromYearInfo,
+            page: 1,
+            with_status: showStatus,
+            with_type: showType,
+          },
+        });
 
-        } catch (error) {
-          console.log("search data error: ", error);
-        }
-
+        setFetchedData(response.data.results);
+        console.log('tv',response.data.results);
+      } catch (error) {
+        console.log("search data error: ", error);
       }
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -200,53 +194,50 @@ function AdvancedSearch() {
   return (
     <div className="advancedSearch">
       <h1>Advanced Search</h1>
-        <div>
-          <select
-           name="search-for"
-           onChange={handleOnChange}
-           >
-            <option value="Search For">Search For</option>
-            <option value="movies">Movies</option>
-            <option value="tv-shows">Tv Shows</option>
-          </select>
-        </div>
-        {searchFor ==="N/A" ? '' : (
-          searchFor === 'movies' ? 
-          <MovieAdvanced
-         handleOnChange={handleOnChange}
-         fromYear={fromYear}
-         toYear={toYear}
-         rating={rating}
-         voteCount={voteCount}
-         genres={genres}
-         handleSubmit={handleSubmit}
-         toYearInfo={toYearInfo}
-         ratingInfo={ratingInfo}
-         voteCountInfo={voteCountInfo}
-         genresInfo={genresInfo}
-         fromYearInfo={fromYearInfo}
-          /> 
-          :
-          <TvShowsAdvanced
+      <div>
+        <select name="search-for" onChange={handleOnChange}>
+          <option value="Search For">Search For</option>
+          <option value="movie">Movies</option>
+          <option value="tvshow">Tv Shows</option>
+        </select>
+      </div>
+      {searchFor === "N/A" ? (
+        ""
+      ) : searchFor === "movie" ? (
+        <MovieAdvanced
           handleOnChange={handleOnChange}
-         fromYear={fromYear}
-         rating={rating}
-         voteCount={voteCount}
-         genres={genres}
-         showStatus={showStatus}
-         handleSubmit={handleSubmit}
-         ratingInfo={ratingInfo}
-         voteCountInfo={voteCountInfo}
-         genresInfo={genresInfo}
-         fromYearInfo={fromYearInfo}
-         showType={showType}
-           />
-        )}
-        
-          
+          fromYear={fromYear}
+          toYear={toYear}
+          rating={rating}
+          voteCount={voteCount}
+          genres={genres}
+          handleSubmit={handleSubmit}
+          toYearInfo={toYearInfo}
+          ratingInfo={ratingInfo}
+          voteCountInfo={voteCountInfo}
+          genresInfo={genresInfo}
+          fromYearInfo={fromYearInfo}
+        />
+      ) : (
+        <TvShowsAdvanced
+          handleOnChange={handleOnChange}
+          fromYear={fromYear}
+          rating={rating}
+          voteCount={voteCount}
+          genres={genres}
+          showStatus={showStatus}
+          handleSubmit={handleSubmit}
+          ratingInfo={ratingInfo}
+          voteCountInfo={voteCountInfo}
+          genresInfo={genresInfo}
+          fromYearInfo={fromYearInfo}
+          showType={showType}
+        />
+      )}
+
       <SearchContainer>
         {fetcedData.map((ele) => {
-          return <Card data={ele} urlLink={imageUrl} />;
+          return <Card data={ele} urlLink={imageUrl} type={searchFor} />;
         })}
       </SearchContainer>
     </div>

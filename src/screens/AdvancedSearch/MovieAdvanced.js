@@ -72,16 +72,8 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
         </div>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <h3>Search Information</h3>
-          </div>
-          <div>From Year:{fromYearInfo}</div>
-          <div>To Year:{toYearInfo}</div>
-          <div>Minimum Rating:{ratingInfo}</div>
-          <div>Minimum Votes:{voteCountInfo}</div>
-          <div>Genre:{genresInfo}</div>
-        </div>
+       
+         
         <div>
           <input type="submit" value="Search" />
         </div>
