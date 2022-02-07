@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
+import Paginate from "../../components/Paginate";
 import { SearchContainer } from "./AdvancedSearchStyle";
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
@@ -26,6 +27,7 @@ function AdvancedSearch() {
   const [showStatus, setShowStatus] = useState("N/A");
   const [showType, setShowType] = useState("N/A");
   const [fetcedData, setFetchedData] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
 
   const voteCounts = [
     20000, 15000, 10000, 9000, 8000, 7000, 6000, 5000, 4000, 3000, 2000, 1000,
@@ -157,7 +159,7 @@ function AdvancedSearch() {
             "vote_average.gte": ratingInfo,
             with_genres: genresInfo,
             with_watch_monetization_types: "flatrate",
-            page: 1,
+            page: pageCount,
           },
         });
 
@@ -173,7 +175,7 @@ function AdvancedSearch() {
             language: "en_US",
             sort_by: "popularity.desc",
             first_air_date_year: fromYearInfo,
-            page: 1,
+            page: pageCount,
             with_status: showStatus,
             with_type: showType,
           },
@@ -190,6 +192,12 @@ function AdvancedSearch() {
     e.preventDefault();
     getSearchDate();
   };
+
+  const handlePageClick = (e) => {
+    const nextPage = e.selected + 1
+    setPageCount(nextPage)
+    getSearchDate()
+};
 
   return (
     <div className="advancedSearch">
@@ -234,7 +242,7 @@ function AdvancedSearch() {
           showType={showType}
         />
       )}
-
+      <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
       <SearchContainer>
         {fetcedData.map((ele) => {
           return <Card data={ele} urlLink={imageUrl} type={searchFor} />;
