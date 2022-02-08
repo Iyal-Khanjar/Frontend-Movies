@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilm, faStar, faUser } from "@fortawesome/free-solid-svg-icons";
-import {
-  Container,
-  Img,
-  IconAndYearContainer,
-} from "./SearchAutoCompleteStyle";
+import {Container, Img, IconAndYearContainer,Input} from "./SearchAutoCompleteStyle";
 import { Link } from "react-router-dom";
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
@@ -113,10 +109,11 @@ const handleKeyDown = (e) => {
 
   return (
     <div>
-      <input
+      <Input
         value={searchLetters}
+        type="text"
         onChange={handleChange}
-        placeholder="Find What You Looking For"
+        placeholder="Find.."
         onKeyDown={()=> handleKeyDown(<Link to={"/"}></Link>)}
       />
       {searchLetters? 

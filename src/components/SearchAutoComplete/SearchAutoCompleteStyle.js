@@ -30,3 +30,11 @@ export const IconAndYearContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+export const Input = styled.input`
+   width: 8rem;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  &:focus {
+    width: 20%;
+  }
+`;
