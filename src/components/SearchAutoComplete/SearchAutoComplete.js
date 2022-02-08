@@ -3,7 +3,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilm, faStar, faUser } from "@fortawesome/free-solid-svg-icons";
 import {Container, Img, IconAndYearContainer,Input} from "./SearchAutoCompleteStyle";
-import { Link } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
+
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
@@ -14,13 +15,14 @@ const searchP = `${url}/search/person`;
 export const SearchAutoComplete = () => {
   const [searchLetters, setSearchLetters] = useState("");
   const [searchedData, setSearchedData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
       if(searchLetters){
           setTimeout(()=>{
 
               search();
-          },2000)
+          },1500)
 
       }
   }, [searchLetters]);
@@ -100,8 +102,8 @@ export const SearchAutoComplete = () => {
     
 //   }
 const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      console.log(e.target.value);
+    if (e.keyCode === 13 && searchLetters) {
+        navigate("/")
       
     }
   };
@@ -114,7 +116,7 @@ const handleKeyDown = (e) => {
         type="text"
         onChange={handleChange}
         placeholder="Find.."
-        onKeyDown={()=> handleKeyDown(<Link to={"/"}></Link>)}
+        onKeyDown={ handleKeyDown}
       />
       {searchLetters? 
       
@@ -122,6 +124,8 @@ const handleKeyDown = (e) => {
         if (ele.known_for_department) {
           return (
             <div key={ele.id}>
+            <Link to={`/moviesbyactor/${ele.id}`} >
+                
               <Container >
                 <Img
                   src={ele.profile_path?`https://image.tmdb.org/t/p/w92/${ele.profile_path}` :"https://www.onlinewebfonts.com/icon/388254"}
@@ -142,6 +146,7 @@ const handleKeyDown = (e) => {
                   </IconAndYearContainer>
                 </div>
               </Container>
+            </Link>
             </div>
           );
         } else {
