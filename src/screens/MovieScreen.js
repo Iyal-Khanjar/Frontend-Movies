@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import IMDB from '../img/IMDB.jpg'
 import Metacritic from '../img/Metacritic.jpg'
 import RottenTomatoes from '../img/RottenTomatoes.png'
+import YoutubeTrailer from '../components/YoutubeTrailer';
 
 export default function MovieScreen() {
     const params = useParams()
@@ -77,21 +78,22 @@ export default function MovieScreen() {
                 <div className='overView'>"{movieData.overview}"</div>
                 <div className='border'></div>
                 <div className='actors'>
-                    Actors
+                    <h1>Actors</h1>
                     <div className='actorsName'>
-                        {/* <input type='button' value='next' /> */}
                         {movieData && movieData2 && actors && actors.cast && actors.cast.map(person => {
                             return (
-                                <div className='actorNameAndPic' key={person.id}>
+                                <Link to={`/moviesbyactor/${person.id}`} className='actorNameAndPic' key={person.id}>
                                     <img src={person.profile_path ? urlLink + person.profile_path : 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'} alt={person.name}></img>
                                     {person.name}
-                                </div>
+                                </Link>
                             )
-                        }).splice(0, 5)}
-                        {/* <input type='button' value='back' /> */}
+                        }).slice(0, 5)}
                     </div>
+                </div>
+                <div className='youtubeTrailer'>
+                    <YoutubeTrailer />
                 </div>
             </div> : ''
         }
-    </div>;
+    </div >;
 }

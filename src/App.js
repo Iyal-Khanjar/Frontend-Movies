@@ -14,6 +14,7 @@ import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';
 import MovieListSearch from './screens/MovieListSearch';
 import FavoriteMovies from './screens/FavoriteMovies';
+import MoviesByActor from './screens/MoviesByActor';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -80,7 +81,6 @@ function App() {
             ) : (
               <Link to="/signin">Sign In <i className="fa-solid fa-right-to-bracket"></i></Link>
             )}
-
           </div>
         </header>
         <main className='main'>
@@ -96,6 +96,7 @@ function App() {
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
             <Route path="/search" element={<AdvancedSearch />} />
             <Route path="/favoritemovies" element={<FavoriteMovies />} />
+            <Route path="/moviesbyactor/:id" element={<MoviesByActor />} />
             <Route path="/search/:query" element={<MovieListSearch />} />
           </Routes>
         </main>
