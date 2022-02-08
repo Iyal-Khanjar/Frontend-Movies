@@ -81,7 +81,6 @@ function App() {
             ) : (
               <Link to="/signin">Sign In <i className="fa-solid fa-right-to-bracket"></i></Link>
             )}
-
           </div>
         </header>
         <main className='main'>
