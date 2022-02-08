@@ -4,6 +4,9 @@ export const Container = styled.div`
   display: flex;
   width: ${(props) => (props.width > 500 ? "35rem" : null)};
   background-color:grey; 
+  border-radius: 10px;
+  height:5rem;
+  width:20rem;
   padding: 1rem;
   font-size: 1.7rem;
   color: var(--text-white);

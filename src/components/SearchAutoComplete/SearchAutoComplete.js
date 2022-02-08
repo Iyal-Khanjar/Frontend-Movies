@@ -7,6 +7,7 @@ import {
   Img,
   IconAndYearContainer,
 } from "./SearchAutoCompleteStyle";
+import { Link } from "react-router-dom";
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
@@ -19,10 +20,18 @@ export const SearchAutoComplete = () => {
   const [searchedData, setSearchedData] = useState([]);
 
   useEffect(() => {
-    search();
+      if(searchLetters){
+          setTimeout(()=>{
+
+              search();
+          },2000)
+
+      }
   }, [searchLetters]);
 
   const search = async () => {
+
+
     const array = [];
     try {
       const responseM = await axios.get(searchM, {
@@ -49,6 +58,7 @@ export const SearchAutoComplete = () => {
     } catch (err) {
       console.log("auto complete search error:", err);
     }
+
   };
 
   //     const tmdbCastId = async (query) => {
@@ -76,7 +86,30 @@ export const SearchAutoComplete = () => {
 
   const handleChange = (e) => {
     setSearchLetters(e.target.value);
+    if(searchLetters==''){
+        setSearchedData([])
+    }
   };
+
+//   const handleClick = (e,type) => {
+//     setSearchLetters('');
+//     if(type==='movie') {
+
+//         <Link to={`/${type}/${e}`}>
+
+//         </Link>
+//     } else {
+//         console.log(e);
+//     }
+    
+//   }
+const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      console.log(e.target.value);
+      
+    }
+  };
+
 
   return (
     <div>
@@ -84,12 +117,15 @@ export const SearchAutoComplete = () => {
         value={searchLetters}
         onChange={handleChange}
         placeholder="Find What You Looking For"
+        onKeyDown={()=> handleKeyDown(<Link to={"/"}></Link>)}
       />
-      {searchedData.map((ele) => {
+      {searchLetters? 
+      
+      searchedData.map((ele) => {
         if (ele.known_for_department) {
           return (
             <div key={ele.id}>
-              <Container style={{width:"20rem"}}>
+              <Container >
                 <Img
                   src={ele.profile_path?`https://image.tmdb.org/t/p/w92/${ele.profile_path}` :"https://www.onlinewebfonts.com/icon/388254"}
                   alt=""
@@ -113,8 +149,10 @@ export const SearchAutoComplete = () => {
           );
         } else {
             return (
-        <div >
-          <Container style={{width:"20rem"}}>
+        <div key={ele.id} >
+        <Link to={`/movie/${ele.id}`} >
+            
+          <Container >
             <Img
               src={`https://image.tmdb.org/t/p/w92/${ele.poster_path}`}
               alt=""
@@ -139,10 +177,12 @@ export const SearchAutoComplete = () => {
               </div>
             </div>
           </Container>
+        </Link>
         </div>
       );
         }
-      })}
+      }) : ''}
+      
     </div>
   );
 };
