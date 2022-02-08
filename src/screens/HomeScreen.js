@@ -49,7 +49,7 @@ function HomeScreen() {
         <div className='homeContainer'>
             <div className='nowPlayingMovies'>
                 <h1>Top 20 Rated Movies</h1>
-                <SearchAutoComplete />
+                
                 <CarouselProvider
                     naturalSlideWidth={50}
                     // naturalSlideHeight={125}
