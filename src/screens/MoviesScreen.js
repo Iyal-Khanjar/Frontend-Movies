@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import LoadingBox from '../components/LoadingBox';
 import Paginate from '../components/Paginate';
+import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
 export default function MoviesScreen() {
     const [moviesData, setMoviesData] = useState([]);
@@ -21,6 +22,7 @@ export default function MoviesScreen() {
         setPageCount(nextPage)
     };
     return <div>
+    <SearchAutoComplete />
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
         {
@@ -35,6 +37,7 @@ export default function MoviesScreen() {
                 })}
             </div> : <LoadingBox></LoadingBox>
         }
+       
 
 
     </div>;

@@ -225,7 +225,9 @@ img.small {
 	perspective: 1000px;
 	position: relative;
 }
-
+.fa-star{
+	color: #f8d823;
+}
 .card-movie-header-chip{
 	position: absolute;
 	top: 10px;
@@ -240,6 +242,9 @@ img.small {
 }
 .vote-avg{
 	right: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .movie-year{
 	left: 10px;

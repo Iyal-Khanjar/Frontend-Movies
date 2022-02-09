@@ -12,15 +12,77 @@ import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';
 import MovieListSearch from './screens/MovieListSearch';
 import FavoriteMovies from './screens/FavoriteMovies';
+<<<<<<< HEAD
 import {AppContainer} from "./styles/app.styles"
 import Navbar from './components/nav/Navbar';
+=======
+import MoviesByActor from './screens/MoviesByActor';
+>>>>>>> main
 
 function App() {
 
   return (
     <BrowserRouter>
+<<<<<<< HEAD
       <AppContainer>
       <Navbar/>
+=======
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <Link className="brand" to="/">
+              <span>Movie Land</span>
+            </Link>
+            <Link to="/movies">
+              <span>Movies</span>
+            </Link>
+            <Link to="/tvshows">
+              <span>Tv Shows</span>
+            </Link>
+            <Link to="/search">
+              <span>Advanced Search</span>
+            </Link>
+
+          </div>
+          <div className='allNav'>
+            {userInfo ? (
+              <>
+                <div className='picAndName'>
+                  <img className='profilePicInNav' src={userInfo.pic} alt='user avater'></img>
+                  <div className="dropdown">
+                    <Link to="#">
+                      {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                    </Link>
+                    <ul className="dropdown-content">
+                      {userInfo && userInfo.isAdmin && (
+                        <li>
+                          <Link to="/allusers">All Users</Link>
+                        </li>
+                      )}
+                      {userInfo &&
+                        <>
+                          <li>
+                            <Link to="/profile">Profile</Link>
+                          </li>
+                          <li>
+                            <Link to="/favoritemovies">Favorites</Link>
+                          </li>
+                        </>
+                      }
+                      <li>
+                        <Link to="/" onClick={signoutHandler}>
+                          Sign Out
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div></>
+            ) : (
+              <Link to="/signin">Sign In <i className="fa-solid fa-right-to-bracket"></i></Link>
+            )}
+          </div>
+        </header>
+>>>>>>> main
         <main className='main'>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
@@ -34,6 +96,7 @@ function App() {
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
             <Route path="/search" element={<AdvancedSearch />} />
             <Route path="/favoritemovies" element={<FavoriteMovies />} />
+            <Route path="/moviesbyactor/:id" element={<MoviesByActor />} />
             <Route path="/search/:query" element={<MovieListSearch />} />
           </Routes>
         </main>

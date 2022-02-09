@@ -3,7 +3,11 @@ import { CarouselProvider, Slider, Slide ,ButtonBack ,ButtonNext  } from 'pure-r
 // import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import Card from '../components/Card';
+<<<<<<< HEAD
 import { HomeContainer,Carousel } from './HomeScreen.styles';
+=======
+import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
+>>>>>>> main
 
 function HomeScreen() {
     const [movies, setMovie] = useState([])
@@ -49,6 +53,7 @@ function HomeScreen() {
         <HomeContainer >
             <Carousel>
                 <h1>Top 20 Rated Movies</h1>
+                
                 <CarouselProvider
                     naturalSlideWidth={50}
                     totalSlides={20}
