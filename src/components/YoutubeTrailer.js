@@ -40,7 +40,7 @@ function YoutubeTrailer() {
 
 
 
-    console.log('trailer', trailer);
+    // console.log('trailer', trailer);
     return <div>
         <YouTube videoId={trailer}
         //    id={string}                       // defaults -> null

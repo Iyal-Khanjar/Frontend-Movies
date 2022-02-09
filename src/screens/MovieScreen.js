@@ -41,9 +41,9 @@ export default function MovieScreen() {
     }, [movieData, params.id]);
 
 
-    console.log('movieData', movieData);
-    console.log('movieData2', movieData2);
-    console.log('actors', actors.cast);
+    // console.log('movieData', movieData);
+    // console.log('movieData2', movieData2);
+    // console.log('actors', actors.cast);
     const urlLink = 'https://image.tmdb.org/t/p/original'
 
     return <div className='movieScreenContainer'>

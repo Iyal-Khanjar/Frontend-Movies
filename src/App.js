@@ -10,7 +10,7 @@ import MovieScreen from './screens/MovieScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';
-import MovieListSearch from './screens/MovieListSearch';
+import AutoSearchResults from './screens/AutoSearchResults/AutoSearchResults';
 import FavoriteMovies from './screens/FavoriteMovies';
 import {AppContainer} from "./styles/app.styles"
 import Navbar from './components/nav/Navbar';
@@ -36,7 +36,7 @@ function App() {
             <Route path="/search" element={<AdvancedSearch />} />
             <Route path="/favoritemovies" element={<FavoriteMovies />} />
             <Route path="/moviesbyactor/:id" element={<MoviesByActor />} />
-            <Route path="/search/:query" element={<MovieListSearch />} />
+            <Route path="/search/:query" element={<AutoSearchResults />} />
           </Routes>
         </main>
         {/* <footer>
