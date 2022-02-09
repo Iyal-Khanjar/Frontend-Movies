@@ -22,43 +22,43 @@ function AutoSearchResults() {
 
     },[])
 
-    const search = async () => {
+    // const search = async () => {
 
 
-        const array = [];
-        try {
-          const responseM = await axios.get(searchM, {
-            params: {
-              api_key: apiKey,
-              language: "en-US",
-              query: searchLetters,
-              page: 1,
-              include_adult: false,
-            },
-          });
-          const responseA = await axios.get(searchP, {
-            params: {
-              api_key: apiKey,
-              query: searchLetters,
-            },
-          });
+        // const array = [];
+        // try {
+        //   const responseM = await axios.get(searchM, {
+        //     params: {
+        //       api_key: apiKey,
+        //       language: "en-US",
+        //       query: searchLetters,
+        //       page: 1,
+        //       include_adult: false,
+        //     },
+        //   });
+        //   const responseA = await axios.get(searchP, {
+        //     params: {
+        //       api_key: apiKey,
+        //       query: searchLetters,
+        //     },
+        //   });
     
-          const movies = responseM.data.results.slice(0, 4);
-          const actors = responseP.data.results.slice(0, 3);
+      //     const movies = responseM.data.results.slice(0, 4);
+      //     const actors = responseP.data.results.slice(0, 3);
     
-          array.push(...movies, ...actors);
-          setSearchedData(array);
-        } catch (err) {
-          console.log("auto complete search error:", err);
-        }
+      //     array.push(...movies, ...actors);
+      //     setSearchedData(array);
+      //   } catch (err) {
+      //     console.log("auto complete search error:", err);
+      //   }
     
-      };
+      // };
 
 
 
     return (
          <div>
-        <SearchAutoComplete />
+        {/* <SearchAutoComplete />
             <h1 className='moviesTitle'>Movies</h1>
             
             {
@@ -72,7 +72,7 @@ function AutoSearchResults() {
                         );
                     })}
                 </div> : <LoadingBox></LoadingBox>
-            }
+            } */}
            
     
     
