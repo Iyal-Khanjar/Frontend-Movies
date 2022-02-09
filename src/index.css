@@ -1,4 +1,3 @@
-
 html {
 	font-size: 62.5%;
 	box-sizing: border-box;
@@ -11,12 +10,15 @@ body {
 	font-size: 1.6rem;
 	font-family: Helvetica, Arial, sans-serif;
 	background: rgba(11, 11, 17, 0.9);
+	/* background-color: var(--background-color); */
 }
 #root {
 	height: 100%;
 }
+/* :root {
+	--background-color: red;
+} */
 /* Layout */
-
 main {
 	grid-area: main;
 	padding: 1rem;
@@ -28,7 +30,7 @@ main {
 	justify-content: center;
 	color: rgb(121, 101, 64);
 	height: 10vh;
-	background-color: #12bbd1;
+	background-color: var(--background-color);
 }
 .footer-content {
 	display: flex;
@@ -92,7 +94,7 @@ a.brand {
 	font-weight: bold;
 }
 a.brand span {
-	color:white;
+	color: white;
 }
 .row {
 	display: flex;
@@ -155,7 +157,7 @@ a.brand span {
 /* Common */
 a {
 	text-decoration: none;
-	color:white;
+	color: white;
 }
 .dropdown-content li {
 	margin-top: 0.3rem;
@@ -168,18 +170,17 @@ a {
 }
 /* Home */
 
-.carouselButton{
- position: absolute;
- top: 50%;
- z-index: 100;
+.carouselButton {
+	position: absolute;
+	top: 50%;
+	z-index: 100;
 }
 
-.next{
-	right:1rem;
+.next {
+	right: 1rem;
 }
-.back{
+.back {
 	left: 0rem;
-	
 }
 
 /* Table */
@@ -225,10 +226,10 @@ img.small {
 	perspective: 1000px;
 	position: relative;
 }
-.fa-star{
+.fa-star {
 	color: #f8d823;
 }
-.card-movie-header-chip{
+.card-movie-header-chip {
 	position: absolute;
 	top: 10px;
 	height: 20px;
@@ -236,17 +237,17 @@ img.small {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background:rgb(189, 135, 19);
+	background: rgb(189, 135, 19);
 	border-radius: 8px;
 	z-index: 100;
 }
-.vote-avg{
+.vote-avg {
 	right: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-.movie-year{
+.movie-year {
 	left: 10px;
 }
 .movie img {
@@ -256,9 +257,18 @@ img.small {
 	border-top-left-radius: 15px;
 }
 .movie-info {
-	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding: 1rem;
-	font-size:12px;
+	font-size: 12px;
+}
+.heart{
+	color: #ffffff;
+	font-size: 2rem;
+}
+.heart:hover{
+	color: #eb0808;
 }
 .movie-info h3 {
 	margin: 0;
@@ -285,7 +295,7 @@ img.small {
 	height: 100%;
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	color: white;
-	background:black;
+	background: black;
 	border-top-right-radius: 15px;
 	border-top-left-radius: 15px;
 }

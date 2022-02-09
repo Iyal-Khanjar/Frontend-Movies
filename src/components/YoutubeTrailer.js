@@ -16,7 +16,7 @@ function YoutubeTrailer() {
         }
         fetchData()
     }, [params.id]);
-    console.log('movieData', movieData);
+    // console.log('movieData', movieData);
     useEffect(() => {
         if (movieData) {
             const trailer = movieData.results.filter((trailer) => {
@@ -32,7 +32,7 @@ function YoutubeTrailer() {
 
 
 
-    console.log('trailer', trailer);
+    // console.log('trailer', trailer);
     return <div>
         <YouTube videoId={trailer}
         //    id={string}                       // defaults -> null

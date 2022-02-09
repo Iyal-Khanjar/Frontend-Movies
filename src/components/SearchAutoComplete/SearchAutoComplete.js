@@ -79,8 +79,8 @@ export const SearchAutoComplete = () => {
   //
   //   results.slice(0, 4);
 
-  console.log(searchLetters);
-  console.log(searchedData);
+  // console.log(searchLetters);
+  // console.log(searchedData);
 
   const handleChange = (e) => {
     setSearchLetters(e.target.value);

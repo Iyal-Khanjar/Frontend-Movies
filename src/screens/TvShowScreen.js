@@ -30,8 +30,8 @@ export default function TvShowScreen() {
         fetchData()
     }, [tvshows]);
 
-    console.log('tvshows', tvshows);
-    console.log('tvshows2', tvshows2);
+    // console.log('tvshows', tvshows);
+    // console.log('tvshows2', tvshows2);
 
     const urlLink = 'https://image.tmdb.org/t/p/original'
 

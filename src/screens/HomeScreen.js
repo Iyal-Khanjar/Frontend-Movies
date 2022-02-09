@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { CarouselProvider, Slider, Slide ,ButtonBack ,ButtonNext  } from 'pure-react-carousel';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 // import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import Card from '../components/Card';
-import { HomeContainer,Carousel } from './HomeScreen.styles';
+import { HomeContainer, Carousel } from './HomeScreen.styles';
 import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
 function HomeScreen() {
@@ -21,7 +21,7 @@ function HomeScreen() {
                     }
                 })
                 setMovie(response.data.results);
-                console.log(response.data.results);
+                // console.log(response.data.results);
             } catch (error) {
                 console.log('fetching now playing movie data error', error);
             }
@@ -38,7 +38,7 @@ function HomeScreen() {
                     }
                 })
                 setTvShows(response.data.results);
-                console.log(response.data.results);
+                // console.log(response.data.results);
             } catch (error) {
                 console.log('fetching now playing movie data error', error);
             }
@@ -50,25 +50,25 @@ function HomeScreen() {
         <HomeContainer >
             <Carousel>
                 <h1>Top 20 Rated Movies</h1>
-                
+
                 <CarouselProvider
                     naturalSlideWidth={50}
                     totalSlides={20}
                     visibleSlides={6}
-                >   
-                <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
+                >
+                    <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                     <Slider>
                         <div className="movie-tv-container">
                             {movies.map((ele, index) => {
                                 return (
-                                    <Slide index={index} >
+                                    <Slide key={index}  >
                                         <Card data={ele} urlLink={imageUrl} key={ele.id} type={'movie'} />
                                     </Slide>
                                 );
                             })}
                         </div>
                     </Slider>
-                    <ButtonNext  className='next carouselButton' value={'next'} >{">"}</ButtonNext>
+                    <ButtonNext className='next carouselButton' value={'next'} >{">"}</ButtonNext>
                 </CarouselProvider>
             </Carousel>
             <Carousel>
@@ -82,14 +82,14 @@ function HomeScreen() {
                         <div className="movie-tv-container">
                             {tvShows.map((ele, index) => {
                                 return (
-                                    <Slide index={index} >
+                                    <Slide key={index} >
                                         <Card data={ele} isMovie={false} urlLink={imageUrl} key={ele.id} type={'tvshow'} />
                                     </Slide>
                                 );
                             })}
                         </div>
                     </Slider>
-                    <ButtonNext  className='next carouselButton' value={'next'} >{">"}</ButtonNext>
+                    <ButtonNext className='next carouselButton' value={'next'} >{">"}</ButtonNext>
                 </CarouselProvider>
             </Carousel>
         </HomeContainer>
