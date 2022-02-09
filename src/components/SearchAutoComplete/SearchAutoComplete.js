@@ -84,7 +84,7 @@ export const SearchAutoComplete = () => {
 
   const handleChange = (e) => {
     setSearchLetters(e.target.value);
-    if(searchLetters==''){
+    if(searchLetters===''){
         setSearchedData([])
     }
   };
@@ -103,7 +103,7 @@ export const SearchAutoComplete = () => {
 //   }
 const handleKeyDown = (e) => {
     if (e.keyCode === 13 && searchLetters) {
-        navigate("/")
+        navigate(`/search/${searchLetters}`)
       
     }
   };
@@ -128,7 +128,7 @@ const handleKeyDown = (e) => {
                 
               <Container >
                 <Img
-                  src={ele.profile_path?`https://image.tmdb.org/t/p/w92/${ele.profile_path}` :"https://www.onlinewebfonts.com/icon/388254"}
+                  src={ele.profile_path?`https://image.tmdb.org/t/p/w92/${ele.profile_path}` :"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"}
                   alt=""
                 />
                 <div>
