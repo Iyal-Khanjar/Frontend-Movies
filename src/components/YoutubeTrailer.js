@@ -10,12 +10,20 @@ function YoutubeTrailer() {
     const [trailer, setTrailer] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=9a1f04c191537cfcad233a5ab151487b&language=en-US`)
-            setMovieData(response.data);
+        try {
+            
+
+            const fetchData = async () => {
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=9a1f04c191537cfcad233a5ab151487b&language=en-US`)
+                setMovieData(response.data);
+            }
+            fetchData()
+        } catch(error) {
+            console.log('error',error);
         }
-        fetchData()
     }, [params.id]);
+
+
     console.log('movieData', movieData);
     useEffect(() => {
         if (movieData) {
