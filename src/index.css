@@ -264,8 +264,14 @@ img.small {
 	font-size: 12px;
 }
 .heart{
+	position: absolute;
+	z-index: 100;
+	cursor: pointer;
 	color: #ffffff;
 	font-size: 2rem;
+}
+.heartFavorite{
+	color: #eb0808;
 }
 .heart:hover{
 	color: #eb0808;
