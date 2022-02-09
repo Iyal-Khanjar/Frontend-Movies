@@ -1,3 +1,5 @@
+import {AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
+
 export const TvShowsAdvanced = ({
   handleOnChange,
   showStatus,
@@ -12,10 +14,10 @@ export const TvShowsAdvanced = ({
   showType
 }) => {
   return (
-    <div className="advancedSearch">
-      <div className="fillterSearch">
+    <AdvancedSearchDiv>
+      <FillterSearch>
         <div>
-          <select
+          <AdvancedSearchSelect
             name="from-year"
             defaultValue="DEFAULT"
             onChange={handleOnChange}
@@ -24,10 +26,10 @@ export const TvShowsAdvanced = ({
               Year
             </option>
             {fromYear && fromYear.map((year) => year)}
-          </select>
+          </AdvancedSearchSelect>
         </div>
         <div>
-          <select name="show-status" onChange={handleOnChange}>
+          <AdvancedSearchSelect name="show-status" onChange={handleOnChange}>
             <option value="Status">Status</option>
             <option value="0">Returning Series</option>
             <option value="1">Planned</option>
@@ -35,10 +37,10 @@ export const TvShowsAdvanced = ({
             <option value="3">Ended</option>
             <option value="4">Cancelled</option>
             <option value="5">Pilot</option>
-          </select>
+          </AdvancedSearchSelect>
         </div>
         <div>
-          <select name="show-type" onChange={handleOnChange}>
+          <AdvancedSearchSelect name="show-type" onChange={handleOnChange}>
           <option value="Type">Show Type</option>
             <option value="0">Documentary</option>
             <option value="1">News</option>
@@ -47,11 +49,11 @@ export const TvShowsAdvanced = ({
             <option value="4">Scripted</option>
             <option value="5">Talk Show</option>
             <option value="6">Video</option>
-          </select>
+          </AdvancedSearchSelect>
         </div>
 
         <div>
-          <select
+          <AdvancedSearchSelect
             name="rating"
             defaultValue="DEFAULT"
             onChange={handleOnChange}
@@ -60,11 +62,11 @@ export const TvShowsAdvanced = ({
               Minimum Rating
             </option>
             {rating && rating.map((rating) => rating)}
-          </select>
+          </AdvancedSearchSelect>
         </div>
 
         <div>
-          <select
+          <AdvancedSearchSelect
             name="vote-count"
             defaultValue="DEFAULT"
             onChange={handleOnChange}
@@ -73,17 +75,17 @@ export const TvShowsAdvanced = ({
               Minimum Votes
             </option>
             {voteCount && voteCount.map((vote) => vote)}
-          </select>
+          </AdvancedSearchSelect>
         </div>
 
-      </div>
+      </FillterSearch>
 
       <form onSubmit={handleSubmit}>
       
         <div>
-          <input type="submit" value="Search" />
+          <SearchInputButton type="submit" value="Search" />
         </div>
       </form>
-    </div>
+    </AdvancedSearchDiv>
   );
 };

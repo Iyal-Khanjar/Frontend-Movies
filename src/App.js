@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom"
-import { signout } from "./actions/userActions";
+import { Routes, Route, BrowserRouter } from "react-router-dom"
 import HomeScreen from './screens/HomeScreen'
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen'
@@ -14,75 +12,15 @@ import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';
 import MovieListSearch from './screens/MovieListSearch';
 import FavoriteMovies from './screens/FavoriteMovies';
+import {AppContainer} from "./styles/app.styles"
+import Navbar from './components/nav/Navbar';
 
 function App() {
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-
-  const dispatch = useDispatch()
-
-  const signoutHandler = () => {
-    dispatch(signout())
-  }
 
   return (
     <BrowserRouter>
-      <div className="grid-container">
-        <header className="row">
-          <div>
-            <Link className="brand" to="/">
-              <span>Movie Land</span>
-            </Link>
-            <Link to="/movies">
-              <span>Movies</span>
-            </Link>
-            <Link to="/tvshows">
-              <span>Tv Shows</span>
-            </Link>
-            <Link to="/search">
-              <span>Advanced Search</span>
-            </Link>
-
-          </div>
-          <div className='allNav'>
-            {userInfo ? (
-              <>
-                <div className='picAndName'>
-                  <img className='profilePicInNav' src={userInfo.pic} alt='user avater'></img>
-                  <div className="dropdown">
-                    <Link to="#">
-                      {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
-                    </Link>
-                    <ul className="dropdown-content">
-                      {userInfo && userInfo.isAdmin && (
-                        <li>
-                          <Link to="/allusers">All Users</Link>
-                        </li>
-                      )}
-                      {userInfo &&
-                        <>
-                          <li>
-                            <Link to="/profile">Profile</Link>
-                          </li>
-                          <li>
-                            <Link to="/favoritemovies">Favorites</Link>
-                          </li>
-                        </>
-                      }
-                      <li>
-                        <Link to="/" onClick={signoutHandler}>
-                          Sign Out
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div></>
-            ) : (
-              <Link to="/signin">Sign In <i className="fa-solid fa-right-to-bracket"></i></Link>
-            )}
-
-          </div>
-        </header>
+      <AppContainer>
+      <Navbar/>
         <main className='main'>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
@@ -107,7 +45,7 @@ function App() {
             </div>
           </div>
         </footer> */}
-      </div>
+      </AppContainer>
     </BrowserRouter>
   );
 }

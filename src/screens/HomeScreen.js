@@ -3,6 +3,7 @@ import { CarouselProvider, Slider, Slide ,ButtonBack ,ButtonNext  } from 'pure-r
 // import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import Card from '../components/Card';
+import { HomeContainer,Carousel } from './HomeScreen.styles';
 
 function HomeScreen() {
     const [movies, setMovie] = useState([])
@@ -45,19 +46,15 @@ function HomeScreen() {
     }, [])
     const imageUrl = "https://image.tmdb.org/t/p/original";
     return (
-        <div className='homeContainer'>
-            <div className='nowPlayingMovies'>
+        <HomeContainer >
+            <Carousel>
                 <h1>Top 20 Rated Movies</h1>
                 <CarouselProvider
                     naturalSlideWidth={50}
-                    // naturalSlideHeight={125}
                     totalSlides={20}
-                    // isPlaying
-                    // interval={5000}
                     visibleSlides={6}
-                    // infinite={true}
                 >   
-                <ButtonBack className='back'>{"<"}</ButtonBack>
+                <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                     <Slider>
                         <div className="movie-tv-container">
                             {movies.map((ele, index) => {
@@ -69,21 +66,16 @@ function HomeScreen() {
                             })}
                         </div>
                     </Slider>
-                    <ButtonNext  className='next' value={'next'} >{">"}</ButtonNext>
+                    <ButtonNext  className='next carouselButton' value={'next'} >{">"}</ButtonNext>
                 </CarouselProvider>
-            </div>
-            <div className='nowPlayingMovies'>
+            </Carousel>
+            <Carousel>
                 <h1>Top 20 Rated Tv Shows</h1>
                 <CarouselProvider
-                    // naturalSlideWidth={100}
-                    // naturalSlideHeight={125}
                     totalSlides={20}
-                    // isPlaying
-                    // interval={5000}
                     visibleSlides={6}
-                    // infinite={true}
                 >
-                    <ButtonBack className='back'>{"<"}</ButtonBack>
+                    <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                     <Slider>
                         <div className="movie-tv-container">
                             {tvShows.map((ele, index) => {
@@ -95,10 +87,10 @@ function HomeScreen() {
                             })}
                         </div>
                     </Slider>
-                    <ButtonNext  className='next' value={'next'} >{">"}</ButtonNext>
+                    <ButtonNext  className='next carouselButton' value={'next'} >{">"}</ButtonNext>
                 </CarouselProvider>
-            </div>
-        </div>
+            </Carousel>
+        </HomeContainer>
     )
 }
 

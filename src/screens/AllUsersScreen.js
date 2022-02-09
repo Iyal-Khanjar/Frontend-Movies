@@ -4,6 +4,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {Table, TableTbodyTr,TableTd,TableTh,TableButton} from './AllUsersScreen.styles'
 function AllUsersScreen() {
     const navigate = useNavigate()
     const [allUsersData, setAllUsersData] = useState([])
@@ -46,31 +47,31 @@ function AllUsersScreen() {
             {error && <MessageBox variant="danger">{error}</MessageBox>}
 
             <div className='users'>
-                <table className="table">
+                <Table>
                     <thead>
                         <tr>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>IsAdmin</th>
-                            <th>Delete</th>
+                            <TableTh>Avatar</TableTh>
+                            <TableTh>Name</TableTh>
+                            <TableTh>Email</TableTh>
+                            <TableTh>IsAdmin</TableTh>
+                            <TableTh>Delete</TableTh>
                         </tr>
                     </thead>
                     <tbody>
                         {allUsersData.map((user) => (
-                            <tr key={user._id}>
-                                <td><img className="small" src={user.pic} alt={user.name}></img></td>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.isAdmin ? 'true' : 'false'}</td>
-                                <td className='btnsDeleteAndEdit'>
-                                    <button type="button" className="primary widthMax" onClick={() => deleteHandler(user._id)}>Delete</button>
-                                    <button type="button" className="primary widthMax" >Edit</button>
-                                </td>
-                            </tr>
+                            <TableTbodyTr key={user._id}>
+                                <TableTd><img className="small" src={user.pic} alt={user.name}></img></TableTd>
+                                <TableTd>{user.name}</TableTd>
+                                <TableTd>{user.email}</TableTd>
+                                <TableTd>{user.isAdmin ? 'true' : 'false'}</TableTd>
+                                <TableTd className='btnsDeleteAndEdit'>
+                                    <TableButton type="button" className="primary widthMax" onClick={() => deleteHandler(user._id)}>Delete</TableButton>
+                                    <TableButton type="button" className="primary widthMax" >Edit</TableButton>
+                                </TableTd>
+                            </TableTbodyTr>
                         ))}
                     </tbody>
-                </table>
+                </Table>
             </div>
         </div>
     )

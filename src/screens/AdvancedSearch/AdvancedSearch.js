@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Paginate from "../../components/Paginate";
-import { SearchContainer } from "./AdvancedSearchStyle";
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
+import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
@@ -200,14 +200,14 @@ function AdvancedSearch() {
 };
 
   return (
-    <div className="advancedSearch">
+    <AdvancedSearchDiv>
       <h1>Advanced Search</h1>
       <div>
-        <select name="search-for" onChange={handleOnChange}>
+        <AdvancedSearchSelect name="search-for" onChange={handleOnChange}>
           <option value="Search For">Search For</option>
           <option value="movie">Movies</option>
           <option value="tvshow">Tv Shows</option>
-        </select>
+        </AdvancedSearchSelect>
       </div>
       {searchFor === "N/A" ? (
         ""
@@ -248,7 +248,7 @@ function AdvancedSearch() {
           return <Card data={ele} urlLink={imageUrl} type={searchFor} />;
         })}
       </SearchContainer>
-    </div>
+    </AdvancedSearchDiv>
   );
 }
 
