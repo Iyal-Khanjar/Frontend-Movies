@@ -103,7 +103,7 @@ export const SearchAutoComplete = () => {
 //   }
 const handleKeyDown = (e) => {
     if (e.keyCode === 13 && searchLetters) {
-        navigate("/")
+        navigate(`/search/${searchLetters}`)
       
     }
   };
