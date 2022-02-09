@@ -1,12 +1,12 @@
+import {AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
 export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,genres,handleSubmit,toYearInfo,ratingInfo,voteCountInfo,genresInfo,fromYearInfo}) => {
   
   return (
-    <div className="advancedSearch">
-          
-        <div className="fillterSearch">
+    <AdvancedSearchDiv>  
+        <FillterSearch >
           <div>
-            <select
+            <AdvancedSearchSelect
               name="from-year"
               defaultValue="DEFAULT"
               onChange={handleOnChange}
@@ -15,11 +15,11 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
                 From Year
               </option>
               {fromYear && fromYear.map((year) => year)}
-            </select>
+            </AdvancedSearchSelect>
           </div>
 
           <div>
-            <select
+            <AdvancedSearchSelect
               name="to-year"
               defaultValue="DEFAULT"
               onChange={handleOnChange}
@@ -28,11 +28,11 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
                 To Year
               </option>
               {toYear && toYear.map((year) => year)}
-            </select>
+            </AdvancedSearchSelect>
           </div>
 
           <div>
-            <select
+            <AdvancedSearchSelect
               name="rating"
               defaultValue="DEFAULT"
               onChange={handleOnChange}
@@ -41,11 +41,11 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
                 Minimum Rating
               </option>
               {rating && rating.map((rating) => rating)}
-            </select>
+            </AdvancedSearchSelect>
           </div>
 
           <div>
-            <select
+            <AdvancedSearchSelect
               name="vote-count"
               defaultValue="DEFAULT"
               onChange={handleOnChange}
@@ -54,11 +54,11 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
                 Minimum Votes
               </option>
               {voteCount && voteCount.map((vote) => vote)}
-            </select>
+            </AdvancedSearchSelect>
           </div>
 
           <div>
-            <select
+            <AdvancedSearchSelect
               name="genresss"
               defaultValue="DEFAULT"
               onChange={handleOnChange}
@@ -67,17 +67,17 @@ export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,g
                 Genres
               </option>
               {genres && genres.map((genre) => genre)}
-            </select>
+            </AdvancedSearchSelect>
           </div>
-        </div>
+        </FillterSearch>
 
       <form onSubmit={handleSubmit}>
        
          
         <div>
-          <input type="submit" value="Search" />
+          <SearchInputButton type="submit" value="Search" />
         </div>
       </form>
-    </div>
+    </AdvancedSearchDiv>
   );
 };
