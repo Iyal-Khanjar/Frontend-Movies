@@ -110,10 +110,15 @@ a.brand span {
 	padding: 1rem;
 	border-radius: 2rem;
 	width: fit-content;
+	margin-left: 1rem;
 	background-color: #eb0808;
 }
 .success {
-	background-color: #24aa24;
+	padding: 1rem;
+	border-radius: 2rem;
+	width: fit-content;
+	margin-left: 1rem;
+	background-color: #0dec0d8c;
 }
 /* Form */
 .form {
@@ -262,18 +267,17 @@ img.small {
 	align-items: center;
 	padding: 1rem;
 	font-size: 12px;
+	cursor: default;
 }
-.heart{
-	position: absolute;
-	z-index: 100;
+.heart {
 	cursor: pointer;
 	color: #ffffff;
 	font-size: 2rem;
 }
-.heartFavorite{
+.heartFavorite {
 	color: #eb0808;
 }
-.heart:hover{
+.heart:hover {
 	color: #eb0808;
 }
 .movie-info h3 {
@@ -311,20 +315,20 @@ img.small {
 	transform: scale(1.05);
 }
 /* Favorite */
-.movieFavoriteAndDelete{
+.movieFavoriteAndDelete {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-.deleteFavorite{
+.deleteFavorite {
 	opacity: 0.8;
 	color: #eb0808;
 	font-size: 4rem;
 }
-.deleteFavorite:hover{
+.deleteFavorite:hover {
 	color: #ff0404;
-cursor: pointer;
+	cursor: pointer;
 }
 /* Movie Screen */
 .moviesTitle {
