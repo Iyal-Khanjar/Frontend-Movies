@@ -32,32 +32,39 @@ export default function MoviesScreen() {
         setPageCount(nextPage)
     };
 
-    // console.log(userInfo.favortieMovies);
-
     useEffect(() => {
         if (userInfo) {
             setFavortieMovies(userInfo.favortieMovies)
         }
-
-    }, [userInfo])
+    }, [])
 
     const addToFavorite = (data) => {
-        console.log('movie data', data);
-        setFavortieMovies([...favortieMovies, data])
-        console.log('favortieMovies', favortieMovies);
-        dispatch(updateProfile({ favortieMovies }));
-    }
-
-    useEffect(() => {
-        console.log('favoriteMovies', favortieMovies);
+        console.log('movie data', data.id);
         const allIDSINFavoriteMovies = favortieMovies.map(item => {
             return item.id
         })
-        console.log('allIDSINFavoriteMovies', allIDSINFavoriteMovies);
+        if (allIDSINFavoriteMovies.includes(data.id)) {
+            alert('it is already in your favorite')
+        } else {
+            setFavortieMovies([...favortieMovies, data])
+        }
+    }
+
+    useEffect(() => {
+        // console.log('favortieMovies', favortieMovies);
+        dispatch(updateProfile({ favortieMovies }));
+    }, [dispatch, favortieMovies])
+
+    useEffect(() => {
+        // console.log('favoriteMovies', favortieMovies);
+        const allIDSINFavoriteMovies = favortieMovies.map(item => {
+            return item.id
+        })
+        // console.log('allIDSINFavoriteMovies', allIDSINFavoriteMovies);
         const allIDSINMoviesData = moviesData.map(item => {
             return item.id
         })
-        console.log('allIDSINMoviesData', allIDSINMoviesData);
+        // console.log('allIDSINMoviesData', allIDSINMoviesData);
         const found = allIDSINFavoriteMovies.some(r => allIDSINMoviesData.includes(r))
         if (found) {
             setIsFavorite(true)
