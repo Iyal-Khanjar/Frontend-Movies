@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../actions/userActions';
 import Card from '../components/Card';
 import LoadingBox from '../components/LoadingBox';
 
 function FavoriteMovies() {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
 
     const [favortieMovies, setFavortieMovies] = useState([])
@@ -15,10 +17,12 @@ function FavoriteMovies() {
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
     useEffect(() => {
-        if (userInfo) {
-            setFavortieMovies(userInfo.favortieMovies)
+        if (!userInfo) {
+            navigate('/')
         }
+        setFavortieMovies(userInfo.favortieMovies)
     }, [])
+
 
     const deleteFavoriteMovie = (data) => {
         console.log(data);
@@ -30,7 +34,7 @@ function FavoriteMovies() {
     useEffect(() => {
         console.log('fillter after', favortieMovies);
         dispatch(updateProfile({ favortieMovies }));
-    }, [dispatch, favortieMovies])
+    }, [favortieMovies])
 
     return <div>
         <h1 className='moviesTitle'>My Favorite Movies</h1>

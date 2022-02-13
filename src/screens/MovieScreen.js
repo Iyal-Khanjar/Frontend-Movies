@@ -42,9 +42,6 @@ export default function MovieScreen() {
         fetchData()
     }, [movieData, params.id]);
 
-
-    console.log(movieData2.Ratings);
-
     const urlLink = 'https://image.tmdb.org/t/p/original'
 
     return <div className='movieScreenContainer'>

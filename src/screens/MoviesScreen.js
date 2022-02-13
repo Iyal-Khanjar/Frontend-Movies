@@ -33,13 +33,19 @@ export default function MoviesScreen() {
     };
 
     useEffect(() => {
-        if (userInfo) {
-            setFavortieMovies(userInfo.favortieMovies)
-        }
+        console.log('favortieMovies after refresh', favortieMovies);
+        setFavortieMovies(userInfo.favortieMovies)
+        console.log('favortieMovies after refresh2', favortieMovies);
     }, [])
 
+    useEffect(() => {
+        console.log('favortieMovies to update', favortieMovies);
+        dispatch(updateProfile({ favortieMovies }));
+    }, [favortieMovies])
+
+
     const addToFavorite = (data) => {
-        console.log('movie data', data.id);
+        // console.log('movie data', data.id);
         const allIDSINFavoriteMovies = favortieMovies.map(item => {
             return item.id
         })
@@ -50,10 +56,7 @@ export default function MoviesScreen() {
         }
     }
 
-    useEffect(() => {
-        // console.log('favortieMovies', favortieMovies);
-        dispatch(updateProfile({ favortieMovies }));
-    }, [dispatch, favortieMovies])
+
 
     useEffect(() => {
         // console.log('favoriteMovies', favortieMovies);
