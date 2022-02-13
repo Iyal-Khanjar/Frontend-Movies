@@ -15,10 +15,10 @@ export default function MoviesScreen() {
     const [pageCount, setPageCount] = useState(1);
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
-    const [favortieMovies, setFavortieMovies] = useState(userInfo.favortieMovies)
+    const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
     const [isFavorite, setIsFavorite] = useState(false)
 
- 
+
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
@@ -44,8 +44,10 @@ export default function MoviesScreen() {
     }, [])
 
     useEffect(() => {
-        console.log('favortieMovies to update', favortieMovies);
-        dispatch(updateProfile({ favortieMovies }));
+        if (userInfo) {
+            console.log('favortieMovies to update', favortieMovies);
+            dispatch(updateProfile({ favortieMovies }));
+        }
     }, [dispatch, favortieMovies])
 
 
