@@ -1,21 +1,26 @@
-import {AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import {SearchInput,AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
 export const TvShowsAdvanced = ({
+  handleNameSearch,
   handleOnChange,
-  showStatus,
   fromYear,
   rating,
   voteCount,
-  genres,
+  
   handleSubmit,
-  ratingInfo,
-  voteCountInfo,
-  fromYearInfo,
-  showType
+  
 }) => {
   return (
     <AdvancedSearchDiv>
       <FillterSearch>
+      <div>
+            <SearchInput
+              name="name-search"
+              placeholder="Tv-Show Name"
+              onChange={handleNameSearch}
+            >
+            </SearchInput>
+          </div>
         <div>
           <AdvancedSearchSelect
             name="from-year"

@@ -142,6 +142,13 @@ function AdvancedSearch() {
         return null;
     }
   };
+
+  const handleNameSearch = (e) => {
+    
+  }
+
+
+  
   const getSearchDate = async () => {
     if (searchFor === "movie") {
       try {

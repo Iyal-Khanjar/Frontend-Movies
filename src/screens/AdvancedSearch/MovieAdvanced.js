@@ -1,10 +1,18 @@
-import {AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import {AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv,SearchInput} from './AdvancedSerch.styles'
 
-export const MovieAdvanced = ({handleOnChange,fromYear,toYear,rating,voteCount,genres,handleSubmit,toYearInfo,ratingInfo,voteCountInfo,genresInfo,fromYearInfo}) => {
+export const MovieAdvanced = ({handleNameSearch,handleOnChange,fromYear,toYear,rating,voteCount,genres,handleSubmit}) => {
   
   return (
     <AdvancedSearchDiv>  
         <FillterSearch >
+          <div>
+            <SearchInput
+              name="name-search"
+              placeholder="Movie Name"
+              onChange={handleNameSearch}
+            >
+            </SearchInput>
+          </div>
           <div>
             <AdvancedSearchSelect
               name="from-year"

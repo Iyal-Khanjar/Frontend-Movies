@@ -57,6 +57,9 @@ export default function MoviesScreen() {
             navigate('/signin')
         }
 
+        console.log('data',...data,data.title='shadi');
+        console.log('data1',data);
+
         const allIDSINFavoriteMovies = favortieMovies.map(item => {
             return item.id
         })
