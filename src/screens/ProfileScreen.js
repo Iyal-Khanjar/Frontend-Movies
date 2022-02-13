@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,8 +14,10 @@ export default function ProfileScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [Message, setMessage] = useState('')
+  const [classcolor, setClassColor] = useState('success')
   const [pic, setPic] = useState();
-  const [picMessage, setPicMessage] = useState();
+  const [picMessage, setPicMessage] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -32,7 +35,7 @@ export default function ProfileScreen() {
   }, [navigate, userInfo])
 
   const postDetails = (pics) => {
-    setPicMessage(null);
+    setPicMessage('');
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -56,10 +59,16 @@ export default function ProfileScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (password === confirmPassword)
+    if (password === confirmPassword) {
+      setMessage('Updated Successfully')
+      setClassColor('success')
       dispatch(updateProfile({ name, email, password, pic }));
+    } else {
+      setMessage('Password and confirm password not a match')
+      setClassColor('danger')
+    }
   };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -67,12 +76,12 @@ export default function ProfileScreen() {
           <h1>User Profile</h1>
         </div>
         {loading && <LoadingBox />}
-        {success && (
-          <MessageBox variant="success">
-            Updated Successfully
+        {success &&
+          <MessageBox classcolor={classcolor}>
+            {Message}
           </MessageBox>
-        )}
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
+        }
+        {error && <MessageBox classcolor="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="name">Name</label>
           <input
@@ -120,11 +129,11 @@ export default function ProfileScreen() {
             placeholder="Upload Profile Picture"
             accept='image/*'
           ></input>
+          <span>{picMessage}</span>
         </div>
         <div className="profilePic">
           <img src={pic} alt={name} />
         </div>
-
         <div>
           <label />
           <button className="primary" type="submit">
