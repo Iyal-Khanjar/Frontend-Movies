@@ -5,12 +5,20 @@ import IMDB from '../img/IMDB.jpg'
 import Metacritic from '../img/Metacritic.jpg'
 import RottenTomatoes from '../img/RottenTomatoes.png'
 import YoutubeTrailer from '../components/YoutubeTrailer';
+import { updateProfile } from '../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MovieScreen() {
     const params = useParams()
+    const dispatch = useDispatch();
+
     const [movieData, setMovieData] = useState();
     const [movieData2, setMovieData2] = useState();
     const [actors, setActors] = useState([]);
+    const [favortieMovies, setFavortieMovies] = useState([])
+    const [isFavorite, setIsFavorite] = useState(false)
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo } = userSignin;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,16 +48,25 @@ export default function MovieScreen() {
         fetchData()
     }, [movieData, params.id]);
 
+    useEffect(() => {
+        setFavortieMovies(userInfo.favortieMovies)
+    }, [userInfo])
 
-    // console.log('movieData', movieData);
-    // console.log('movieData2', movieData2);
-    // console.log('actors', actors.cast);
+    const addToFavorite = () => {
+        setFavortieMovies([...favortieMovies, movieData])
+        console.log('favortieMovies', favortieMovies);
+        dispatch(updateProfile({ favortieMovies }));
+    }
+    useEffect(() => {
+        favortieMovies.find(item => item.id === parseInt(params.id)) ? setIsFavorite(true) : setIsFavorite(false)
+    }, [favortieMovies, params])
+
     const urlLink = 'https://image.tmdb.org/t/p/original'
 
     return <div className='movieScreenContainer'>
         {
             movieData ? <div className='movieScreenContainer2'>
-                <div className='picture'><img src={movieData.backdrop_path ? urlLink + movieData.backdrop_path : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={movieData.original_title} /></div>
+                <div className='picture'><div className={`heart ${isFavorite ? 'heartFavorite' : ''}`} onClick={(ele) => addToFavorite(ele)}><i className="fa-solid fa-heart"></i></div><img src={movieData.backdrop_path ? urlLink + movieData.backdrop_path : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={movieData.original_title} /></div>
                 <div className='title'>{movieData.original_title} ({movieData2 ? (movieData2.Year) : ''}) </div>
                 <div className='genres'>{movieData2 ? <div>{movieData2.Genre} |{movieData2.Runtime}|</div> : ''}</div>
                 {movieData2 ? <div className='rating'>

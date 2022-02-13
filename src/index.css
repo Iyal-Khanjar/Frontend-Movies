@@ -264,8 +264,14 @@ img.small {
 	font-size: 12px;
 }
 .heart{
+	position: absolute;
+	z-index: 100;
+	cursor: pointer;
 	color: #ffffff;
 	font-size: 2rem;
+}
+.heartFavorite{
+	color: #eb0808;
 }
 .heart:hover{
 	color: #202020;
@@ -304,7 +310,22 @@ img.small {
 	box-shadow: 0 16px 36px 0 rgba(4, 0, 255, 0.2);
 	transform: scale(1.05);
 }
-
+/* Favorite */
+.movieFavoriteAndDelete{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.deleteFavorite{
+	opacity: 0.8;
+	color: #eb0808;
+	font-size: 4rem;
+}
+.deleteFavorite:hover{
+	color: #ff0404;
+cursor: pointer;
+}
 /* Movie Screen */
 .moviesTitle {
 	text-align: center;

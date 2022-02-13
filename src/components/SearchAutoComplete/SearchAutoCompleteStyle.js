@@ -28,6 +28,13 @@ export const SkContainer = styled.div`
   transition: all 0.3s;
   cursor: pointer;
 `;
+export const Search = styled.div`
+ position: relative;
+`;
+export const SearchResults = styled.div`
+ position: absolute;
+ z-index: 1;
+`;
 
 export const Img = styled.img`
   height: 5rem;

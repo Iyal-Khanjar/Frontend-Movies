@@ -8,6 +8,8 @@ import {
   Img,
   IconAndYearContainer,
   Input,
+  Search,
+  SearchResults
 } from "./SearchAutoCompleteStyle";
 import { Link, useNavigate } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -120,7 +122,7 @@ export const SearchAutoComplete = () => {
 
   
   return (
-    <div>
+    <Search >
       <Input
         value={searchLetters}
         type="text"
@@ -128,6 +130,8 @@ export const SearchAutoComplete = () => {
         placeholder="Find.."
         onKeyDown={handleKeyDown}
       />
+      <SearchResults>
+
       {searchLetters
         ? searchedData.map((ele) => {
             if (ele.known_for_department) {
@@ -216,6 +220,7 @@ export const SearchAutoComplete = () => {
             }
           })
         : ""}
-    </div>
+      </SearchResults>
+    </Search>
   );
 };
