@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../actions/userActions';
 import Card from '../components/Card';
 import LoadingBox from '../components/LoadingBox';
@@ -9,13 +10,15 @@ import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoC
 
 export default function MoviesScreen() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [moviesData, setMoviesData] = useState([]);
     const [pageCount, setPageCount] = useState(1);
-    const [favortieMovies, setFavortieMovies] = useState([])
-    const [isFavorite, setIsFavorite] = useState(false)
-
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
+    const [favortieMovies, setFavortieMovies] = useState(userInfo.favortieMovies)
+    const [isFavorite, setIsFavorite] = useState(false)
+
+ 
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
@@ -33,19 +36,25 @@ export default function MoviesScreen() {
     };
 
     useEffect(() => {
-        console.log('favortieMovies after refresh', favortieMovies);
-        setFavortieMovies(userInfo.favortieMovies)
-        console.log('favortieMovies after refresh2', favortieMovies);
+        if (userInfo) {
+            console.log('favortieMovies after refresh', favortieMovies);
+            setFavortieMovies(userInfo.favortieMovies)
+            console.log('favortieMovies after refresh2', favortieMovies);
+        }
     }, [])
 
     useEffect(() => {
         console.log('favortieMovies to update', favortieMovies);
         dispatch(updateProfile({ favortieMovies }));
-    }, [favortieMovies])
+    }, [dispatch, favortieMovies])
 
 
     const addToFavorite = (data) => {
-        // console.log('movie data', data.id);
+        if (!userInfo) {
+            alert('Please Sign In First')
+            navigate('/signin')
+        }
+
         const allIDSINFavoriteMovies = favortieMovies.map(item => {
             return item.id
         })
@@ -54,6 +63,8 @@ export default function MoviesScreen() {
         } else {
             setFavortieMovies([...favortieMovies, data])
         }
+
+
     }
 
 

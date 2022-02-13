@@ -9,10 +9,12 @@ function FavoriteMovies() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const [favortieMovies, setFavortieMovies] = useState([])
-    const isFavorite = true
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
+
+    const [favortieMovies, setFavortieMovies] = useState(userInfo.favortieMovies)
+    const isFavorite = true
+
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
@@ -20,7 +22,8 @@ function FavoriteMovies() {
         if (!userInfo) {
             navigate('/')
         }
-        setFavortieMovies(userInfo.favortieMovies)
+        console.log(userInfo.favortieMovies);
+        // setFavortieMovies(userInfo.favortieMovies)
     }, [])
 
 
