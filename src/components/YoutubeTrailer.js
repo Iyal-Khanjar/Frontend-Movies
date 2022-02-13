@@ -7,7 +7,7 @@ function YoutubeTrailer() {
     const params = useParams()
 
     const [movieData, setMovieData] = useState('');
-    const [trailer, setTrailer] = useState([]);
+    const [trailer, setTrailer] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,7 +16,7 @@ function YoutubeTrailer() {
         }
         fetchData()
     }, [params.id]);
-    // console.log('movieData', movieData);
+
     useEffect(() => {
         if (movieData) {
             const trailer = movieData.results.filter((trailer) => {
@@ -25,29 +25,28 @@ function YoutubeTrailer() {
             if (trailer.length > 0) {
                 setTrailer(trailer[0].key)
             }
-
         }
-
     }, [movieData])
 
 
 
     // console.log('trailer', trailer);
     return <div>
-        <YouTube videoId={trailer}
-        //    id={string}                       // defaults -> null
-        //    className={string}                // defaults -> null
-        //    containerClassName={string}       // defaults -> ''
-        //    title={string}                    // defaults -> null
-        //    opts={obj}                        // defaults -> {}
-        //    onReady={func}                    // defaults -> noop
-        //    onPlay={func}                     // defaults -> noop
-        //    onPause={func}                    // defaults -> noop
-        //    onEnd={func}                      // defaults -> noop
-        //    onError={func}                    // defaults -> noop
-        //    onStateChange={func}              // defaults -> noop
-        //    onPlaybackRateChange={func}       // defaults -> noop
-        //    onPlaybackQualityChange={func}    // defaults -> noop              
+        <YouTube
+            videoId={trailer}
+        // id={null}                       // defaults -> null
+        // className={null}                // defaults -> null
+        // containerClassName={''}       // defaults -> ''
+        // title={null}                    // defaults -> null
+        // opts={{}}                        // defaults -> {}
+        // onReady={''}                    // defaults -> noop
+        // onPlay={''}                     // defaults -> noop
+        // onPause={''}                    // defaults -> noop
+        // onEnd={''}                      // defaults -> noop
+        // onError={() => console.log('error')}                    // defaults -> noop
+        // onStateChange={''}              // defaults -> noop
+        // onPlaybackRateChange={''}       // defaults -> noop
+        // onPlaybackQualityChange={''}    // defaults -> noop              
         />
     </div>;
 }
