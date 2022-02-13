@@ -1,9 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useMemo,useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Card({ data, isMovie = true, urlLink, type, isFavorite, addToFavorite }) {
+export default function Card({ data, isMovie = true, urlLink, type, addToFavorite, isFavorite }) {
   const releaseYear = useMemo(() => data.release_date ? data.release_date?.substring(0, 4) : data.first_air_date?.substring(0, 4), [data])
 
+  // const [isFavorite, setIsFavorite] = useState(false)
+
+  // const handleClick = (e) => {
+  //   addToFavorite()
+  //   setIsFavorite(!setIsFavorite)
+  // }
   
   return (
     <div className="movie">

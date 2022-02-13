@@ -6,6 +6,7 @@ import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
 import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
+
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";

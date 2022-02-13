@@ -18,6 +18,23 @@ export const Container = styled.div`
     background-color: var(--primary-color-light);
   }
 `;
+export const SkContainer = styled.div`
+  background-color:grey; 
+  border-radius: 10px;
+  height:5rem;
+  width:20rem;
+  padding: 1rem;
+  border-bottom: 1px solid white;
+  transition: all 0.3s;
+  cursor: pointer;
+`;
+export const Search = styled.div`
+ position: relative;
+`;
+export const SearchResults = styled.div`
+ position: absolute;
+ z-index: 1;
+`;
 
 export const Img = styled.img`
   height: 5rem;

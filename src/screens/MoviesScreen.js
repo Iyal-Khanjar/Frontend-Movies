@@ -8,6 +8,9 @@ import LoadingBox from '../components/LoadingBox';
 import Paginate from '../components/Paginate';
 import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
+
+let moviesArr = [];
+
 export default function MoviesScreen() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -21,7 +24,6 @@ export default function MoviesScreen() {
 
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
-
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US&sort_by=popularity.desc&page=${pageCount}`);
@@ -89,6 +91,11 @@ export default function MoviesScreen() {
         }
     }, [favortieMovies, moviesData])
     return <div>
+        {favortieMovies.map(ele=>{
+            return (
+                <div className='sssss'>ele.id</div>
+            )
+        })}
         <SearchAutoComplete />
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
