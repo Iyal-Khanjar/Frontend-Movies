@@ -8,9 +8,6 @@ import LoadingBox from '../components/LoadingBox';
 import Paginate from '../components/Paginate';
 import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
-
-let moviesArr = [];
-
 export default function MoviesScreen() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -19,9 +16,6 @@ export default function MoviesScreen() {
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
     const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
-    const [isFavorite, setIsFavorite] = useState(false)
-
-
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
     useEffect(() => {
@@ -38,27 +32,20 @@ export default function MoviesScreen() {
     };
 
     useEffect(() => {
-        if (userInfo) {
-            console.log('favortieMovies after refresh', favortieMovies);
-            setFavortieMovies(userInfo.favortieMovies)
-            console.log('favortieMovies after refresh2', favortieMovies);
-        }
+        userInfo && setFavortieMovies(userInfo.favortieMovies)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if (userInfo) {
-            console.log('favortieMovies to update', favortieMovies);
-            dispatch(updateProfile({ favortieMovies }));
-        }
+        userInfo && dispatch(updateProfile({ favortieMovies }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, favortieMovies])
-
 
     const addToFavorite = (data) => {
         if (!userInfo) {
             alert('Please Sign In First')
             navigate('/signin')
         }
-
         const allIDSINFavoriteMovies = favortieMovies.map(item => {
             return item.id
         })
@@ -66,36 +53,12 @@ export default function MoviesScreen() {
             alert('it is already in your favorite')
         } else {
             setFavortieMovies([...favortieMovies, data])
+            let element = document.querySelector(`#a${data.id}`)
+            element.classList.add('heartFavorite');
         }
-
-
     }
 
-
-
-    useEffect(() => {
-        // console.log('favoriteMovies', favortieMovies);
-        const allIDSINFavoriteMovies = favortieMovies.map(item => {
-            return item.id
-        })
-        // console.log('allIDSINFavoriteMovies', allIDSINFavoriteMovies);
-        const allIDSINMoviesData = moviesData.map(item => {
-            return item.id
-        })
-        // console.log('allIDSINMoviesData', allIDSINMoviesData);
-        const found = allIDSINFavoriteMovies.some(r => allIDSINMoviesData.includes(r))
-        if (found) {
-            setIsFavorite(true)
-        } else {
-            setIsFavorite(false)
-        }
-    }, [favortieMovies, moviesData])
     return <div>
-        {favortieMovies.map(ele=>{
-            return (
-                <div className='sssss'>ele.id</div>
-            )
-        })}
         <SearchAutoComplete />
         <h1 className='moviesTitle'>Movies</h1>
         <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
@@ -106,7 +69,7 @@ export default function MoviesScreen() {
             moviesData ? <div className="movie-tv-container">
                 {moviesData.map((ele) => {
                     return (
-                        <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" isFavorite={isFavorite} addToFavorite={() => addToFavorite(ele)} />
+                        <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" addToFavorite={() => addToFavorite(ele)} />
                     );
                 })}
             </div> : <LoadingBox />
