@@ -69,7 +69,6 @@ export default function MovieScreen() {
                             <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                             <Slider>
                                 <div className="movie-tv-container">
-
                                     {movieData && movieData2 && actors && actors.cast && actors.cast.map(person => {
                                         return (
                                             <Link to={`/moviesbyactor/${person.id}`} className='actorNameAndPic' key={person.id}>
