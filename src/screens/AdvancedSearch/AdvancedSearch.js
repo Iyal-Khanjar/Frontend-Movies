@@ -6,11 +6,14 @@ import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
 import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
+
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";
 const moviesSearchUrl = `${url}/discover/movie`;
 const tvShowsUrl = `${url}/discover/tv`;
+const movieQueryUrl = `${url}/search/movie`;
+const tvShowsQueryUrl = `${url}/search/tv`;
 
 function AdvancedSearch() {
   const [fromYear, setFromYear] = useState("");
@@ -28,6 +31,7 @@ function AdvancedSearch() {
   const [showType, setShowType] = useState("N/A");
   const [fetcedData, setFetchedData] = useState([]);
   const [pageCount, setPageCount] = useState(1);
+  const [query, setQuery] = useState('');
 
   const voteCounts = [
     20000, 15000, 10000, 9000, 8000, 7000, 6000, 5000, 4000, 3000, 2000, 1000,
@@ -107,7 +111,7 @@ function AdvancedSearch() {
       }
     };
     getGenres();
-  }, []);
+  }, [pageCount]);
 
   const handleOnChange = (e) => {
     const type = e.target.getAttribute("name");
@@ -144,55 +148,96 @@ function AdvancedSearch() {
   };
 
   const handleNameSearch = (e) => {
-    
+    setQuery(e.target.value)
   }
 
 
   
   const getSearchDate = async () => {
     if (searchFor === "movie") {
-      try {
-        //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
-        const response = await axios.get(moviesSearchUrl, {
-          params: {
-            api_key: apiKey,
-            language: "en_US",
-            sort_by: "popularity.desc",
-            include_adult: false,
-            include_video: false,
-            "primary_release_date.gte": fromYearInfo,
-            "primary_release_date.lte": toYearInfo,
-            "vote_count.gte": voteCountInfo,
-            "vote_average.gte": ratingInfo,
-            with_genres: genresInfo,
-            with_watch_monetization_types: "flatrate",
-            page: pageCount,
-          },
-        });
+      if(query===''){
+        try {
+          //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
+          const response = await axios.get(moviesSearchUrl, {
+            params: {
+              api_key: apiKey,
+              language: "en_US",
+              sort_by: "popularity.desc",
+              include_adult: false,
+              include_video: false,
+              "primary_release_date.gte": fromYearInfo,
+              "primary_release_date.lte": toYearInfo,
+              "vote_count.gte": voteCountInfo,
+              "vote_average.gte": ratingInfo,
+              with_genres: genresInfo,
+              with_watch_monetization_types: "flatrate",
+              page: pageCount,
+            },
+          });
+  
+          setFetchedData(response.data.results);
+        } catch (error) {
+          console.log("search data error: ", error);
+        }
+      } else {
+       
+        try {
+          const response = await axios.get(movieQueryUrl, {
+            params: {
+              api_key: apiKey,
+              language: "en_US",
+              query: query,
+              include_adult: false,
+              page: pageCount,
+              year:fromYearInfo
+            },
+          });
+  
+          setFetchedData(response.data.results);
+        } catch (error) {
+          console.log("search data error: ", error);
+        }
 
-        setFetchedData(response.data.results);
-      } catch (error) {
-        console.log("search data error: ", error);
       }
-    } else if (searchFor === "tvshow") {
-      try {
-        const response = await axios.get(tvShowsUrl, {
-          params: {
-            api_key: apiKey,
-            language: "en_US",
-            sort_by: "popularity.desc",
-            first_air_date_year: fromYearInfo,
-            page: pageCount,
-            with_status: showStatus,
-            with_type: showType,
-          },
-        });
-
-        setFetchedData(response.data.results);
-        console.log('tv',response.data.results);
-      } catch (error) {
-        console.log("search data error: ", error);
-      }
+    }
+     else if (searchFor === "tvshow") {
+       if (query===''){
+         try {
+           const response = await axios.get(tvShowsUrl, {
+             params: {
+               api_key: apiKey,
+               language: "en_US",
+               sort_by: "popularity.desc",
+               first_air_date_year: fromYearInfo,
+               page: pageCount,
+               with_status: showStatus,
+               with_type: showType,
+             },
+           });
+   
+           setFetchedData(response.data.results);
+           console.log('tv',response.data.results);
+         } catch (error) {
+           console.log("search data error: ", error);
+         }
+       } else {
+        try {
+          const response = await axios.get(tvShowsQueryUrl, {
+            params: {
+              api_key: apiKey,
+              language: "en_US",
+              query: query,
+              include_adult: false,
+              page: pageCount,
+              first_air_date_year:fromYearInfo
+            },
+          });
+  
+          setFetchedData(response.data.results);
+        } catch (error) {
+          console.log("search data error: ", error);
+        }
+       }
     }
   };
   const handleSubmit = (e) => {
@@ -219,8 +264,11 @@ function AdvancedSearch() {
       {searchFor === "N/A" ? (
         ""
       ) : searchFor === "movie" ? (
+        
         <MovieAdvanced
+          query={query}
           handleOnChange={handleOnChange}
+          handleNameSearch={handleNameSearch}
           fromYear={fromYear}
           toYear={toYear}
           rating={rating}
@@ -235,7 +283,9 @@ function AdvancedSearch() {
         />
       ) : (
         <TvShowsAdvanced
+          query={query}
           handleOnChange={handleOnChange}
+          handleNameSearch={handleNameSearch}
           fromYear={fromYear}
           rating={rating}
           voteCount={voteCount}

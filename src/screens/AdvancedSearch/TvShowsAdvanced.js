@@ -6,7 +6,7 @@ export const TvShowsAdvanced = ({
   fromYear,
   rating,
   voteCount,
-  
+  query,
   handleSubmit,
   
 }) => {
@@ -16,7 +16,7 @@ export const TvShowsAdvanced = ({
       <div>
             <SearchInput
               name="name-search"
-              placeholder="Tv-Show Name"
+              placeholder="Tv-Show Name (optinal)"
               onChange={handleNameSearch}
             >
             </SearchInput>
@@ -33,6 +33,9 @@ export const TvShowsAdvanced = ({
             {fromYear && fromYear.map((year) => year)}
           </AdvancedSearchSelect>
         </div>
+        {
+          query===''? 
+          <>
         <div>
           <AdvancedSearchSelect name="show-status" onChange={handleOnChange}>
             <option value="Status">Status</option>
@@ -82,6 +85,9 @@ export const TvShowsAdvanced = ({
             {voteCount && voteCount.map((vote) => vote)}
           </AdvancedSearchSelect>
         </div>
+
+          </> : ''
+        }
 
       </FillterSearch>
 
