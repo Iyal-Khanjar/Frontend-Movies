@@ -5,6 +5,7 @@ import Paginate from "../../components/Paginate";
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
 import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import { ActorsAdvanced } from "./ActorsAdvanced";
 
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
@@ -14,6 +15,7 @@ const moviesSearchUrl = `${url}/discover/movie`;
 const tvShowsUrl = `${url}/discover/tv`;
 const movieQueryUrl = `${url}/search/movie`;
 const tvShowsQueryUrl = `${url}/search/tv`;
+const personQueryUrl = `${url}/search/person`;
 
 function AdvancedSearch() {
   const [fromYear, setFromYear] = useState("");
@@ -200,7 +202,7 @@ function AdvancedSearch() {
 
       }
     }
-     else if (searchFor === "tvshow") {
+      else if (searchFor === "tvshow") {
        if (query===''){
          try {
            const response = await axios.get(tvShowsUrl, {
@@ -239,7 +241,28 @@ function AdvancedSearch() {
         }
        }
     }
+     else if (searchFor === "actors") {
+         try {
+      
+           const response = await axios.get(personQueryUrl, {
+             params: {
+               api_key: apiKey,
+               language: "en_US",
+               include_adult: false,
+               query:query,
+               page: pageCount,
+               
+             },
+           });
+   
+           setFetchedData(response.data.results);
+           console.log('tv',response.data.results);
+         } catch (error) {
+           console.log("search data error: ", error);
+         }
   };
+}
+
   const handleSubmit = (e) => {
     e.preventDefault();
     getSearchDate();
@@ -250,7 +273,7 @@ function AdvancedSearch() {
     setPageCount(nextPage)
     getSearchDate()
 };
-
+  
   return (
     <AdvancedSearchDiv>
       <h1>Advanced Search</h1>
@@ -259,6 +282,7 @@ function AdvancedSearch() {
           <option value="Search For">Search For</option>
           <option value="movie">Movies</option>
           <option value="tvshow">Tv Shows</option>
+          <option value="actors">Actors</option>
         </AdvancedSearchSelect>
       </div>
       {searchFor === "N/A" ? (
@@ -281,7 +305,7 @@ function AdvancedSearch() {
           genresInfo={genresInfo}
           fromYearInfo={fromYearInfo}
         />
-      ) : (
+      ) :  searchFor ==='tvshow' ?(
         <TvShowsAdvanced
           query={query}
           handleOnChange={handleOnChange}
@@ -298,7 +322,16 @@ function AdvancedSearch() {
           fromYearInfo={fromYearInfo}
           showType={showType}
         />
-      )}
+      ) : 
+       
+         <ActorsAdvanced
+          query={query}
+          handleNameSearch={handleNameSearch}
+          handleSubmit={handleSubmit}
+          />
+       
+      }
+      
       <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
       <SearchContainer>
         {fetcedData.map((ele) => {
