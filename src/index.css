@@ -216,6 +216,13 @@ img.small {
 	width: 100%;
 }
 /* Movies Screen */
+.movieScreenContainer {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 .movie-tv-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -258,6 +265,7 @@ img.small {
 .movie img {
 	object-fit: cover;
 	width: 23rem;
+	height: 85.8%;
 	border-top-right-radius: 15px;
 	border-top-left-radius: 15px;
 }
@@ -334,13 +342,6 @@ img.small {
 .moviesTitle {
 	text-align: center;
 }
-.movieScreenContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: #000000;
-}
 .movieScreenContainer2 {
 	margin: 0 10rem;
 	margin-top: 1rem;
@@ -348,14 +349,16 @@ img.small {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #f4f5f4;
+	color: #ffffff;
+	background-color: #000000;
 }
 .picture img {
 	max-height: 30rem;
-	width: 100%;
+	max-width: 100%;
 	opacity: 0.8px;
 }
 .overView {
+	text-align: center;
 	margin: 2rem 1rem;
 }
 .rating {
@@ -375,7 +378,7 @@ img.small {
 	margin-left: 0.5rem;
 }
 .border {
-	border-top: black 3px solid;
+	border-top: rgb(255, 255, 255) 3px solid;
 	width: 100%;
 	margin-bottom: 1rem;
 }
@@ -385,19 +388,40 @@ img.small {
 .actorsName {
 	display: flex;
 }
-.actorNameAndPic {
-	display: flex;
-	flex-direction: column;
-	margin: 0.5rem;
-	width: 15rem;
-	background-color: #eb0808;
-	justify-content: center;
-	align-items: center;
-	padding: 1rem;
+.actorNameAndPic:hover {
+	background-color: #0b8ba1;
 }
 .actorNameAndPic img {
+	margin-bottom: 1rem;
+	border-radius: 2rem;
 	width: 10rem;
 	height: 10rem;
+	color: #061f24;
+}
+/* Movies By Actor */
+.movieByActor {
+	/* margin: 0 10rem; */
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #ffffff;
+}
+.moviesInActorPage {
+	display: flex;
+}
+.movieByActorNameAndImg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+.movieByActorNameAndImg img {
+	border-radius: 5rem;
+	margin-left: 1.5rem;
+	height: 15rem;
+	width: 15rem;
 }
 /* Tv Shows */
 .tvShowsTitle {
@@ -405,12 +429,13 @@ img.small {
 }
 /* ReactPaginate */
 .paginationBttns {
-	margin-left: 8rem;
+	/* margin-left: 8rem; */
 	max-width: 80vw;
 	height: 40px;
 	list-style: none;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 .paginationBttns a {
 	padding: 10px;
