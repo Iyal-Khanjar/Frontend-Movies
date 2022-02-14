@@ -4,7 +4,6 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import axios from 'axios';
 import Card from '../components/Card';
 import { HomeContainer, Carousel } from './HomeScreen.styles';
-import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
 function HomeScreen() {
     const [movies, setMovie] = useState([])

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import Paginate from "../../components/Paginate";
+import Paginate from '../../components/Pagination/Paginate';
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
 import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'

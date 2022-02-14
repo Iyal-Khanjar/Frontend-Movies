@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../actions/userActions';
 import Card from '../components/Card';
 import LoadingBox from '../components/LoadingBox';
-import Paginate from '../components/Paginate';
+import Paginate from '../components/Pagination/Paginate';
 import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
 export default function MoviesScreen() {
@@ -50,7 +50,7 @@ export default function MoviesScreen() {
             return item.id
         })
         if (allIDSINFavoriteMovies.includes(data.id)) {
-            alert('it is already in your favorite')
+            alert('It Is Already In Your Favorites')
         } else {
             setFavortieMovies([...favortieMovies, data])
             let element = document.querySelector(`#a${data.id}`)
@@ -61,7 +61,7 @@ export default function MoviesScreen() {
     return <div>
         <SearchAutoComplete />
         <h1 className='moviesTitle'>Movies</h1>
-        <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
+        <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
         {
             !moviesData && <LoadingBox />
         }
