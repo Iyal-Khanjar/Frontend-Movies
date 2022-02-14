@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import Paginate from "../../components/Paginate";
+import Paginate from '../../components/Pagination/Paginate';
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
-import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import { SearchContainer, AdvancedSearchSelect, AdvancedSearchDiv } from './AdvancedSerch.styles'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from "../../actions/userActions";
+
 
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
@@ -13,6 +17,8 @@ const moviesSearchUrl = `${url}/discover/movie`;
 const tvShowsUrl = `${url}/discover/tv`;
 
 function AdvancedSearch() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [fromYear, setFromYear] = useState("");
   const [toYear, setToYear] = useState("");
   const [rating, setRating] = useState("");
@@ -28,7 +34,9 @@ function AdvancedSearch() {
   const [showType, setShowType] = useState("N/A");
   const [fetcedData, setFetchedData] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
   const voteCounts = [
     20000, 15000, 10000, 9000, 8000, 7000, 6000, 5000, 4000, 3000, 2000, 1000,
     500, 100,
@@ -182,7 +190,7 @@ function AdvancedSearch() {
         });
 
         setFetchedData(response.data.results);
-        console.log('tv',response.data.results);
+        console.log('tv', response.data.results);
       } catch (error) {
         console.log("search data error: ", error);
       }
@@ -193,12 +201,36 @@ function AdvancedSearch() {
     getSearchDate();
   };
 
-  const handlePageClick = (e) => {
-    const nextPage = e.selected + 1
-    setPageCount(nextPage)
-    getSearchDate()
-};
+  // const handlePageClick = (e) => {
+  //   const nextPage = e.selected + 1
+  //   setPageCount(nextPage)
+  //   getSearchDate()
+  // };
+  useEffect(() => {
+    userInfo && setFavortieMovies(userInfo.favortieMovies)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
+useEffect(() => {
+    userInfo && dispatch(updateProfile({ favortieMovies }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [dispatch, favortieMovies])
+  const addToFavorite = (data) => {
+    if (!userInfo) {
+        alert('Please Sign In First')
+        navigate('/signin')
+    }
+    const allIDSINFavoriteMovies = favortieMovies.map(item => {
+        return item.id
+    })
+    if (allIDSINFavoriteMovies.includes(data.id)) {
+        alert('It Is Already In Your Favorites')
+    } else {
+        setFavortieMovies([...favortieMovies, data])
+        let element = document.querySelector(`#a${data.id}`)
+        element.classList.add('heartFavorite');
+    }
+}
   return (
     <AdvancedSearchDiv>
       <h1>Advanced Search</h1>
@@ -242,10 +274,12 @@ function AdvancedSearch() {
           showType={showType}
         />
       )}
-      <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
+      {/* <Paginate handlePageClick={handlePageClick} pageCount={pageCount} /> */}
       <SearchContainer>
         {fetcedData.map((ele) => {
-          return <Card data={ele} urlLink={imageUrl} type={searchFor} />;
+          return (
+            <Card data={ele} urlLink={imageUrl} key={ele.id} type={searchFor} addToFavorite={() => addToFavorite(ele)} />
+          );
         })}
       </SearchContainer>
     </AdvancedSearchDiv>

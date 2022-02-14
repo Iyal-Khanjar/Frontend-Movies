@@ -55,10 +55,13 @@ export const ActorPlace = styled.div`
 	left:10px;
 `
 
-export const Carousel =styled.div`
+export const Carousel = styled.div`
     box-sizing: border-box;
 	overflow: hidden;
 	height: 50rem;
 	margin-left:70px;
 	position: relative;
-`
+`;
+
+
+

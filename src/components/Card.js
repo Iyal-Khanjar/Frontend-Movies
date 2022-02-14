@@ -1,13 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export default function Card({ data, isMovie = true, urlLink, type, isFavorite, addToFavorite }) {
+export default function Card({ data, urlLink, type, addToFavorite }) {
   const releaseYear = useMemo(() => data.release_date ? data.release_date?.substring(0, 4) : data.first_air_date?.substring(0, 4), [data])
 
-  
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const [favortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
+
+  useEffect(() => {
+    const allIDSINFavoriteMovies = favortieMovies.map(item => {
+      return item.id
+    })
+    if (allIDSINFavoriteMovies.includes(data.id)) {
+      data.favorite = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className="movie">
-
       <div className="flip-card-front">
         <div className="card-movie-header-chip vote-avg"><i className="fas fa-star"></i> {data.vote_average}</div>
         <div className="card-movie-header-chip movie-year">{releaseYear}</div>
@@ -16,7 +29,7 @@ export default function Card({ data, isMovie = true, urlLink, type, isFavorite, 
         </Link>
         <div className="movie-info">
           <div><h3>{data.title ? data?.title : data?.name}</h3></div>
-          <div className={`heart ${isFavorite ? 'heartFavorite' : ''}`} onClick={addToFavorite}><i className="fa-solid fa-heart"></i></div>
+          <div id={`a${data.id}`} className={`heart ${data.favorite ? 'heartFavorite' : ''}`} onClick={addToFavorite}><i className="fa-solid fa-heart"></i></div>
         </div>
       </div >
     </div >
