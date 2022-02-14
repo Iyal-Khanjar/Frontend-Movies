@@ -9,8 +9,11 @@ import { ActorsAdvanced } from "./ActorsAdvanced";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../../actions/userActions";
+import { LoadMore } from "../../components/LoadMore/LoadMore";
 
-
+let moviesArr = [];
+let tvsArr = [];
+let actorsArr = [];
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";
@@ -37,8 +40,9 @@ function AdvancedSearch() {
   const [showStatus, setShowStatus] = useState("N/A");
   const [showType, setShowType] = useState("N/A");
   const [fetcedData, setFetchedData] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
   const [query, setQuery] = useState('');
+  let [pageCount, setPageCount] = useState(1);
+  
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -162,9 +166,16 @@ function AdvancedSearch() {
   }
 
 
+  useEffect(() => {
+    getSearchDate()
+  },[pageCount])
+
   
   const getSearchDate = async () => {
+    
     if (searchFor === "movie") {
+        tvsArr = [];
+        actorsArr = [];
       if(query===''){
         try {
           //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
@@ -184,8 +195,10 @@ function AdvancedSearch() {
               page: pageCount,
             },
           });
-  
-          setFetchedData(response.data.results);
+          
+
+          moviesArr.push(...response.data.results)
+          setFetchedData(moviesArr);
         } catch (error) {
           console.log("search data error: ", error);
         }
@@ -203,34 +216,18 @@ function AdvancedSearch() {
             },
           });
   
-          setFetchedData(response.data.results);
+          moviesArr.push(...response.data.results)
+          setFetchedData(moviesArr);
         } catch (error) {
           console.log("search data error: ", error);
         }
 
     }
   }
-     else if (searchFor === "tvshow") {
-      try {
-        const response = await axios.get(tvShowsUrl, {
-          params: {
-            api_key: apiKey,
-            language: "en_US",
-            sort_by: "popularity.desc",
-            first_air_date_year: fromYearInfo,
-            page: pageCount,
-            with_status: showStatus,
-            with_type: showType,
-          },
-        });
-
-        setFetchedData(response.data.results);
-        console.log('tv', response.data.results);
-      } catch (error) {
-        console.log("search data error: ", error);
-      }
-    }
+     
       else if (searchFor === "tvshow") {
+        actorsArr= [];
+        moviesArr = [];
        if (query===''){
          try {
            const response = await axios.get(tvShowsUrl, {
@@ -245,8 +242,8 @@ function AdvancedSearch() {
              },
            });
    
-           setFetchedData(response.data.results);
-           console.log('tv',response.data.results);
+           tvsArr.push(...response.data.results)
+           setFetchedData(tvsArr);
          } catch (error) {
            console.log("search data error: ", error);
          }
@@ -263,13 +260,16 @@ function AdvancedSearch() {
             },
           });
   
-          setFetchedData(response.data.results);
+          tvsArr.push(...response.data.results)
+          setFetchedData(tvsArr);
         } catch (error) {
           console.log("search data error: ", error);
         }
        }
     }
      else if (searchFor === "actors") {
+       moviesArr = [];
+       tvsArr = [];
          try {
       
            const response = await axios.get(personQueryUrl, {
@@ -283,8 +283,9 @@ function AdvancedSearch() {
              },
            });
    
-           setFetchedData(response.data.results);
-           console.log('tv',response.data.results);
+           actorsArr.push(...response.data.results)
+          setFetchedData(actorsArr);
+           
          } catch (error) {
            console.log("search data error: ", error);
          }
@@ -301,6 +302,11 @@ function AdvancedSearch() {
     setPageCount(nextPage)
     getSearchDate()
 };
+
+const handleLoadMore =() => {
+  setPageCount(pageCount+=1)
+  
+}
   
   // const handlePageClick = (e) => {
   //   const nextPage = e.selected + 1
@@ -381,12 +387,17 @@ useEffect(() => {
           showType={showType}
         />
       ) : 
-       
+      <>
+
          <ActorsAdvanced
           query={query}
           handleNameSearch={handleNameSearch}
           handleSubmit={handleSubmit}
           />
+          <img src='../img/Best-Actors-in-the-World.jpg' style={{width:300, height:300}} />
+      </>
+       
+      
        
       }
       
@@ -397,7 +408,9 @@ useEffect(() => {
             <Card data={ele} urlLink={imageUrl} key={ele.id} type={searchFor} addToFavorite={() => addToFavorite(ele)} />
           );
         })}
+        
       </SearchContainer>
+      <LoadMore handleLoadMore={handleLoadMore} />
     </AdvancedSearchDiv>
   );
 }
