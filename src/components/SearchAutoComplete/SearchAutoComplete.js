@@ -120,6 +120,10 @@ export const SearchAutoComplete = () => {
     }
   };
 
+  const handleFocusOut = () => {
+    setSearchedData([])
+  }
+
   
   return (
     <Search >
@@ -129,6 +133,7 @@ export const SearchAutoComplete = () => {
         onChange={handleChange}
         placeholder="Find.."
         onKeyDown={handleKeyDown}
+        onBlur={handleFocusOut}
       />
       <SearchResults>
 
