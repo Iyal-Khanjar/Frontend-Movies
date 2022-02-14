@@ -29,6 +29,7 @@ export default function MovieScreen() {
             if (movieData) {
                 const response = await axios.get(`https://www.omdbapi.com/?i=${movieData.imdb_id}&apikey=1d3a0c3d`)
                 setMovieData2(response.data);
+                console.log(response.data.Response);
             }
         }
         fetchData()
@@ -54,7 +55,9 @@ export default function MovieScreen() {
                 <div className='genres'>{movieData2 ? <div>{movieData2.Genre} |{movieData2.Runtime}|</div> : ''}</div>
                 {movieData2 &&
                     <div className='rating'>
-                        <Rating movieData2={movieData2} IMDB={IMDB} Metacritic={Metacritic} RottenTomatoes={RottenTomatoes} />
+                        {
+                            !movieData2.Response && <Rating movieData2={movieData2} IMDB={IMDB} Metacritic={Metacritic} RottenTomatoes={RottenTomatoes} />
+                        }
                     </div>
                 }
                 <div className='overView'>"{movieData.overview}"</div>

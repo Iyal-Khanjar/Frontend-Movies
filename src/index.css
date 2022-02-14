@@ -265,6 +265,7 @@ img.small {
 .movie img {
 	object-fit: cover;
 	width: 23rem;
+	height: 85.8%;
 	border-top-right-radius: 15px;
 	border-top-left-radius: 15px;
 }
