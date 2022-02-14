@@ -6,7 +6,9 @@ function PaginateUnknowLength(props) {
         <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
+            breakLabel='...'
             pageCount={props.pageCount}
+            marginPagesDisplayed={props.marginPagesDisplayed}
             onPageChange={props.handlePageClick}
             containerClassName={"paginationBttns"}
             previousLinkClassName={"previousBttn"}

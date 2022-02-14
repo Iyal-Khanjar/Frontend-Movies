@@ -58,21 +58,20 @@ export default function MoviesScreen() {
         }
     }
 
-    return <div>
-        <SearchAutoComplete />
-        <h1 className='moviesTitle'>Movies</h1>
-        <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
-        {
-            !moviesData && <LoadingBox />
-        }
-        {
-            moviesData ? <div className="movie-tv-container">
+    return (
+        <><SearchAutoComplete /><div className='movieScreenContainer'>
+
+            <h1 className='moviesTitle'>Movies</h1>
+            <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
+            {!moviesData && <LoadingBox />}
+            {moviesData ? <div className="movie-tv-container">
                 {moviesData.map((ele) => {
                     return (
                         <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" addToFavorite={() => addToFavorite(ele)} />
                     );
                 })}
-            </div> : <LoadingBox />
-        }
-    </div>;
+            </div> : <LoadingBox />}
+        </div>
+        </>
+    )
 }

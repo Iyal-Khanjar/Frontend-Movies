@@ -40,6 +40,7 @@ function MoviesByActor() {
         const fetchData2 = async () => {
             const response = await axios.get(`https://api.themoviedb.org/3/person/${params.id}?api_key=9a1f04c191537cfcad233a5ab151487b&language=en-US`)
             setActorData(response.data);
+            console.log(response.data);
         }
         fetchData2()
     }, [params.id]);
@@ -72,8 +73,11 @@ function MoviesByActor() {
         }
     }
     return <div className='movieByActor'>
-        <h1>Movies By {actorData?.name}</h1>
-        <PaginateUnknowLength pageCount={pageCount} handlePageClick={handlePageClick} />
+        <div className='movieByActorNameAndImg'>
+            <h1>Movies By {actorData?.name} </h1>
+            <img src={imageUrl + actorData?.profile_path} alt={actorData?.name}></img>
+        </div>
+        <PaginateUnknowLength pageCount={pageCount} handlePageClick={handlePageClick} marginPagesDisplayed={4} />
         <div className='moviesInActorPage'>
             {moviesData?.slice(pagesVisited, pagesVisited + moviePerPage).map((ele) => {
                 return (
