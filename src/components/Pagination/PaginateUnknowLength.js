@@ -1,23 +1,21 @@
-import React from 'react';
-import ReactPaginate from 'react-paginate';
+import React from 'react'
+import ReactPaginate from 'react-paginate'
 
-function Paginate(props) {
+function PaginateUnknowLength(props) {
     return <div>
         <ReactPaginate
-            previousLabel="<< Previous"
-            nextLabel='Next >>'
-            breakLabel='...'
-            pageCount={500}
-            marginPagesDisplayed={4}
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={props.pageCount}
             onPageChange={props.handlePageClick}
-            forcePage={props.pageCount - 1}
             containerClassName={"paginationBttns"}
             previousLinkClassName={"previousBttn"}
             nextLinkClassName={"nextBttn"}
             disabledClassName={"paginationDisabled"}
             activeClassName={"paginationActive"}
         />
-    </div>;
+    </div>
+
 }
 
-export default Paginate;
+export default PaginateUnknowLength
