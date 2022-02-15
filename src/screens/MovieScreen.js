@@ -20,6 +20,7 @@ export default function MovieScreen() {
         const fetchData = async () => {
             const response = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US`)
             setMovieData(response.data);
+            console.log(response.data);
         }
         fetchData()
     }, [params.id]);

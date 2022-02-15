@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-// import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import Card from '../components/Card';
 import { HomeContainer, Carousel, IdbmTopButton, IdbmTop, IdbmTopHeader, IdbmTopBody, ActorImg, ActorCard } from './HomeScreen.styles';
-import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
+
 
 const memo = callback => {
     const cache = new Map();
@@ -67,7 +66,7 @@ function HomeScreen() {
     useEffect(() => {
         setLoading(true)
         if (type) {
-          memoizedAxiosGet(`http://localhost:5000/api/users/${type}`)
+          memoizedAxiosGet(`/api/users/${type}`)
             .then(response => {
               setData(response.data);
               setLoading(false)
@@ -109,7 +108,7 @@ function HomeScreen() {
                 </IdbmTopHeader>
                 <IdbmTopBody>
                     <button onClick={handlePrev}>{'<'}</button>
-                    {!loading ? <a href={data[index].link} target='_blank'><ActorCard><ActorImg src={data[index]?.imgUrl}/><ActorCard>{index+1}</ActorCard><span>{data[index]?.name}</span></ActorCard></a> :'loading'}
+                    {!loading ? <a href={data[index].link} target='_blank' rel="noreferrer"><ActorCard><ActorImg src={data[index]?.imgUrl}/><ActorCard>{index+1}</ActorCard><span>{data[index]?.name}</span></ActorCard></a> :'loading'}
                     <button onClick={handleNext}>{'>'}</button>
                 </IdbmTopBody>
             </IdbmTop>

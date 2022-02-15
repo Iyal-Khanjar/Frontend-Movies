@@ -22,8 +22,7 @@ function FavoriteMovies() {
         if (!userInfo) {
             navigate('/')
         }
-        console.log(userInfo.favortieMovies);
-        // setFavortieMovies(userInfo.favortieMovies)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -37,6 +36,7 @@ function FavoriteMovies() {
     useEffect(() => {
         console.log('fillter after', favortieMovies);
         dispatch(updateProfile({ favortieMovies }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [favortieMovies])
 
     return <div>
