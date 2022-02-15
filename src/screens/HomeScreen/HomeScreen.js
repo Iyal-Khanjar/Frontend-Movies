@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
-import Card from '../components/Card';
+import Card from '../../components/Card';
 import { HomeContainer, Carousel } from './HomeScreen.styles';
-import useWindowDimensions from '../components/useWindowDimensions';
+import useWindowDimensions from '../../components/useWindowDimensions';
 
 function HomeScreen() {
     const { width } = useWindowDimensions()
@@ -41,7 +41,7 @@ function HomeScreen() {
                     }
                 })
                 setMovie(response.data.results);
-                // console.log(response.data.results);
+                console.log(response.data.results);
             } catch (error) {
                 console.log('fetching now playing movie data error', error);
             }

@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import Paginate from '../../components/Pagination/Paginate';
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
 import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
@@ -128,6 +128,11 @@ function AdvancedSearch() {
   }, [pageCount]);
 
   const handleOnChange = (e) => {
+    moviesArr = [];
+       tvsArr = [];
+       actorsArr = [];
+       setQuery('')
+       setFetchedData([])
     const type = e.target.getAttribute("name");
     const value = e.target.value;
 
@@ -174,8 +179,7 @@ function AdvancedSearch() {
   const getSearchDate = async () => {
     
     if (searchFor === "movie") {
-        tvsArr = [];
-        actorsArr = [];
+        
       if(query===''){
         try {
           //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
@@ -198,6 +202,7 @@ function AdvancedSearch() {
           
 
           moviesArr.push(...response.data.results)
+          console.log('movies  search1', response.data.results);
           setFetchedData(moviesArr);
         } catch (error) {
           console.log("search data error: ", error);
@@ -218,6 +223,7 @@ function AdvancedSearch() {
   
           moviesArr.push(...response.data.results)
           setFetchedData(moviesArr);
+          console.log('movies  search', response.data.results);
         } catch (error) {
           console.log("search data error: ", error);
         }
@@ -226,8 +232,7 @@ function AdvancedSearch() {
   }
      
       else if (searchFor === "tvshow") {
-        actorsArr= [];
-        moviesArr = [];
+        
        if (query===''){
          try {
            const response = await axios.get(tvShowsUrl, {
@@ -267,9 +272,8 @@ function AdvancedSearch() {
         }
        }
     }
-     else if (searchFor === "actors") {
-       moviesArr = [];
-       tvsArr = [];
+     else if (searchFor === "moviesbyactor") {
+       
          try {
       
            const response = await axios.get(personQueryUrl, {
@@ -284,6 +288,7 @@ function AdvancedSearch() {
            });
    
            actorsArr.push(...response.data.results)
+           console.log(actorsArr);
           setFetchedData(actorsArr);
            
          } catch (error) {
@@ -297,11 +302,11 @@ function AdvancedSearch() {
     getSearchDate();
   };
 
-  const handlePageClick = (e) => {
-    const nextPage = e.selected + 1
-    setPageCount(nextPage)
-    getSearchDate()
-};
+//   const handlePageClick = (e) => {
+//     const nextPage = e.selected + 1
+//     setPageCount(nextPage)
+//     getSearchDate()
+// };
 
 const handleLoadMore =() => {
   setPageCount(pageCount+=1)
@@ -346,7 +351,7 @@ useEffect(() => {
           <option value="Search For">Search For</option>
           <option value="movie">Movies</option>
           <option value="tvshow">Tv Shows</option>
-          <option value="actors">Actors</option>
+          <option value="moviesbyactor">Actors</option>
         </AdvancedSearchSelect>
       </div>
       {searchFor === "N/A" ? (
@@ -394,14 +399,14 @@ useEffect(() => {
           handleNameSearch={handleNameSearch}
           handleSubmit={handleSubmit}
           />
-          <img src='../img/Best-Actors-in-the-World.jpg' style={{width:300, height:300}} />
+          {/* <img src='../img/Best-Actors-in-the-World.jpg' style={{width:300, height:300}} /> */}
       </>
        
       
        
       }
       
-      <Paginate handlePageClick={handlePageClick} pageCount={pageCount} />
+      {/* <Paginate handlePageClick={handlePageClick} pageCount={pageCount} /> */}
       <SearchContainer>
         {fetcedData.map((ele) => {
           return (
@@ -410,7 +415,8 @@ useEffect(() => {
         })}
         
       </SearchContainer>
-      <LoadMore handleLoadMore={handleLoadMore} />
+      {fetcedData[0]?.known_for_department ? <LoadMore handleLoadMore={handleLoadMore} /> : ''}
+      
     </AdvancedSearchDiv>
   );
 }

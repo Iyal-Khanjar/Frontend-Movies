@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 
-import {SearchInput,AdvancedSearchSelect,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import {SearchInput,FillterSearch, SearchInputButton,AdvancedSearchDiv} from './AdvancedSerch.styles'
 
 export const ActorsAdvanced = ({handleSubmit,handleNameSearch}) => {
-    const [topActors, setTopActors] = useState([])
+ 
 
   return (
     <AdvancedSearchDiv>
