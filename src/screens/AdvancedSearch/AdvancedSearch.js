@@ -320,8 +320,7 @@ const handleLoadMore =() => {
   // };
   useEffect(() => {
     userInfo && setFavortieMovies(userInfo.favortieMovies)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [])
+}, [userInfo])
 
 useEffect(() => {
     userInfo && dispatch(updateProfile({ favortieMovies }));
