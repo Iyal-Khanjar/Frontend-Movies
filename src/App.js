@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom"
-import HomeScreen from './screens/HomeScreen/HomeScreen'
+import HomeScreen from './screens/HomeScreen'
 import SigninScreen from './screens/SigninScreen'
 import RegisterScreen from './screens/RegisterScreen'
-import AllUsersScreen from './screens/AllUsersScreen/AllUsersScreen';
+import AllUsersScreen from './screens/AllUsersScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MoviesScreen from './screens/MoviesScreen';
-import MovieScreen from './screens/MovieScreen/MovieScreen';
+import MovieScreen from './screens/MovieScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TvShowScreen from './screens/TvShowScreen';
 import AdvancedSearch from './screens/AdvancedSearch/AdvancedSearch';

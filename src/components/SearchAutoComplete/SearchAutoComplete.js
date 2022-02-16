@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";
 const searchM = `${url}/search/movie`;
@@ -120,10 +120,6 @@ export const SearchAutoComplete = () => {
     }
   };
 
-  const handleFocusOut = () => {
-    setSearchedData([])
-  }
-
   
   return (
     <Search >
@@ -133,7 +129,6 @@ export const SearchAutoComplete = () => {
         onChange={handleChange}
         placeholder="Find.."
         onKeyDown={handleKeyDown}
-        onBlur={handleFocusOut}
       />
       <SearchResults>
 

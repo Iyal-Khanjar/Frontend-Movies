@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import IMDB from '../../img/IMDB.jpg'
-import Metacritic from '../../img/Metacritic.jpg'
-import RottenTomatoes from '../../img/RottenTomatoes.png'
-import YoutubeTrailer from '../../components/YoutubeTrailer';
-import Rating from '../../components/Rating';
+import IMDB from '../img/IMDB.jpg'
+import Metacritic from '../img/Metacritic.jpg'
+import RottenTomatoes from '../img/RottenTomatoes.png'
+import YoutubeTrailer from '../components/YoutubeTrailer';
+import Rating from '../components/Rating';
 import { ActorNameAndPic, CarouselActors } from './MovieScreen.styles';
 import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-carousel';
 

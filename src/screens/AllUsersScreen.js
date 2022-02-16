@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {Table, TableTbodyTr,TableTd,TableTh,TableButton} from './AllUsersScreen.styles'

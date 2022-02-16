@@ -33,16 +33,6 @@ cursor: pointer;
     &:hover{
         border: 0.1rem #404040 solid;
     }`
-export const SearchInput =styled.input`
-padding: 1rem;
-border-radius: 0.5rem;
-border: 0.1rem #a4a4a4 solid;
-font-size: 1.6rem;
-font-family: Helvetica, Arial, sans-serif;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-
-`
 
 export const AdvancedSearchDiv =styled.div`
     width:98vw;

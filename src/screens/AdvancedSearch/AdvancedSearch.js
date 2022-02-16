@@ -1,27 +1,20 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
+import Paginate from '../../components/Pagination/Paginate';
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
-import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
-import { ActorsAdvanced } from "./ActorsAdvanced";
+import { SearchContainer, AdvancedSearchSelect, AdvancedSearchDiv } from './AdvancedSerch.styles'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../../actions/userActions";
-import { LoadMore } from "../../components/LoadMore/LoadMore";
 
-let moviesArr = [];
-let tvsArr = [];
-let actorsArr = [];
+
 const imageUrl = "https://image.tmdb.org/t/p/original";
 const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";
 const moviesSearchUrl = `${url}/discover/movie`;
 const tvShowsUrl = `${url}/discover/tv`;
-const movieQueryUrl = `${url}/search/movie`;
-const tvShowsQueryUrl = `${url}/search/tv`;
-const personQueryUrl = `${url}/search/person`;
 
 function AdvancedSearch() {
   const dispatch = useDispatch();
@@ -40,10 +33,7 @@ function AdvancedSearch() {
   const [showStatus, setShowStatus] = useState("N/A");
   const [showType, setShowType] = useState("N/A");
   const [fetcedData, setFetchedData] = useState([]);
-  const [query, setQuery] = useState('');
-  let [pageCount, setPageCount] = useState(1);
-  
-
+  const [pageCount, setPageCount] = useState(1);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
@@ -125,14 +115,9 @@ function AdvancedSearch() {
       }
     };
     getGenres();
-  }, [pageCount]);
+  }, []);
 
   const handleOnChange = (e) => {
-    moviesArr = [];
-       tvsArr = [];
-       actorsArr = [];
-       setQuery('')
-       setFetchedData([])
     const type = e.target.getAttribute("name");
     const value = e.target.value;
 
@@ -165,154 +150,57 @@ function AdvancedSearch() {
         return null;
     }
   };
-
-  const handleNameSearch = (e) => {
-    setQuery(e.target.value)
-  }
-
-
-  useEffect(() => {
-    getSearchDate()
-  },[pageCount])
-
-  
   const getSearchDate = async () => {
-    
     if (searchFor === "movie") {
-        
-      if(query===''){
-        try {
-          //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
-          const response = await axios.get(moviesSearchUrl, {
-            params: {
-              api_key: apiKey,
-              language: "en_US",
-              sort_by: "popularity.desc",
-              include_adult: false,
-              include_video: false,
-              "primary_release_date.gte": fromYearInfo,
-              "primary_release_date.lte": toYearInfo,
-              "vote_count.gte": voteCountInfo,
-              "vote_average.gte": ratingInfo,
-              with_genres: genresInfo,
-              with_watch_monetization_types: "flatrate",
-              page: pageCount,
-            },
-          });
-          
+      try {
+        //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
+        const response = await axios.get(moviesSearchUrl, {
+          params: {
+            api_key: apiKey,
+            language: "en_US",
+            sort_by: "popularity.desc",
+            include_adult: false,
+            include_video: false,
+            "primary_release_date.gte": fromYearInfo,
+            "primary_release_date.lte": toYearInfo,
+            "vote_count.gte": voteCountInfo,
+            "vote_average.gte": ratingInfo,
+            with_genres: genresInfo,
+            with_watch_monetization_types: "flatrate",
+            page: pageCount,
+          },
+        });
 
-          moviesArr.push(...response.data.results)
-          console.log('movies  search1', response.data.results);
-          setFetchedData(moviesArr);
-        } catch (error) {
-          console.log("search data error: ", error);
-        }
-      } else {
-       
-        try {
-          const response = await axios.get(movieQueryUrl, {
-            params: {
-              api_key: apiKey,
-              language: "en_US",
-              query: query,
-              include_adult: false,
-              page: pageCount,
-              year:fromYearInfo
-            },
-          });
-  
-          moviesArr.push(...response.data.results)
-          setFetchedData(moviesArr);
-          console.log('movies  search', response.data.results);
-        } catch (error) {
-          console.log("search data error: ", error);
-        }
+        setFetchedData(response.data.results);
+      } catch (error) {
+        console.log("search data error: ", error);
+      }
+    } else if (searchFor === "tvshow") {
+      try {
+        const response = await axios.get(tvShowsUrl, {
+          params: {
+            api_key: apiKey,
+            language: "en_US",
+            sort_by: "popularity.desc",
+            first_air_date_year: fromYearInfo,
+            page: pageCount,
+            with_status: showStatus,
+            with_type: showType,
+          },
+        });
 
+        setFetchedData(response.data.results);
+        console.log('tv', response.data.results);
+      } catch (error) {
+        console.log("search data error: ", error);
+      }
     }
-  }
-     
-      else if (searchFor === "tvshow") {
-        
-       if (query===''){
-         try {
-           const response = await axios.get(tvShowsUrl, {
-             params: {
-               api_key: apiKey,
-               language: "en_US",
-               sort_by: "popularity.desc",
-               first_air_date_year: fromYearInfo,
-               page: pageCount,
-               with_status: showStatus,
-               with_type: showType,
-             },
-           });
-   
-           tvsArr.push(...response.data.results)
-           setFetchedData(tvsArr);
-         } catch (error) {
-           console.log("search data error: ", error);
-         }
-       } else {
-        try {
-          const response = await axios.get(tvShowsQueryUrl, {
-            params: {
-              api_key: apiKey,
-              language: "en_US",
-              query: query,
-              include_adult: false,
-              page: pageCount,
-              first_air_date_year:fromYearInfo
-            },
-          });
-  
-          tvsArr.push(...response.data.results)
-          setFetchedData(tvsArr);
-        } catch (error) {
-          console.log("search data error: ", error);
-        }
-       }
-    }
-     else if (searchFor === "moviesbyactor") {
-       
-         try {
-      
-           const response = await axios.get(personQueryUrl, {
-             params: {
-               api_key: apiKey,
-               language: "en_US",
-               include_adult: false,
-               query:query,
-               page: pageCount,
-               
-             },
-           });
-   
-           actorsArr.push(...response.data.results)
-           console.log(actorsArr);
-          setFetchedData(actorsArr);
-           
-         } catch (error) {
-           console.log("search data error: ", error);
-         }
   };
-}
-
   const handleSubmit = (e) => {
     e.preventDefault();
     getSearchDate();
   };
 
-//   const handlePageClick = (e) => {
-//     const nextPage = e.selected + 1
-//     setPageCount(nextPage)
-//     getSearchDate()
-// };
-
-const handleLoadMore =() => {
-  setPageCount(pageCount+=1)
-  
-}
-  
   // const handlePageClick = (e) => {
   //   const nextPage = e.selected + 1
   //   setPageCount(nextPage)
@@ -350,17 +238,13 @@ useEffect(() => {
           <option value="Search For">Search For</option>
           <option value="movie">Movies</option>
           <option value="tvshow">Tv Shows</option>
-          <option value="moviesbyactor">Actors</option>
         </AdvancedSearchSelect>
       </div>
       {searchFor === "N/A" ? (
         ""
       ) : searchFor === "movie" ? (
-        
         <MovieAdvanced
-          query={query}
           handleOnChange={handleOnChange}
-          handleNameSearch={handleNameSearch}
           fromYear={fromYear}
           toYear={toYear}
           rating={rating}
@@ -373,11 +257,9 @@ useEffect(() => {
           genresInfo={genresInfo}
           fromYearInfo={fromYearInfo}
         />
-      ) :  searchFor ==='tvshow' ?(
+      ) : (
         <TvShowsAdvanced
-          query={query}
           handleOnChange={handleOnChange}
-          handleNameSearch={handleNameSearch}
           fromYear={fromYear}
           rating={rating}
           voteCount={voteCount}
@@ -390,21 +272,7 @@ useEffect(() => {
           fromYearInfo={fromYearInfo}
           showType={showType}
         />
-      ) : 
-      <>
-
-         <ActorsAdvanced
-          query={query}
-          handleNameSearch={handleNameSearch}
-          handleSubmit={handleSubmit}
-          />
-          {/* <img src='../img/Best-Actors-in-the-World.jpg' style={{width:300, height:300}} /> */}
-      </>
-       
-      
-       
-      }
-      
+      )}
       {/* <Paginate handlePageClick={handlePageClick} pageCount={pageCount} /> */}
       <SearchContainer>
         {fetcedData.map((ele) => {
@@ -412,10 +280,7 @@ useEffect(() => {
             <Card data={ele} urlLink={imageUrl} key={ele.id} type={searchFor} addToFavorite={() => addToFavorite(ele)} />
           );
         })}
-        
       </SearchContainer>
-      {fetcedData[0]?.known_for_department ? <LoadMore handleLoadMore={handleLoadMore} /> : ''}
-      
     </AdvancedSearchDiv>
   );
 }
