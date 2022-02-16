@@ -25,6 +25,15 @@ export default function TvShowsScreen() {
         fetchData()
     }, [pageCount]);
 
+    useEffect(() => {
+        if (tvshows) {
+            tvshows.forEach(pro => {
+                pro.type = 'tvshow'
+            })
+            console.log(tvshows);
+        }
+    }, [tvshows])
+
     const handlePageClick = (e) => {
         const nextPage = e.selected + 1
         setPageCount(nextPage)
