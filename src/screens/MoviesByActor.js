@@ -20,6 +20,9 @@ function MoviesByActor() {
     const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
+    const date = new Date().getFullYear();
+    console.log('date',date);
+
     useEffect(() => {
         userInfo && setFavortieMovies(userInfo.favortieMovies)
     }, [userInfo])
@@ -72,10 +75,13 @@ function MoviesByActor() {
         }
     }
     return <div className='movieByActor'>
-        <div className='movieByActorNameAndImg'>
-            <h1>Movies By {actorData?.name} </h1>
-            <img src={imageUrl + actorData?.profile_path} alt={actorData?.name}></img>
+        <div className='movieScreenContainer2'>
+        <div className='picture'><img src={imageUrl + actorData?.profile_path} alt={actorData?.name}></img></div>
+        <h1 className='title'>{actorData?.name} </h1>
+        <h2 >{date-actorData?.birthday.slice(0,4)} years</h2>
         </div>
+        <h3 > From: {actorData?.place_of_birth}</h3>
+        <h4>{actorData?.biography}</h4>
         <PaginateUnknowLength pageCount={pageCount} handlePageClick={handlePageClick} marginPagesDisplayed={4} />
         <div className='moviesInActorPage'>
             {moviesData?.slice(pagesVisited, pagesVisited + moviePerPage).map((ele) => {

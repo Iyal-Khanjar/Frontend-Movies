@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
-import Card from '../components/Card';
+import Card from '../../components/Card';
+import useWindowDimensions from '../../components/useWindowDimensions';
 import { HomeContainer, Carousel, IdbmTopButton, IdbmTop, IdbmTopHeader, IdbmTopBody, ActorImg, ActorCard } from './HomeScreen.styles';
 
 
@@ -20,8 +22,28 @@ const memo = callback => {
 
 
 function HomeScreen() {
+    const { width } = useWindowDimensions()
     const [movies, setMovie] = useState([])
     const [tvShows, setTvShows] = useState([])
+    const [slides, setSlides] = useState(1)
+
+    useEffect(()=>{
+       if(width>=1900){
+           setSlides(7)
+       } else if (width>=1700) {
+        setSlides(6)
+       } else if (width>=1500) {
+        setSlides(5)
+       } else if (width>=1100) {
+        setSlides(4)
+       } else if (width>=800) {
+        setSlides(3)
+       } else if (width>=560) {
+        setSlides(2)
+       } else if (width>=200) {
+        setSlides(1)
+       } 
+    },[width])
     const [index,setIndex] = useState(0)
     const [type,setType] =useState("bestActors")
     const [data,setData] =useState([])
@@ -38,7 +60,7 @@ function HomeScreen() {
                     }
                 })
                 setMovie(response.data.results);
-                // console.log(response.data.results);
+                console.log(response.data.results);
             } catch (error) {
                 console.log('fetching now playing movie data error', error);
             }
@@ -117,8 +139,10 @@ function HomeScreen() {
 
                 <CarouselProvider
                     naturalSlideWidth={50}
+                    naturalSlideHeight={90}
                     totalSlides={20}
-                    visibleSlides={6}
+                    visibleSlides={slides}
+                    isPlaying='true'
                 >
                     <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                     <Slider>
@@ -138,8 +162,11 @@ function HomeScreen() {
             <Carousel>
                 <h1>Top 20 Rated Tv Shows</h1>
                 <CarouselProvider
+                    naturalSlideWidth={50}
+                    naturalSlideHeight={90}
                     totalSlides={20}
-                    visibleSlides={6}
+                    visibleSlides={slides}
+                    isPlaying='true'
                 >
                     <ButtonBack className='back carouselButton'>{"<"}</ButtonBack>
                     <Slider>

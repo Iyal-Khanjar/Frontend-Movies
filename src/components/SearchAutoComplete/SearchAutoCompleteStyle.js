@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
+  opacity: 0.7;
   width: ${(props) => (props.width > 500 ? "35rem" : null)};
   background-color:grey; 
   border-radius: 10px;
@@ -27,6 +28,7 @@ export const SkContainer = styled.div`
   border-bottom: 1px solid white;
   transition: all 0.3s;
   cursor: pointer;
+  opacity: 0.7;
 `;
 export const Search = styled.div`
  position: relative;
