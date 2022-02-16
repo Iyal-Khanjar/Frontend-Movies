@@ -26,6 +26,7 @@ function MoviesByActor() {
     useEffect(() => {
         userInfo && setFavortieMovies(userInfo.favortieMovies)
     }, [userInfo])
+    
 
     useEffect(() => {
         userInfo && dispatch(updateProfile({ favortieMovies }));
@@ -46,6 +47,15 @@ function MoviesByActor() {
         }
         fetchData2()
     }, [params.id]);
+
+    useEffect(() => {
+        if (moviesData) {
+            moviesData.forEach(pro => {
+                pro.type = 'movie'
+            })
+            console.log(moviesData);
+        }
+    }, [moviesData])
 
     const moviePerPage = 4;
     const pagesVisited = pageNumber * moviePerPage;
