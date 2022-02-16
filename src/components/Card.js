@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export default function Card({ data, urlLink, type, addToFavorite }) {
+export default function Card({ data, urlLink, addToFavorite,type }) {
   const releaseYear = useMemo(() => data.release_date ? data.release_date?.substring(0, 4) : data.first_air_date?.substring(0, 4), [data])
 
   const userSignin = useSelector((state) => state.userSignin);

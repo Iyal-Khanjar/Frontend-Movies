@@ -23,10 +23,23 @@ export default function MoviesScreen() {
             const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US&sort_by=popularity.desc&page=${pageCount}`);
 
             setMoviesData(response.data.results);
+<<<<<<< HEAD
            
+=======
+            console.log('moviesData', response.data.results.ayal);
+>>>>>>> main
         }
         fetchData()
     }, [pageCount]);
+
+    useEffect(() => {
+        if (moviesData) {
+            moviesData.forEach(pro => {
+                pro.type = 'movie'
+            })
+            console.log(moviesData);
+        }
+    }, [moviesData])
 
     const handlePageClick = (e) => {
         const nextPage = e.selected + 1
@@ -61,19 +74,20 @@ export default function MoviesScreen() {
     }
 
     return (
-        <><SearchAutoComplete /><div className='movieScreenContainer'>
-
-            <h1 className='moviesTitle'>Movies</h1>
-            <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
-            {!moviesData && <LoadingBox />}
-            {moviesData ? <div className="movie-tv-container">
-                {moviesData.map((ele) => {
-                    return (
-                        <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" addToFavorite={() => addToFavorite(ele)} />
-                    );
-                })}
-            </div> : <LoadingBox />}
-        </div>
+        <>
+            <SearchAutoComplete />
+            <div className='movieScreenContainer'>
+                <h1 className='moviesTitle'>Movies</h1>
+                <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
+                {!moviesData && <LoadingBox />}
+                <div className="movie-tv-container">
+                    {moviesData?.map((ele) => {
+                        return (
+                            <Card data={ele} urlLink={imageUrl} key={ele.id} addToFavorite={() => addToFavorite(ele)} />
+                        );
+                    })}
+                </div>
+            </div>
         </>
     )
 }
