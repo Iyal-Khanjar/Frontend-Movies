@@ -15,7 +15,6 @@ function FavoriteMovies() {
     const [favortieMovies, setFavortieMovies] = useState(userInfo.favortieMovies)
     const isFavorite = true
 
-
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
     useEffect(() => {

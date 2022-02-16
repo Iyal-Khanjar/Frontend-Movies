@@ -5,7 +5,6 @@ export const CarouselActors = styled.div`
 	overflow: hidden;
 	height: 26rem;
     margin-bottom:1rem;
-	margin-left:70px;
 	position: relative;
 `
 
@@ -13,7 +12,7 @@ export const ActorNameAndPic = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 0.5rem;
-	width: 15rem;
+	width: 17rem;
 	height: 15rem;
 	background-color: #061f24;
 	justify-content: center;

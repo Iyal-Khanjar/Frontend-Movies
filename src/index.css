@@ -60,6 +60,15 @@ button.primary {
 	color: white;
 }
 /* Header */
+.mode{
+	height: 3rem;
+	width: 3rem;
+	background-color: #ffffff;
+	border-radius: 50%;
+}
+.mode:hover{
+	cursor: pointer;
+}
 .picAndName {
 	display: flex;
 }
@@ -395,7 +404,7 @@ img.small {
 	margin-bottom: 1rem;
 	border-radius: 2rem;
 	width: 10rem;
-	height: 10rem;
+	height: 12rem;
 	color: #061f24;
 }
 /* Movies By Actor */
@@ -424,8 +433,27 @@ img.small {
 	width: 15rem;
 }
 /* Tv Shows */
+.tvShowScreenContainer {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 .tvShowsTitle {
 	text-align: center;
+}
+.seasonAndTitle {
+	display: flex;
+}
+.allSeasons {
+	margin-right: 2rem;
+}
+.movieScreenContainer2 .imgPoster img {
+	margin-top: 2rem;
+	border-radius: 5rem;
+	height: 10rem;
+	width: 10rem;
 }
 /* ReactPaginate */
 .paginationBttns {
@@ -518,3 +546,4 @@ img.small {
 		transform: rotate(360deg);
 	}
 }
+

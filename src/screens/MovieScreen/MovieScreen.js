@@ -11,7 +11,6 @@ import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-car
 
 export default function MovieScreen() {
     const params = useParams()
-
     const [movieData, setMovieData] = useState();
     const [movieData2, setMovieData2] = useState();
     const [actors, setActors] = useState([]);
@@ -20,7 +19,6 @@ export default function MovieScreen() {
         const fetchData = async () => {
             const response = await axios.get(`https://api.themoviedb.org/3/movie/${params.id}?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US`)
             setMovieData(response.data);
-            console.log(response.data);
         }
         fetchData()
     }, [params.id]);
@@ -30,7 +28,6 @@ export default function MovieScreen() {
             if (movieData) {
                 const response = await axios.get(`https://www.omdbapi.com/?i=${movieData.imdb_id}&apikey=1d3a0c3d`)
                 setMovieData2(response.data);
-                console.log(response.data.Response);
             }
         }
         fetchData()
@@ -90,7 +87,7 @@ export default function MovieScreen() {
                     </CarouselActors>
                 </div>
                 <div className='youtubeTrailer'>
-                    <YoutubeTrailer />
+                    <YoutubeTrailer type='movies' />
                 </div>
             </div>
         }
