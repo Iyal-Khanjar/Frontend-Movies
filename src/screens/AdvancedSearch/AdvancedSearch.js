@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
 import { MovieAdvanced } from "./MovieAdvanced";
 import { TvShowsAdvanced } from "./TvShowsAdvanced";
-import {SearchContainer,AdvancedSearchSelect,AdvancedSearchDiv} from './AdvancedSerch.styles'
+import { SearchContainer, AdvancedSearchSelect, AdvancedSearchDiv } from './AdvancedSerch.styles'
 import { ActorsAdvanced } from "./ActorsAdvanced";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ function AdvancedSearch() {
   const [fetcedData, setFetchedData] = useState([]);
   const [query, setQuery] = useState('');
   let [pageCount, setPageCount] = useState(1);
-  
+
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -129,10 +129,10 @@ function AdvancedSearch() {
 
   const handleOnChange = (e) => {
     moviesArr = [];
-       tvsArr = [];
-       actorsArr = [];
-       setQuery('')
-       setFetchedData([])
+    tvsArr = [];
+    actorsArr = [];
+    setQuery('')
+    setFetchedData([])
     const type = e.target.getAttribute("name");
     const value = e.target.value;
 
@@ -173,14 +173,14 @@ function AdvancedSearch() {
 
   useEffect(() => {
     getSearchDate()
-  },[pageCount])
+  }, [pageCount])
 
-  
+
   const getSearchDate = async () => {
-    
+
     if (searchFor === "movie") {
-        
-      if(query===''){
+
+      if (query === '') {
         try {
           //   const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a4999a28333d1147dbac0d104526337a&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${fromYearInfo}&primary_release_date.lte=${toYearInfo}&vote_count.gte=${voteCountInfo}&vote_average.gte=${ratingInfo}&with_genres=${genresInfo}&with_watch_monetization_types=flatrate`);
           const response = await axios.get(moviesSearchUrl, {
@@ -199,16 +199,14 @@ function AdvancedSearch() {
               page: pageCount,
             },
           });
-          
-
           moviesArr.push(...response.data.results)
-          console.log('movies  search1', response.data.results);
+          // console.log('movies  search1', response.data.results);
           setFetchedData(moviesArr);
         } catch (error) {
           console.log("search data error: ", error);
         }
       } else {
-       
+
         try {
           const response = await axios.get(movieQueryUrl, {
             params: {
@@ -217,42 +215,42 @@ function AdvancedSearch() {
               query: query,
               include_adult: false,
               page: pageCount,
-              year:fromYearInfo
+              year: fromYearInfo
             },
           });
-  
+
+          console.log('response', response.data.results);
           moviesArr.push(...response.data.results)
           setFetchedData(moviesArr);
-          console.log('movies  search', response.data.results);
         } catch (error) {
           console.log("search data error: ", error);
         }
 
+      }
     }
-  }
-     
-      else if (searchFor === "tvshow") {
-        
-       if (query===''){
-         try {
-           const response = await axios.get(tvShowsUrl, {
-             params: {
-               api_key: apiKey,
-               language: "en_US",
-               sort_by: "popularity.desc",
-               first_air_date_year: fromYearInfo,
-               page: pageCount,
-               with_status: showStatus,
-               with_type: showType,
-             },
-           });
-   
-           tvsArr.push(...response.data.results)
-           setFetchedData(tvsArr);
-         } catch (error) {
-           console.log("search data error: ", error);
-         }
-       } else {
+
+    else if (searchFor === "tvshow") {
+
+      if (query === '') {
+        try {
+          const response = await axios.get(tvShowsUrl, {
+            params: {
+              api_key: apiKey,
+              language: "en_US",
+              sort_by: "popularity.desc",
+              first_air_date_year: fromYearInfo,
+              page: pageCount,
+              with_status: showStatus,
+              with_type: showType,
+            },
+          });
+
+          tvsArr.push(...response.data.results)
+          setFetchedData(tvsArr);
+        } catch (error) {
+          console.log("search data error: ", error);
+        }
+      } else {
         try {
           const response = await axios.get(tvShowsQueryUrl, {
             params: {
@@ -261,87 +259,95 @@ function AdvancedSearch() {
               query: query,
               include_adult: false,
               page: pageCount,
-              first_air_date_year:fromYearInfo
+              first_air_date_year: fromYearInfo
             },
           });
-  
+
           tvsArr.push(...response.data.results)
           setFetchedData(tvsArr);
         } catch (error) {
           console.log("search data error: ", error);
         }
-       }
+      }
     }
-     else if (searchFor === "moviesbyactor") {
-       
-         try {
-      
-           const response = await axios.get(personQueryUrl, {
-             params: {
-               api_key: apiKey,
-               language: "en_US",
-               include_adult: false,
-               query:query,
-               page: pageCount,
-               
-             },
-           });
-   
-           actorsArr.push(...response.data.results)
-           console.log(actorsArr);
-          setFetchedData(actorsArr);
-           
-         } catch (error) {
-           console.log("search data error: ", error);
-         }
-  };
-}
+    else if (searchFor === "moviesbyactor") {
+
+      try {
+
+        const response = await axios.get(personQueryUrl, {
+          params: {
+            api_key: apiKey,
+            language: "en_US",
+            include_adult: false,
+            query: query,
+            page: pageCount,
+
+          },
+        });
+
+        actorsArr.push(...response.data.results)
+        console.log('actorsArr', actorsArr);
+        setFetchedData(actorsArr);
+
+      } catch (error) {
+        console.log("search data error: ", error);
+      }
+    };
+  }
+
+  useEffect(() => {
+    if (fetcedData) {
+      if (searchFor === 'movie') {
+        fetcedData.forEach(pro => {
+          pro.type = 'movie'
+        })
+      } else if (searchFor === 'tvshow') {
+        fetcedData.forEach(pro => {
+          pro.type = 'tvshow'
+        })
+      } else if (searchFor === 'moviesbyactor') {
+        fetcedData.forEach(pro => {
+          pro.type = 'moviesbyactor'
+        })
+      }
+    }
+  }, [fetcedData])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     getSearchDate();
   };
 
-//   const handlePageClick = (e) => {
-//     const nextPage = e.selected + 1
-//     setPageCount(nextPage)
-//     getSearchDate()
-// };
+  const handleLoadMore = () => {
+    setPageCount(pageCount += 1)
 
-const handleLoadMore =() => {
-  setPageCount(pageCount+=1)
-  
-}
-  
-  // const handlePageClick = (e) => {
-  //   const nextPage = e.selected + 1
-  //   setPageCount(nextPage)
-  //   getSearchDate()
-  // };
+  }
+
   useEffect(() => {
     userInfo && setFavortieMovies(userInfo.favortieMovies)
-}, [userInfo])
+  }, [userInfo])
 
-useEffect(() => {
+  useEffect(() => {
     userInfo && dispatch(updateProfile({ favortieMovies }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [dispatch, favortieMovies])
+  }, [dispatch, favortieMovies])
+
   const addToFavorite = (data) => {
     if (!userInfo) {
-        alert('Please Sign In First')
-        navigate('/signin')
+      alert('Please Sign In First')
+      navigate('/signin')
     }
     const allIDSINFavoriteMovies = favortieMovies.map(item => {
-        return item.id
+      return item.id
     })
     if (allIDSINFavoriteMovies.includes(data.id)) {
-        alert('It Is Already In Your Favorites')
+      alert('It Is Already In Your Favorites')
     } else {
-        setFavortieMovies([...favortieMovies, data])
-        let element = document.querySelector(`#a${data.id}`)
-        element.classList.add('heartFavorite');
+      setFavortieMovies([...favortieMovies, data])
+      let element = document.querySelector(`#a${data.id}`)
+      element.classList.add('heartFavorite');
     }
-}
+  }
   return (
     <AdvancedSearchDiv>
       <h1>Advanced Search</h1>
@@ -356,7 +362,7 @@ useEffect(() => {
       {searchFor === "N/A" ? (
         ""
       ) : searchFor === "movie" ? (
-        
+
         <MovieAdvanced
           query={query}
           handleOnChange={handleOnChange}
@@ -373,7 +379,7 @@ useEffect(() => {
           genresInfo={genresInfo}
           fromYearInfo={fromYearInfo}
         />
-      ) :  searchFor ==='tvshow' ?(
+      ) : searchFor === 'tvshow' ? (
         <TvShowsAdvanced
           query={query}
           handleOnChange={handleOnChange}
@@ -390,32 +396,32 @@ useEffect(() => {
           fromYearInfo={fromYearInfo}
           showType={showType}
         />
-      ) : 
-      <>
+      ) :
+        <>
 
-         <ActorsAdvanced
-          query={query}
-          handleNameSearch={handleNameSearch}
-          handleSubmit={handleSubmit}
+          <ActorsAdvanced
+            query={query}
+            handleNameSearch={handleNameSearch}
+            handleSubmit={handleSubmit}
           />
           {/* <img src='../img/Best-Actors-in-the-World.jpg' style={{width:300, height:300}} /> */}
-      </>
-       
-      
-       
+        </>
+
+
+
       }
-      
+
       {/* <Paginate handlePageClick={handlePageClick} pageCount={pageCount} /> */}
       <SearchContainer>
         {fetcedData.map((ele) => {
           return (
-            <Card data={ele} urlLink={imageUrl} key={ele.id} type={searchFor} addToFavorite={() => addToFavorite(ele)} />
+            <Card data={ele} urlLink={imageUrl} key={ele.id} addToFavorite={() => addToFavorite(ele)} />
           );
         })}
-        
+
       </SearchContainer>
       {fetcedData[0]?.known_for_department ? <LoadMore handleLoadMore={handleLoadMore} /> : ''}
-      
+
     </AdvancedSearchDiv>
   );
 }

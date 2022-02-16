@@ -22,14 +22,21 @@ export default function Card({ data, urlLink, addToFavorite }) {
   return (
     <div className="movie">
       <div className="flip-card-front">
-        <div className="card-movie-header-chip vote-avg"><i className="fas fa-star"></i> {data.vote_average}</div>
-        <div className="card-movie-header-chip movie-year">{releaseYear}</div>
+        {
+          data.type !== 'moviesbyactor' &&
+          <>
+            <div className="card-movie-header-chip vote-avg"><i className="fas fa-star"></i> {data.vote_average}</div>
+            <div className="card-movie-header-chip movie-year">{releaseYear}</div>
+          </>
+        }
         <Link to={`/${data.type}/${data.id}`}>
-          <img className="card-movie-img" src={data.poster_path ? urlLink + data.poster_path : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={data.title} />
+          <img className="card-movie-img" src={data.poster_path || data.profile_path ? urlLink + (data.poster_path || data.profile_path) : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={data.title} />
         </Link>
         <div className="movie-info">
           <div><h3>{data.title ? data?.title : data?.name}</h3></div>
-          <div id={`a${data.id}`} className={`heart ${data.favorite ? 'heartFavorite' : ''}`} onClick={addToFavorite}><i className="fa-solid fa-heart"></i></div>
+          {
+            data.type !== 'moviesbyactor' && <div id={`a${data.id}`} className={`heart ${data.favorite ? 'heartFavorite' : ''}`} onClick={addToFavorite}><i className="fa-solid fa-heart"></i></div>
+          }
         </div>
       </div >
     </div >
