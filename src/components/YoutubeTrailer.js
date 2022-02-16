@@ -52,7 +52,7 @@ function YoutubeTrailer({ type }) {
     // console.log('trailer', trailer);
     return <div>
         <YouTube
-            videoId={type === 'movies' ? trailerForMovies : type === 'tvshows' ? trailerForTvShows : null}
+            videoId={trailerForMovies}
         // id={null}                       // defaults -> null
         // className={null}                // defaults -> null
         // containerClassName={''}       // defaults -> ''

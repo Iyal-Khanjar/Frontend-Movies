@@ -3,7 +3,7 @@ import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-car
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import YoutubeTrailer from '../components/YoutubeTrailer';
-import { ActorNameAndPic, CarouselActors } from './MovieScreen.styles';
+import { ActorNameAndPic, CarouselActors } from '.././screens/MovieScreen/MovieScreen.styles';
 
 export default function TvShowScreen() {
     const params = useParams()

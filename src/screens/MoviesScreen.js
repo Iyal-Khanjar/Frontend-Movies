@@ -21,12 +21,20 @@ export default function MoviesScreen() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US&sort_by=popularity.desc&page=${pageCount}`);
-
             setMoviesData(response.data.results);
             console.log(response.data.results);
         }
         fetchData()
     }, [pageCount]);
+
+    useEffect(() => {
+        if (moviesData) {
+            moviesData.forEach(pro => {
+                pro.type = 'movie'
+            })
+            console.log(moviesData);
+        }
+    }, [moviesData])
 
     const handlePageClick = (e) => {
         const nextPage = e.selected + 1
