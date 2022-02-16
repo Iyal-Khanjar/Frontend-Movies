@@ -60,6 +60,15 @@ button.primary {
 	color: white;
 }
 /* Header */
+.mode{
+	height: 3rem;
+	width: 3rem;
+	background-color: #ffffff;
+	border-radius: 50%;
+}
+.mode:hover{
+	cursor: pointer;
+}
 .picAndName {
 	display: flex;
 }
@@ -440,7 +449,7 @@ img.small {
 .allSeasons {
 	margin-right: 2rem;
 }
-.movieScreenContainer2 .imgPoster img{
+.movieScreenContainer2 .imgPoster img {
 	margin-top: 2rem;
 	border-radius: 5rem;
 	height: 10rem;
@@ -537,3 +546,4 @@ img.small {
 		transform: rotate(360deg);
 	}
 }
+
