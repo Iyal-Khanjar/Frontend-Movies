@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-carousel';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import YoutubeTrailer from '../components/YoutubeTrailer';
 import { ActorNameAndPic, CarouselActors } from '.././screens/MovieScreen/MovieScreen.styles';
+import YoutubeTrailerTvShows from '../components/youtube/YoutubeTrailerTvShows';
 
 export default function TvShowScreen() {
     const params = useParams()
@@ -120,7 +120,7 @@ export default function TvShowScreen() {
                     </CarouselActors>
                 </div>
                 <div className='youtubeTrailer'>
-                    <YoutubeTrailer type='tvshows' />
+                    <YoutubeTrailerTvShows />
                 </div>
             </div> : ''
         }

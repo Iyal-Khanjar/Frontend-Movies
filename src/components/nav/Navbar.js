@@ -13,9 +13,11 @@ function Navbar() {
     dispatch(signout())
   }
 
-  const changeMode = () => {
+  // const changeMode = () => {
+  //   var r = document.querySelector(':root');
 
-  }
+  //   r.style.setProperty('--light-background-color', 'lightblue'); 
+  // }
 
   return (
     <Header>
@@ -33,7 +35,15 @@ function Navbar() {
           <NavItem>Advanced Search</NavItem>
         </Link>
       </Nav>
-      <div className='mode' onClick={changeMode}></div>
+      {/* <div>
+        <input type="checkbox" className="checkbox" id="chk" />
+        <label className="label" htmlFor="chk">
+          <i className="fas fa-moon"></i>
+          <i className="fas fa-sun"></i>
+          <div className="ball"></div>
+        </label>
+      </div> */}
+      {/* <div className='mode' onClick={changeMode}></div> */}
       <div className='allNav'>
         {userInfo ? (
           <>

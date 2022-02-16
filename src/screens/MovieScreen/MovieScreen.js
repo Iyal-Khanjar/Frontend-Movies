@@ -4,10 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 import IMDB from '../../img/IMDB.jpg'
 import Metacritic from '../../img/Metacritic.jpg'
 import RottenTomatoes from '../../img/RottenTomatoes.png'
-import YoutubeTrailer from '../../components/YoutubeTrailer';
 import Rating from '../../components/Rating';
 import { ActorNameAndPic, CarouselActors } from './MovieScreen.styles';
 import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-carousel';
+import YoutubeTrailerMovies from '../../components/youtube/YoutubeTrailerMovies';
 
 export default function MovieScreen() {
     const params = useParams()
@@ -87,7 +87,7 @@ export default function MovieScreen() {
                     </CarouselActors>
                 </div>
                 <div className='youtubeTrailer'>
-                    <YoutubeTrailer type='movies' />
+                    <YoutubeTrailerMovies />
                 </div>
             </div>
         }
