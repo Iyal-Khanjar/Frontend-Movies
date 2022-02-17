@@ -363,10 +363,15 @@ img.small {
 	cursor: pointer;
 }
 /* Movie Screen */
+.youtubeTrailer {
+	/* text-align: center; */
+	max-width: 100%;
+}
 .moviesTitle {
 	text-align: center;
 }
 .movieScreenContainer2 {
+	width: 80vw;
 	margin: 0 10rem;
 	margin-top: 1rem;
 	display: flex;

@@ -415,7 +415,7 @@ function AdvancedSearch() {
       <SearchContainer>
         {fetcedData.map((ele) => {
           return (
-            <Card data={ele} urlLink={imageUrl} key={ele.id} addToFavorite={() => addToFavorite(ele)} />
+            <Card data={ele} urlLink={imageUrl} key={ele.id} type={searchFor} addToFavorite={() => addToFavorite(ele)} />
           );
         })}
 

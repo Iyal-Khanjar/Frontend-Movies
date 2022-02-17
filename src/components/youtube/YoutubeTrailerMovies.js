@@ -39,7 +39,7 @@ function YoutubeTrailerMovies({ type }) {
             videoId={trailerForMovies}
         // id={null}                       // defaults -> null
         // className={null}                // defaults -> null
-        // containerClassName={''}       // defaults -> ''
+        // containerClassName={'youtubeTrailer'}       // defaults -> ''
         // title={null}                    // defaults -> null
         // opts={{}}                        // defaults -> {}
         // onReady={''}                    // defaults -> noop
