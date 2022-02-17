@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export default function Card({ data, urlLink, addToFavorite }) {
+export default function Card({ data, urlLink, addToFavorite, type }) {
   const releaseYear = useMemo(() => data.release_date ? data.release_date?.substring(0, 4) : data.first_air_date?.substring(0, 4), [data])
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -29,7 +29,7 @@ export default function Card({ data, urlLink, addToFavorite }) {
             <div className="card-movie-header-chip movie-year">{releaseYear}</div>
           </>
         }
-        <Link to={`/${data.type}/${data.id}`}>
+        <Link to={`/${data.type ? data.type : type}/${data.id}`}>
           <img className="card-movie-img" src={data.poster_path || data.profile_path ? urlLink + (data.poster_path || data.profile_path) : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={data.title} />
         </Link>
         <div className="movie-info">

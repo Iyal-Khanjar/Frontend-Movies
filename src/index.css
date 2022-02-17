@@ -336,6 +336,17 @@ img.small {
 	transform: scale(1.05);
 }
 /* Favorite */
+.favoriteContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.selectFavortie {
+	text-align: center;
+	width: fit-content;
+	margin-bottom: 2rem;
+}
 .movieFavoriteAndDelete {
 	display: flex;
 	flex-direction: column;

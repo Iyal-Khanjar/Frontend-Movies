@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../actions/userActions';
 import Card from '../components/Card';
-import LoadingBox from '../components/LoadingBox';
 
 function FavoriteMovies() {
     const navigate = useNavigate()
@@ -13,9 +12,17 @@ function FavoriteMovies() {
     const { userInfo } = userSignin;
 
     const [favortieMovies, setFavortieMovies] = useState(userInfo.favortieMovies)
+    const [movie, setMovie] = useState()
+    const [tvshow, setTvshow] = useState()
+    const [show, setShow] = useState('All')
     const isFavorite = true
 
     const imageUrl = "https://image.tmdb.org/t/p/original";
+
+    useEffect(() => {
+        setMovie(favortieMovies.filter(item => item.type === 'movie'))
+        setTvshow(favortieMovies.filter(item => item.type === 'tvshow'))
+    }, [favortieMovies])
 
     useEffect(() => {
         if (!userInfo) {
@@ -26,23 +33,42 @@ function FavoriteMovies() {
 
 
     const deleteFavoriteMovie = (data) => {
-        console.log(data);
-        const fillter = favortieMovies.filter(movie => movie !== data)
-        console.log('fillter', fillter);
-        setFavortieMovies(fillter);
+        setFavortieMovies(favortieMovies.filter(movie => movie !== data));
     }
 
     useEffect(() => {
-        console.log('fillter after', favortieMovies);
         dispatch(updateProfile({ favortieMovies }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [favortieMovies])
 
-    return <div>
-        <h1 className='moviesTitle'>My Favorite Movies</h1>
+    const changeFavorite = (e) => {
+        setShow(e.target.value);
+    }
+    return <div className='favoriteContainer'>
+        <h1 className='moviesTitle'>My Favorite Movies And Tv Shows</h1>
+        <select className='selectFavortie' onChange={changeFavorite}>
+            <option value='All'>All</option>
+            <option value='Movies'>Movies</option>
+            <option value='Tv Shows'>Tv Shows</option>
+        </select>
+        <div style={{ color: 'red' }}>Your Favorites <b>{movie?.length}</b> Movies And <b>{tvshow?.length}</b> Tv Shows </div>
         {
-            favortieMovies ? <div className="movie-tv-container">
-                {favortieMovies.map((ele, idx) => {
+            <div className="movie-tv-container">
+                {show === 'All' ? favortieMovies.map((ele, idx) => {
+                    return (
+                        <div className='movieFavoriteAndDelete' key={idx} >
+                            <Card data={ele} urlLink={imageUrl} type="movie" isFavorite={isFavorite} />
+                            <div key={ele.id} className='deleteFavorite' onClick={() => deleteFavoriteMovie(ele)}><i className="fa-solid fa-x"></i></div>
+                        </div>
+                    );
+                }) : show === 'Movies' ? movie.map((ele, idx) => {
+                    return (
+                        <div className='movieFavoriteAndDelete' key={idx} >
+                            <Card data={ele} urlLink={imageUrl} type="movie" isFavorite={isFavorite} />
+                            <div key={ele.id} className='deleteFavorite' onClick={() => deleteFavoriteMovie(ele)}><i className="fa-solid fa-x"></i></div>
+                        </div>
+                    );
+                }) : tvshow.map((ele, idx) => {
                     return (
                         <div className='movieFavoriteAndDelete' key={idx} >
                             <Card data={ele} urlLink={imageUrl} type="movie" isFavorite={isFavorite} />
@@ -50,7 +76,7 @@ function FavoriteMovies() {
                         </div>
                     );
                 })}
-            </div> : <LoadingBox />
+            </div>
         }
     </div>;
 }
