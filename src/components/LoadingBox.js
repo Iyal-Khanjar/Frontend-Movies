@@ -6,3 +6,5 @@ export default function LoadingBox() {
     <div className="loader">Loading...</div>
   );
 }
+
+

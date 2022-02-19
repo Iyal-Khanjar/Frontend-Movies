@@ -31,6 +31,9 @@ function Navbar() {
         <Link to="/tvshows">
           <NavItem>Tv Shows</NavItem>
         </Link>
+        <Link to="/actors">
+          <NavItem>Actors</NavItem>
+        </Link>
         <Link to="/search">
           <NavItem>Advanced Search</NavItem>
         </Link>

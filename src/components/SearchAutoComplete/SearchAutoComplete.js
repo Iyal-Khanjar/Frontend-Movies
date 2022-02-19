@@ -21,7 +21,7 @@ const url = "https://api.themoviedb.org/3";
 const searchM = `${url}/search/movie`;
 const searchP = `${url}/search/person`;
 
-export const SearchAutoComplete = () => {
+export const SearchAutoComplete = ({type}) => {
   const [searchLetters, setSearchLetters] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [loader, setLoader] = useState(false);

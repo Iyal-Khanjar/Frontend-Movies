@@ -15,6 +15,7 @@ import FavoriteMovies from './screens/FavoriteMovies';
 import {AppContainer} from "./styles/app.styles"
 import Navbar from './components/nav/Navbar';
 import MoviesByActor from './screens/MoviesByActor';
+import ActorsScreen from './screens/ActorsScreen'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/movie/:id" element={<MovieScreen />} />
             <Route path="/tvshows" element={<TvShowsScreen />} />
             <Route path="/tvshow/:id" element={<TvShowScreen />} />
+            <Route path="/actors" element={<ActorsScreen />} />
             <Route path="/search" element={<AdvancedSearch />} />
             <Route path="/favoritemovies" element={<FavoriteMovies />} />
             <Route path="/moviesbyactor/:id" element={<MoviesByActor />} />
