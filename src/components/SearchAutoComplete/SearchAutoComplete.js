@@ -10,7 +10,7 @@ import {
   IconAndYearContainer,
   Input,
   Search,
-  SearchResults
+  SearchResults,
 } from "./SearchAutoCompleteStyle";
 import { Link, useNavigate } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -20,8 +20,9 @@ const apiKey = "a4999a28333d1147dbac0d104526337a";
 const url = "https://api.themoviedb.org/3";
 const searchM = `${url}/search/movie`;
 const searchP = `${url}/search/person`;
+const searchT = `${url}/search/tv`;
 
-export const SearchAutoComplete = ({type}) => {
+export const SearchAutoComplete = ({ type }) => {
   const [searchLetters, setSearchLetters] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -29,46 +30,112 @@ export const SearchAutoComplete = ({type}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     if (searchLetters) {
       setTimeout(() => {
-        setTimeout(() =>{
-          setLoader(true)
-
-        },1000)
+        setTimeout(() => {
+          setLoader(true);
+        }, 1000);
         search();
-        setLoader(false)
-        
+        setLoader(false);
       }, 1500);
     }
   }, [searchLetters]);
 
   const search = async () => {
     const array = [];
-    try {
-      const responseM = await axios.get(searchM, {
-        params: {
-          api_key: apiKey,
-          language: "en-US",
-          query: searchLetters,
-          page: 1,
-          include_adult: false,
-        },
-      });
-      const responseP = await axios.get(searchP, {
-        params: {
-          api_key: apiKey,
-          query: searchLetters,
-        },
-      });
+    if (type === "movie") {
+      try {
+        const responseM = await axios.get(searchM, {
+          params: {
+            api_key: apiKey,
+            language: "en-US",
+            query: searchLetters,
+            page: 1,
+            include_adult: false,
+          },
+        });
 
-      const movies = responseM.data.results.slice(0, 4);
-      const actors = responseP.data.results.slice(0, 3);
+        const movies = responseM.data.results.slice(0, 7);
 
-      array.push(...movies, ...actors);
-      setSearchedData(array);
-    } catch (err) {
-      console.log("auto complete search error:", err);
+        array.push(...movies);
+        setSearchedData(array);
+      } catch (err) {
+        console.log("auto complete search error:", err);
+      }
+    } else if (type === "tv") {
+      try {
+        const responseT = await axios.get(searchT, {
+          params: {
+            api_key: apiKey,
+            language: "en-US",
+            query: searchLetters,
+            page: 1,
+            include_adult: false,
+          },
+        });
+
+        const tvshows = responseT.data.results.slice(0, 7);
+
+        array.push(...tvshows);
+        setSearchedData(array);
+      } catch (err) {
+        console.log("auto complete search error:", err);
+      }
+    } else if (type === "actors") {
+      try {
+        const responseP = await axios.get(searchP, {
+          params: {
+            api_key: apiKey,
+            language: "en-US",
+            query: searchLetters,
+            page: 1,
+            include_adult: false,
+          },
+        });
+
+        const actors = responseP.data.results.slice(0, 7);
+
+        array.push(...actors);
+        setSearchedData(array);
+      } catch (err) {
+        console.log("auto complete search error:", err);
+      }
+    } else {
+      try {
+        const responseM = await axios.get(searchM, {
+          params: {
+            api_key: apiKey,
+            language: "en-US",
+            query: searchLetters,
+            page: 1,
+            include_adult: false,
+          },
+        });
+        const responseT = await axios.get(searchT, {
+          params: {
+            api_key: apiKey,
+            language: "en-US",
+            query: searchLetters,
+            page: 1,
+            include_adult: false,
+          },
+        });
+        const responseP = await axios.get(searchP, {
+          params: {
+            api_key: apiKey,
+            query: searchLetters,
+          },
+        });
+
+        const movies = responseM.data.results.slice(0, 4);
+        const tvshows = responseT.data.results.slice(0, 2);
+        const actors = responseP.data.results.slice(0, 2);
+
+        array.push(...movies, ...actors, ...tvshows);
+        setSearchedData(array);
+      } catch (err) {
+        console.log("auto complete search error:", err);
+      }
     }
   };
 
@@ -121,12 +188,11 @@ export const SearchAutoComplete = ({type}) => {
   };
 
   const handleFocusOut = () => {
-    setSearchedData([])
-  }
+    setSearchedData([]);
+  };
 
-  
   return (
-    <Search >
+    <Search>
       <Input
         value={searchLetters}
         type="text"
@@ -136,95 +202,102 @@ export const SearchAutoComplete = ({type}) => {
         onBlur={handleFocusOut}
       />
       <SearchResults>
-
-      {searchLetters
-        ? searchedData.map((ele) => {
-            if (ele.known_for_department) {
-              return (
-                <div key={ele.id}>
-                  {!loader ? (
-                    <SkContainer>
-                    <SkeletonTheme baseColor="#202020" highlightColor="#fff" height="6px" >
-                      <p>
-                        <Skeleton count={3} />
-                      </p>
-                    </SkeletonTheme>
-                    </SkContainer>
-                  ) : (
-                    <Link to={`/moviesbyactor/${ele.id}`}>
-                      <Container>
-                        <Img
-                          src={
-                            ele.profile_path
-                              ? `https://image.tmdb.org/t/p/w92/${ele.profile_path}`
-                              : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                          }
-                          alt=""
-                        />
-                        <div>
-                          <div> {ele.name}</div>
-                          <IconAndYearContainer>
-                            <FontAwesomeIcon
-                              icon={faUser}
-                              style={{ marginBottom: "5px" }}
-                            />
-                            <div style={{ marginLeft: "1rem" }}>
-                              {ele.known_for_department === "Acting"
-                                ? "Actor"
-                                : "Director"}
-                            </div>
-                          </IconAndYearContainer>
-                        </div>
-                      </Container>
-                    </Link>
-                  )}
-                </div>
-              );
-            } else {
-              return (
-                <div key={ele.id}>
-                {!loader ? (
-                    <SkContainer>
-                    <SkeletonTheme baseColor="#202020" highlightColor="#fff" height="6px" >
-                      <p>
-                        <Skeleton count={3} />
-                      </p>
-                    </SkeletonTheme>
-                    </SkContainer>
-                  ) : (
-                  <Link to={`/movie/${ele.id}`}>
-                    <Container>
-                      <Img
-                        src={`https://image.tmdb.org/t/p/w92/${ele.poster_path}`}
-                        alt=""
-                      />
-
-                      <div>
-                        <div> {ele.title}</div>
-                        <IconAndYearContainer>
-                          <FontAwesomeIcon icon={faFilm} />
-                          <div style={{ marginLeft: "1rem" }}>
-                            {ele.release_date
-                              ? ele.release_date.substr(0, 4)
-                              : null}
-                          </div>
-                        </IconAndYearContainer>
-                        <div>
-                          <FontAwesomeIcon
-                            icon={faStar}
-                            style={{ color: "orange", marginRight: "1rem" }}
+        {searchLetters
+          ? searchedData.map((ele) => {
+              if (ele.known_for_department) {
+                return (
+                  <div key={ele.id}>
+                    {!loader ? (
+                      <SkContainer>
+                        <SkeletonTheme
+                          baseColor="#202020"
+                          highlightColor="#fff"
+                          height="6px"
+                        >
+                          <p>
+                            <Skeleton count={3} />
+                          </p>
+                        </SkeletonTheme>
+                      </SkContainer>
+                    ) : (
+                      <Link to={`/moviesbyactor/${ele.id}`}>
+                        <Container>
+                          <Img
+                            src={
+                              ele.profile_path
+                                ? `https://image.tmdb.org/t/p/w92/${ele.profile_path}`
+                                : "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                            }
+                            alt=""
                           />
-                          {ele.vote_average}
-                        </div>
-                      </div>
-                    </Container>
-                  </Link>
-                  )}
-                </div>
-              );
-            }
-          })
-        : ""}
+                          <div>
+                            <div> {ele.name}</div>
+                            <IconAndYearContainer>
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                style={{ marginBottom: "5px" }}
+                              />
+                              <div style={{ marginLeft: "1rem" }}>
+                                {ele.known_for_department === "Acting"
+                                  ? "Actor"
+                                  : "Director"}
+                              </div>
+                            </IconAndYearContainer>
+                          </div>
+                        </Container>
+                      </Link>
+                    )}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={ele.id}>
+                    {!loader ? (
+                      <SkContainer>
+                        <SkeletonTheme
+                          baseColor="#202020"
+                          highlightColor="#fff"
+                          height="6px"
+                        >
+                          <p>
+                            <Skeleton count={3} />
+                          </p>
+                        </SkeletonTheme>
+                      </SkContainer>
+                    ) : (
+                      <Link to={`/movie/${ele.id}`}>
+                        <Container>
+                          <Img
+                            src={`https://image.tmdb.org/t/p/w92/${ele.poster_path}`}
+                            alt=""
+                          />
+
+                          <div>
+                            <div> {ele.title}</div>
+                            <IconAndYearContainer>
+                              <FontAwesomeIcon icon={faFilm} />
+                              <div style={{ marginLeft: "1rem" }}>
+                                {ele.release_date
+                                  ? ele.release_date.substr(0, 4)
+                                  : null}
+                              </div>
+                            </IconAndYearContainer>
+                            <div>
+                              <FontAwesomeIcon
+                                icon={faStar}
+                                style={{ color: "orange", marginRight: "1rem" }}
+                              />
+                              {ele.vote_average}
+                            </div>
+                          </div>
+                        </Container>
+                      </Link>
+                    )}
+                  </div>
+                );
+              }
+            })
+          : ""}
       </SearchResults>
     </Search>
   );
