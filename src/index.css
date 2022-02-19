@@ -370,17 +370,7 @@ img.small {
 .moviesTitle {
 	text-align: center;
 }
-.movieScreenContainer2 {
-	width: 80vw;
-	margin: 0 10rem;
-	margin-top: 1rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	color: #ffffff;
-	background-color: #000000;
-}
+
 .picture img {
 	max-height: 30rem;
 	max-width: 100%;

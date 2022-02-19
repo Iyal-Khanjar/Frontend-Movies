@@ -19,3 +19,15 @@ export const ActorNameAndPic = styled.div`
 	align-items: center;
 	padding: 1rem;
 `
+export const MovieContainer = styled.div` 
+	width: 80vw;
+	margin: 0 10rem;
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #ffffff;
+	background-color:${(props) => (props.color)};
+	
+`
