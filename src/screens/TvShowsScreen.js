@@ -6,6 +6,7 @@ import { updateProfile } from '../actions/userActions';
 import Card from '../components/Card';
 import LoadingBox from '../components/LoadingBox';
 import Paginate from '../components/Pagination/Paginate';
+import { SearchAutoComplete } from '../components/SearchAutoComplete/SearchAutoComplete';
 
 export default function TvShowsScreen() {
     const dispatch = useDispatch();
@@ -68,6 +69,7 @@ export default function TvShowsScreen() {
 
     return (
         <>
+        <SearchAutoComplete type={'tv'}/>
             <div className='tvShowScreenContainer'>
                 <h1 className='tvShowsTitle'>Tv Shows</h1>
                 <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />

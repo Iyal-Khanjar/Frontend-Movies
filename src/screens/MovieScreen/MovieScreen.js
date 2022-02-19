@@ -20,7 +20,7 @@ export default function MovieScreen() {
   const [movieData, setMovieData] = useState();
   const [movieData2, setMovieData2] = useState();
   const [actors, setActors] = useState([]);
-  const [imgPalette, getImgPalette] = useState(null);
+  const [imgPalette, getImgPalette] = useState({});
 
   const getVibrant =async (e) => {
     e.persist();
@@ -41,20 +41,20 @@ export default function MovieScreen() {
     const result =await Vibrant.from(src);
   const palette = await result.getPalette();
   console.log('palette',palette);
-  const vibrant = await palette.Vibrant.hex;
-  console.log('vibrant',vibrant);
-  const darkVibrant = await palette.DarkVibrant.hex;
-  console.log('darkVibrant',darkVibrant);
+//   const vibrant = await palette.Vibrant.hex;
+//   console.log('vibrant',vibrant);
+//   const darkVibrant = await palette.DarkVibrant.hex;
+//   console.log('darkVibrant',darkVibrant);
   
-  const lightVibrant = await palette.LightVibrant.hex;
-  console.log('lightVibrant',lightVibrant);
-  const muted = await palette.Muted.hex;
-  console.log('muted',muted);
-  const darkMuted = await palette.DarkMuted.hex;
-  console.log('darkMuted',darkMuted);
-  const lightMuted = await palette.LightMuted.hex;
-  console.log('lightMuted',lightMuted);
-  getImgPalette(darkVibrant);
+//   const lightVibrant = await palette.LightVibrant.hex;
+//   console.log('lightVibrant',lightVibrant);
+//   const muted = await palette.Muted.hex;
+//   console.log('muted',muted);
+//   const darkMuted = await palette.DarkMuted.hex;
+//   console.log('darkMuted',darkMuted);
+//   const lightMuted = await palette.LightMuted.hex;
+//   console.log('lightMuted',lightMuted);
+  getImgPalette(palette);
   };
 
   

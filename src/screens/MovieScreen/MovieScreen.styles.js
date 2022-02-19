@@ -28,6 +28,9 @@ export const MovieContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	color: #ffffff;
-	background-color:${(props) => (props.color)};
+	background-color:${(props) => (props.color.DarkVibrant?.hex)};
+	${'' /* background-color:linear-gradient(to bottom left,${(props) => (props.color.DarkVibrant?.hex)}}; */}
+	${'' /* linear-gradient(to bottom left, #33ccff 0%, #ff99cc 100%); */}
+
 	
 `

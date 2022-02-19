@@ -69,7 +69,7 @@ export default function MoviesScreen() {
     }
 
     return (
-        <><SearchAutoComplete /><div className='movieScreenContainer'>
+        <><SearchAutoComplete type={'movie'}/><div className='movieScreenContainer'>
 
             <h1 className='moviesTitle'>Movies</h1>
             <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
