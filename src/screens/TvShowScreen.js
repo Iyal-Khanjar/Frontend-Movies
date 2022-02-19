@@ -19,6 +19,7 @@ export default function TvShowScreen() {
     const urlLink = 'https://image.tmdb.org/t/p/original'
     useEffect(() => {
         const fetchData = async () => {
+            
             const response = await axios.get(`https://api.themoviedb.org/3/tv/${params.id}?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US`)
             setTvShows(response.data);
             setSeasons(response.data.seasons);

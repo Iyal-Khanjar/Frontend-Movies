@@ -13,6 +13,7 @@ export default function MoviesScreen() {
     const navigate = useNavigate()
     const [moviesData, setMoviesData] = useState([]);
     const [pageCount, setPageCount] = useState(1);
+    const [loading, setLoading] = useState(false);
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
     const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
@@ -20,6 +21,10 @@ export default function MoviesScreen() {
     const imageUrl = "https://image.tmdb.org/t/p/original";
     useEffect(() => {
         const fetchData = async () => {
+            await setTimeout(() => {
+            
+                setLoading(true)
+              },1500)
             const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US&sort_by=popularity.desc&page=${pageCount}`);
             setMoviesData(response.data.results);
             console.log(response.data.results);
@@ -69,19 +74,20 @@ export default function MoviesScreen() {
     }
 
     return (
-        <><SearchAutoComplete type={'movie'}/><div className='movieScreenContainer'>
+        <><SearchAutoComplete type={'movie'}/>
+        <div className='movieScreenContainer'>
 
             <h1 className='moviesTitle'>Movies</h1>
             <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
-            {!moviesData && <LoadingBox />}
-            {moviesData ? <div className="movie-tv-container">
+              {!loading ?  <LoadingBox />: <div className="movie-tv-container">
                 {moviesData.map((ele) => {
                     return (
                         <Card data={ele} urlLink={imageUrl} key={ele.id} type="movie" addToFavorite={() => addToFavorite(ele)} />
                     );
                 })}
-            </div> : <LoadingBox />}
         </div>
+           }
+           </div>
         </>
     )
 }

@@ -18,6 +18,8 @@ export default function ActorsScreen() {
     const { userInfo } = userSignin;
     // const [favortieMovies, setFavortieMovies] = useState(userInfo ? userInfo.favortieMovies : [])
 
+ 
+
     const imageUrl = "https://image.tmdb.org/t/p/original";
     useEffect(() => {
         const fetchData = async () => {
@@ -50,12 +52,13 @@ export default function ActorsScreen() {
 
 
     return (
-        <><SearchAutoComplete type={'actors'}/><div className='movieScreenContainer'>
+        <><SearchAutoComplete type={'actors'}/>
+        <div className='movieScreenContainer'>
 
             <h1 className='moviesTitle'>Movies</h1>
             <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
             {!loading ?  <LoadingBox />:<div className="movie-tv-container">
-                {actorsData.map((ele) => {
+                {actorsData?.map((ele) => {
                     return (
                         <Card data={ele} urlLink={imageUrl} key={ele.id} type="moviesbyactor"/>
                     );

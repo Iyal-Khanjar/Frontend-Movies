@@ -21,7 +21,6 @@ function MoviesByActor() {
     const imageUrl = "https://image.tmdb.org/t/p/original";
 
     const date = new Date().getFullYear();
-    console.log('date',date);
 
     useEffect(() => {
         userInfo && setFavortieMovies(userInfo.favortieMovies)
