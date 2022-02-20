@@ -92,7 +92,7 @@ export default function TvShowScreen() {
                 <div className=''><h2>Season OverView</h2></div>
                 <div className='overView'>"{seasonInfo !== "" ? seasonInfo?.overview : 'There is no overview'}"</div>
                 <div className=''><h2>Episode OverView</h2></div>
-                <div className='overView'>"{episodeInfo !== "" ? episodeInfo?.overview : 'There is no overview'}"</div>
+                <div className='overView'>"{episodeInfo !== "" ?`Episode ${episodeNumber} = ${episodeInfo?.overview}` : 'There is no overview'}"</div>
                 <div className='border'></div>
                 <div className='actors'>
                     <CarouselActors>

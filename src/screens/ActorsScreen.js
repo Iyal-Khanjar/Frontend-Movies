@@ -55,7 +55,7 @@ export default function ActorsScreen() {
         <><SearchAutoComplete type={'actors'}/>
         <div className='movieScreenContainer'>
 
-            <h1 className='moviesTitle'>Movies</h1>
+            <h1 className='moviesTitle'>Most Popular</h1>
             <Paginate handlePageClick={handlePageClick} pageCount={pageCount} numberOfPages={500} marginPagesDisplayed={4} />
             {!loading ?  <LoadingBox />:<div className="movie-tv-container">
                 {actorsData?.map((ele) => {

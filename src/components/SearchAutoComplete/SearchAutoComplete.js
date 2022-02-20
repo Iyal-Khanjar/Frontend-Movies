@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilm, faStar, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faFilm, faStar, faUser, faTelevision } from "@fortawesome/free-solid-svg-icons";
 import {
   Container,
   SkContainer,
@@ -133,6 +133,7 @@ export const SearchAutoComplete = ({ type }) => {
 
         array.push(...movies, ...actors, ...tvshows);
         setSearchedData(array);
+        console.log('array',array);
       } catch (err) {
         console.log("auto complete search error:", err);
       }
@@ -199,9 +200,9 @@ export const SearchAutoComplete = ({ type }) => {
         onChange={handleChange}
         placeholder="Find.."
         onKeyDown={handleKeyDown}
-        onBlur={handleFocusOut}
+        // onBlur={handleFocusOut}
       />
-      <SearchResults>
+      <SearchResults >
         {searchLetters
           ? searchedData.map((ele) => {
               if (ele.known_for_department) {
@@ -249,7 +250,54 @@ export const SearchAutoComplete = ({ type }) => {
                     )}
                   </div>
                 );
-              } else {
+              } else if(ele.first_air_date) {
+                return (
+                  <div key={ele.id}>
+                    {!loader ? (
+                      <SkContainer>
+                        <SkeletonTheme
+                          baseColor="#202020"
+                          highlightColor="#fff"
+                          height="6px"
+                        >
+                          <p>
+                            <Skeleton count={3} />
+                          </p>
+                        </SkeletonTheme>
+                      </SkContainer>
+                    ) : (
+                      <Link to={`/tvshow/${ele.id}`}>
+                        <Container>
+                          <Img
+                            src={`https://image.tmdb.org/t/p/w92/${ele.poster_path}`}
+                            alt=""
+                          />
+
+                          <div>
+                            <div> {ele.title}</div>
+                            <IconAndYearContainer>
+                              <FontAwesomeIcon icon={faTelevision} />
+                              <div style={{ marginLeft: "1rem" }}>
+                                {ele.release_date
+                                  ? ele.release_date.substr(0, 4)
+                                  : null}
+                              </div>
+                            </IconAndYearContainer>
+                            <div>
+                              <FontAwesomeIcon
+                                icon={faStar}
+                                style={{ color: "orange", marginRight: "1rem" }}
+                              />
+                              {ele.vote_average}
+                            </div>
+                          </div>
+                        </Container>
+                      </Link>
+                    )}
+                  </div>
+                );
+              }
+              else {
                 return (
                   <div key={ele.id}>
                     {!loader ? (
