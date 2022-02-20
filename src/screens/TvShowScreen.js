@@ -1,8 +1,9 @@
 import axios from 'axios';
+import Vibrant from 'node-vibrant';
 import { ButtonBack, ButtonNext, CarouselProvider, Slider } from 'pure-react-carousel';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ActorNameAndPic, CarouselActors } from '.././screens/MovieScreen/MovieScreen.styles';
+import { ActorNameAndPic, CarouselActors, MovieContainer } from '.././screens/MovieScreen/MovieScreen.styles';
 import YoutubeTrailerTvShows from '../components/youtube/YoutubeTrailerTvShows';
 
 export default function TvShowScreen() {
@@ -16,7 +17,21 @@ export default function TvShowScreen() {
     const [seasonInfo, setSeasonInfo] = useState()
     const [episodeInfo, setEpisodeInfo] = useState()
     const [imgPoster, setImgPoster] = useState('')
+    const [imgPalette, getImgPalette] = useState({});
     const urlLink = 'https://image.tmdb.org/t/p/original'
+
+    const getVibrant =async (e) => {
+        e.persist();
+        const src = e.target.src;
+        console.log('image',e.target.src);
+    
+        const result =await Vibrant.from(src);
+      const palette = await result.getPalette();
+      console.log('palette',palette);
+
+      getImgPalette(palette);
+      };
+    
     useEffect(() => {
         const fetchData = async () => {
             
@@ -67,8 +82,18 @@ export default function TvShowScreen() {
 
     return <div className='movieScreenContainer'>
         {
-            tvshows ? <div className='movieScreenContainer2'>
-                <div className='picture'><img src={tvshows.backdrop_path ? urlLink + tvshows.backdrop_path : 'https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov'} alt={tvshows.original_title} /></div>
+            tvshows ?  <MovieContainer color={imgPalette}>
+          <div className="picture">
+            <img
+              src={
+                tvshows.backdrop_path
+                  ? urlLink + tvshows.backdrop_path
+                  : "https://static.bond.edu.au/sites/default/files/styles/full_width/public/cinema%20750x320.jpg?itok=U8R3z3ov"
+              }
+              alt={tvshows.original_title}
+              onLoad={getVibrant}
+            />
+          </div>
                 <div className='seasonAndTitle'>
                     <div className='allSeasons'>
                         <select onChange={seasonChange}>
@@ -123,7 +148,7 @@ export default function TvShowScreen() {
                 <div className='youtubeTrailer'>
                     <YoutubeTrailerTvShows />
                 </div>
-            </div> : ''
+            </MovieContainer> : ''
         }
 
     </div >;
