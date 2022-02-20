@@ -20,7 +20,7 @@ export const Header = styled.div`
   
 `;
 export const Nav1 = styled.div`
-    margin-top: 5.9rem;
+margin-top: 5.9rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -28,6 +28,7 @@ export const Nav1 = styled.div`
 	justify-content: space-between;
     z-index: 1000;
 @media (max-width: 815px) {
+    margin-top: 5.9rem;
     position: relative;
     left:0;
     top:10rem;
