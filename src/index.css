@@ -75,6 +75,7 @@ button.primary {
 }
 .picAndName {
 	display: flex;
+	
 }
 .profilePicInNav {
 	border: 0.1rem solid #000000;
@@ -84,6 +85,16 @@ button.primary {
 	border-radius: 3rem;
 	margin-top: 0.4rem;
 }
+@media  screen and (max-height: 500px) {
+	.profilePicInNav {
+		border: 0.1rem solid #000000;
+		height: 3rem;
+		width: 3rem;
+		margin-bottom: 1rem;
+		border-radius: 3rem;
+		margin-top: 0.4rem;
+	}
+  }
 .allNav {
 	display: flex;
 }
