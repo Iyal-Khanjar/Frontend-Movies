@@ -3,6 +3,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import axios from 'axios';
 import Card from '../../components/Card';
+import { SearchAutoComplete } from '../../components/SearchAutoComplete/SearchAutoComplete';
 import useWindowDimensions from '../../components/useWindowDimensions';
 import { HomeContainer, Carousel, IdbmTopButton, IdbmTop, IdbmTopHeader, IdbmTopBody, ActorImg, ActorCard } from './HomeScreen.styles';
 
@@ -116,6 +117,7 @@ function HomeScreen() {
     const imageUrl = "https://image.tmdb.org/t/p/original";
     return (
         <HomeContainer >
+            <SearchAutoComplete />
             <IdbmTop>
                 <IdbmTopHeader>
                     <IdbmTopButton id={'bestActors'} onClick={handleButtonClick}>

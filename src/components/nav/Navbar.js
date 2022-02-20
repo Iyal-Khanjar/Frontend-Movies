@@ -1,16 +1,35 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signout } from '../../actions/userActions';
-import { Header, Nav, NavItem } from '../../styles/app.styles';
+import { Header, Nav1,Nav2, NavItem } from '../../styles/app.styles';
 import '../../index.css'
+import useWindowDimensions from '../useWindowDimensions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilm} from "@fortawesome/free-solid-svg-icons";
+
+
 function Navbar() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  const [hamburger ,setHamburger] = useState(false)
+  const [clicked ,setClicked] = useState(false)
   const dispatch = useDispatch()
+
+  const { width } = useWindowDimensions()
+  useEffect(()=>{
+    if(width<=815){
+      setHamburger(true)
+    } else {
+      setHamburger(false)
+    }
+ },[width])
 
   const signoutHandler = () => {
     dispatch(signout())
+  }
+  const handleClick = (e) =>{
+  setClicked(!clicked)
   }
 
   // const changeMode = () => {
@@ -21,7 +40,14 @@ function Navbar() {
 
   return (
     <Header>
-      <Nav>
+     {hamburger  ? 
+      (
+        !clicked ?
+        
+        <FontAwesomeIcon icon={faFilm} style={{ color: "orange", marginRight: "1rem" }} onClick={handleClick}/> 
+         :
+      <Nav1>
+        <FontAwesomeIcon icon={faFilm} style={{ color: "orange", marginRight: "1rem" }} onClick={handleClick}/> 
         <Link className="brand" to="/">
           <span>Movie Land</span>
         </Link>
@@ -31,10 +57,38 @@ function Navbar() {
         <Link to="/tvshows">
           <NavItem>Tv Shows</NavItem>
         </Link>
+        <Link to="/actors">
+          <NavItem>Actors</NavItem>
+        </Link>
         <Link to="/search">
           <NavItem>Advanced Search</NavItem>
         </Link>
-      </Nav>
+      </Nav1>
+      )
+      
+      
+      
+      
+      :
+      
+      <Nav2>
+        <Link className="brand" to="/">
+          <span>Movie Land</span>
+        </Link>
+        <Link to="/movies">
+          <NavItem className=''>Movies</NavItem>
+        </Link>
+        <Link to="/tvshows">
+          <NavItem>Tv Shows</NavItem>
+        </Link>
+        <Link to="/actors">
+          <NavItem>Actors</NavItem>
+        </Link>
+        <Link to="/search">
+          <NavItem>Advanced Search</NavItem>
+        </Link>
+      </Nav2>
+      }
       {/* <div>
         <input type="checkbox" className="checkbox" id="chk" />
         <label className="label" htmlFor="chk">

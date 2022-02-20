@@ -19,6 +19,7 @@ export default function TvShowScreen() {
     const urlLink = 'https://image.tmdb.org/t/p/original'
     useEffect(() => {
         const fetchData = async () => {
+            
             const response = await axios.get(`https://api.themoviedb.org/3/tv/${params.id}?api_key=0e0361a1e4feb360695e2fc32793d846&language=en-US`)
             setTvShows(response.data);
             setSeasons(response.data.seasons);
@@ -91,7 +92,7 @@ export default function TvShowScreen() {
                 <div className=''><h2>Season OverView</h2></div>
                 <div className='overView'>"{seasonInfo !== "" ? seasonInfo?.overview : 'There is no overview'}"</div>
                 <div className=''><h2>Episode OverView</h2></div>
-                <div className='overView'>"{episodeInfo !== "" ? episodeInfo?.overview : 'There is no overview'}"</div>
+                <div className='overView'>"{episodeInfo !== "" ?`Episode ${episodeNumber} = ${episodeInfo?.overview}` : 'There is no overview'}"</div>
                 <div className='border'></div>
                 <div className='actors'>
                     <CarouselActors>

@@ -14,8 +14,28 @@ export const Header = styled.div`
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
+    align-content:center;
+    
+  }
+  
 `;
-export const Nav = styled.div`
+export const Nav1 = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+	justify-content: space-between;
+    z-index: 1000;
+@media (max-width: 815px) {
+    position: relative;
+    left:0;
+    top:10rem;
+    background-color:black;
+    height:50vh;
+    justify-content: space-around;
+
+`;
+export const Nav2 = styled.div`
     height: 100%;
     display: flex;
 	flex-wrap: wrap;
