@@ -49,7 +49,7 @@ function Navbar() {
       <Nav1>
         <FontAwesomeIcon icon={faFilm} style={{ color: "orange", marginRight: "1rem" }} onClick={handleClick}/> 
         <Link className="brand" to="/">
-          <span>Movie Land</span>
+          <NavItem>Movie Land</NavItem>
         </Link>
         <Link to="/movies">
           <NavItem className=''>Movies</NavItem>
@@ -64,16 +64,11 @@ function Navbar() {
           <NavItem>Advanced Search</NavItem>
         </Link>
       </Nav1>
-      )
-      
-      
-      
-      
+      )   
       :
-      
       <Nav2>
         <Link className="brand" to="/">
-          <span>Movie Land</span>
+          <NavItem>Movie Land</NavItem>
         </Link>
         <Link to="/movies">
           <NavItem className=''>Movies</NavItem>
@@ -89,15 +84,6 @@ function Navbar() {
         </Link>
       </Nav2>
       }
-      {/* <div>
-        <input type="checkbox" className="checkbox" id="chk" />
-        <label className="label" htmlFor="chk">
-          <i className="fas fa-moon"></i>
-          <i className="fas fa-sun"></i>
-          <div className="ball"></div>
-        </label>
-      </div> */}
-      {/* <div className='mode' onClick={changeMode}></div> */}
       <div className='allNav'>
         {userInfo ? (
           <>

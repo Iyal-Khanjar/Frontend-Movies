@@ -20,6 +20,7 @@ export const Header = styled.div`
   
 `;
 export const Nav1 = styled.div`
+    margin-top: 5.9rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -44,6 +45,7 @@ export const Nav2 = styled.div`
 	align-items: center;
 `;
 export const NavItem = styled.div`
+margin-left:2rem;
     border-radius: 15px;
     color:white;
     padding:5px;
